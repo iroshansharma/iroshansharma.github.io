@@ -1422,3 +1422,30 @@
 </body>
 
 </html>
+<div class="text-center mt-6">
+    <button id="downloadPdf" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        Download Research Paper 
+    </button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+<script>
+    document.getElementById('downloadPdf').addEventListener('click', function () {
+        const element = document.querySelector('.container');
+        const options = {
+            margin: 1,
+            filename: 'Quantum_computing_research_paper.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        // Ensure the logo is included in the PDF
+        const logo = document.querySelector('.logo');
+        if (logo) {
+            logo.style.display = 'block';
+        }
+
+        html2pdf().set(options).from(element).save();
+    });
+</script>

@@ -71,14 +71,14 @@
     <p>Letter: <span id="letter" style="font-weight: bold; font-size: 20px;"></span></p>
 
     <div class="container">
-      <div class="player" id="player1Box">
+      <div class="player" id="player1Box" style="display:none">
         <h2>Player 1</h2>
         <input type="text" placeholder="Name" id="p1Name">
         <input type="text" placeholder="Place" id="p1Place">
         <input type="text" placeholder="Animal" id="p1Animal">
         <input type="text" placeholder="Thing" id="p1Thing">
       </div>
-      <div class="player" id="player2Box">
+      <div class="player" id="player2Box" style="display:none">
         <h2>Player 2</h2>
         <input type="text" placeholder="Name" id="p2Name">
         <input type="text" placeholder="Place" id="p2Place">
@@ -95,10 +95,9 @@
     const letterSpan = document.getElementById('letter');
     const scoreboard = document.getElementById('scoreboard');
     const categories = ['Name', 'Place', 'Animal', 'Thing'];
-    const randomLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
 
     function joinRoom() {
-      const roomId = document.getElementById('roomId').value;
+      const roomId = document.getElementById('roomId').value.trim();
       const playerRole = document.getElementById('playerRole').value;
 
       if (!roomId) {
@@ -107,12 +106,13 @@
       }
 
       document.getElementById('gameArea').style.display = 'block';
+      const randomLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
       letterSpan.textContent = randomLetter;
 
       if (playerRole === 'player1') {
-        document.getElementById('player2Box').style.display = 'none';
+        document.getElementById('player1Box').style.display = 'block';
       } else {
-        document.getElementById('player1Box').style.display = 'none';
+        document.getElementById('player2Box').style.display = 'block';
       }
     }
 

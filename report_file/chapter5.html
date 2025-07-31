@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5: System Architecture - CRM System Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header .chapter-info {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            font-size: 1.8em;
+        }
+        h3 {
+            color: #764ba2;
+            margin-top: 30px;
+            font-size: 1.4em;
+        }
+        h4 {
+            color: #555;
+            margin-top: 25px;
+            font-size: 1.2em;
+        }
+        .architecture-overview {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .layer-diagram {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .layer {
+            background: white;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .layer h4 {
+            margin: 0 0 10px 0;
+            color: #667eea;
+            font-size: 1.3em;
+        }
+        .layer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .component {
+            background: #e8f4fd;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 0.9em;
+            border: 1px solid #007bff;
+        }
+        .data-flow {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 2px solid #dee2e6;
+        }
+        .flow-step {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 20px;
+            margin: 8px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            position: relative;
+        }
+        .flow-arrow {
+            color: #667eea;
+            font-size: 1.8em;
+            margin: 0 15px;
+            vertical-align: middle;
+        }
+        .mvc-diagram {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .mvc-component {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .mvc-component h4 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        .database-schema {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+        .table-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .table-item {
+            background: white;
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #28a745;
+        }
+        .table-item h5 {
+            color: #28a745;
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+        .field-list {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .security-layers {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .security-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .api-structure {
+            background: #e8f4fd;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 5px solid #007bff;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-header {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 8px 8px 0 0;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .navigation {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #dee2e6;
+            text-align: center;
+        }
+        .nav-button {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 0 10px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);
+        }
+        .performance-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .metric-item {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .metric-number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+        .ascii-diagram {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8em;
+            line-height: 1.2;
+            overflow-x: auto;
+            border: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Chapter 5: System Architecture</h1>
+            <div class="chapter-info">Comprehensive System Design and Component Architecture</div>
+        </div>
+
+        <h2>5.1 Architecture Overview</h2>
+        
+        <div class="architecture-overview">
+            <h3>Multi-Tier Architecture Design</h3>
+            <p>The CRM system employs a robust multi-tier architecture that separates concerns across distinct layers, ensuring scalability, maintainability, and security. This architecture follows industry best practices and design patterns to deliver a reliable and efficient system.</p>
+        </div>
+
+        <p>The system architecture is designed to handle complex business requirements while maintaining flexibility for future enhancements. The modular design allows for independent development, testing, and deployment of different components, facilitating agile development practices and continuous integration.</p>
+
+        <h2>5.2 Architectural Layers</h2>
+
+        <div class="layer-diagram">
+            <h3>Four-Tier Architecture</h3>
+            
+            <div class="layer">
+                <h4>1. Presentation Layer (Client Tier)</h4>
+                <p>Handles user interface and user experience components</p>
+                <div class="layer-content">
+                    <div class="component">HTML5 Templates</div>
+                    <div class="component">CSS3 Styling</div>
+                    <div class="component">JavaScript ES6+</div>
+                    <div class="component">AJAX Communications</div>
+                    <div class="component">Responsive Design</div>
+                    <div class="component">Form Validation</div>
+                </div>
+            </div>
+
+            <div class="layer">
+                <h4>2. Application Layer (Business Logic Tier)</h4>
+                <p>Contains business logic, workflow processing, and application services</p>
+                <div class="layer-content">
+                    <div class="component">PHP Controllers</div>
+                    <div class="component">Business Logic</div>
+                    <div class="component">Authentication</div>
+                    <div class="component">Authorization</div>
+                    <div class="component">Session Management</div>
+                    <div class="component">API Endpoints</div>
+                </div>
+            </div>
+
+            <div class="layer">
+                <h4>3. Data Access Layer (Integration Tier)</h4>
+                <p>Manages data access, caching, and external system integrations</p>
+                <div class="layer-content">
+                    <div class="component">Database Abstraction</div>
+                    <div class="component">ORM Functions</div>
+                    <div class="component">Caching Layer</div>
+                    <div class="component">File Management</div>
+                    <div class="component">External APIs</div>
+                    <div class="component">Data Validation</div>
+                </div>
+            </div>
+
+            <div class="layer">
+                <h4>4. Data Layer (Storage Tier)</h4>
+                <p>Persistent data storage and database management</p>
+                <div class="layer-content">
+                    <div class="component">MySQL Database</div>
+                    <div class="component">File Storage</div>
+                    <div class="component">Backup Systems</div>
+                    <div class="component">Transaction Management</div>
+                    <div class="component">Data Integrity</div>
+                    <div class="component">Performance Optimization</div>
+                </div>
+            </div>
+        </div>
+
+        <h2>5.3 MVC Architecture Pattern</h2>
+
+        <p>The system implements the Model-View-Controller (MVC) architectural pattern to separate concerns and improve code organization:</p>
+
+        <div class="mvc-diagram">
+            <div class="mvc-component">
+                <h4>Model</h4>
+                <p><strong>Data Management</strong></p>
+                <ul style="text-align: left;">
+                    <li>Database interactions</li>
+                    <li>Data validation</li>
+                    <li>Business rules</li>
+                    <li>Data processing</li>
+                    <li>Entity relationships</li>
+                </ul>
+            </div>
+
+            <div class="mvc-component">
+                <h4>View</h4>
+                <p><strong>User Interface</strong></p>
+                <ul style="text-align: left;">
+                    <li>HTML templates</li>
+                    <li>User interface components</li>
+                    <li>Data presentation</li>
+                    <li>Form rendering</li>
+                    <li>Response formatting</li>
+                </ul>
+            </div>
+
+            <div class="mvc-component">
+                <h4>Controller</h4>
+                <p><strong>Request Handling</strong></p>
+                <ul style="text-align: left;">
+                    <li>Request routing</li>
+                    <li>Input processing</li>
+                    <li>Business logic coordination</li>
+                    <li>Response generation</li>
+                    <li>Error handling</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>5.3.1 MVC Implementation Example</h3>
+        <div class="code-block">
+            <div class="code-header">MVC Structure Implementation</div>
+            <pre><code>// Controller Example - UserController.php
+class UserController {
+    private $userModel;
+    
+    public function __construct() {
+        $this->userModel = new UserModel();
+    }
+    
+    public function login() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $username = $_POST['username'] ?? '';
+            $password = $_POST['password'] ?? '';
+            
+            // Validate input
+            if (empty($username) || empty($password)) {
+                $this->renderView('login', ['error' => 'All fields required']);
+                return;
+            }
+            
+            // Process through model
+            $user = $this->userModel->authenticate($username, $password);
+            
+            if ($user) {
+                $_SESSION['user_id'] = $user['id'];
+                header('Location: dashboard.php');
+            } else {
+                $this->renderView('login', ['error' => 'Invalid credentials']);
+            }
+        } else {
+            $this->renderView('login');
+        }
+    }
+    
+    private function renderView($view, $data = []) {
+        extract($data);
+        include "views/{$view}.php";
+    }
+}
+
+// Model Example - UserModel.php
+class UserModel {
+    private $conn;
+    
+    public function __construct() {
+        global $conn;
+        $this->conn = $conn;
+    }
+    
+    public function authenticate($username, $password) {
+        $stmt = $this->conn->prepare(
+            "SELECT id, username, password_hash, role_id 
+             FROM users WHERE username = ?"
+        );
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($user = $result->fetch_assoc()) {
+            if (password_verify($password, $user['password_hash'])) {
+                return $user;
+            }
+        }
+        return false;
+    }
+}</code></pre>
+        </div>
+
+        <h2>5.4 Data Flow Architecture</h2>
+
+        <div class="data-flow">
+            <h3>Request-Response Flow</h3>
+            <div style="text-align: center; margin: 20px 0;">
+                <div class="flow-step">User Request</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">Web Server</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">PHP Controller</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">Business Logic</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">Data Model</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">Database</div>
+            </div>
+            <div style="text-align: center; margin: 20px 0;">
+                <div class="flow-step">HTML Response</div>
+                <span class="flow-arrow">←</span>
+                <div class="flow-step">View Template</div>
+                <span class="flow-arrow">←</span>
+                <div class="flow-step">Controller</div>
+                <span class="flow-arrow">←</span>
+                <div class="flow-step">Processed Data</div>
+                <span class="flow-arrow">←</span>
+                <div class="flow-step">Model Response</div>
+                <span class="flow-arrow">←</span>
+                <div class="flow-step">Query Results</div>
+            </div>
+        </div>
+
+        <h3>5.4.1 AJAX Data Flow</h3>
+        <p>For dynamic content updates and API interactions:</p>
+
+        <div class="ascii-diagram">
+┌─────────────┐    ┌──────────────┐    ┌─────────────┐    ┌──────────────┐
+│   Browser   │    │  JavaScript  │    │ PHP API     │    │   MySQL      │
+│             │    │   (AJAX)     │    │ Endpoint    │    │  Database    │
+└─────────────┘    └──────────────┘    └─────────────┘    └──────────────┘
+       │                   │                   │                   │
+       │ User Action       │                   │                   │
+       │──────────────────▶│                   │                   │
+       │                   │ HTTP Request      │                   │
+       │                   │──────────────────▶│                   │
+       │                   │                   │ SQL Query         │
+       │                   │                   │──────────────────▶│
+       │                   │                   │ Result Set        │
+       │                   │                   │◀──────────────────│
+       │                   │ JSON Response     │                   │
+       │                   │◀──────────────────│                   │
+       │ DOM Update        │                   │                   │
+       │◀──────────────────│                   │                   │
+        </div>
+
+        <h2>5.5 Database Architecture</h2>
+
+        <div class="database-schema">
+            <h3>Normalized Database Design</h3>
+            <p>The database follows Third Normal Form (3NF) principles to ensure data integrity, reduce redundancy, and optimize performance:</p>
+
+            <div class="table-grid">
+                <div class="table-item">
+                    <h5>Core Tables</h5>
+                    <div class="field-list">
+                        • users (id, username, password_hash, role_id)<br>
+                        • roles (id, name, description)<br>
+                        • permissions (id, name, description)<br>
+                        • role_permissions (role_id, permission_id)
+                    </div>
+                </div>
+
+                <div class="table-item">
+                    <h5>Customer Management</h5>
+                    <div class="field-list">
+                        • customers (id, name, email, phone, address)<br>
+                        • customer_interactions (id, customer_id, type)<br>
+                        • customer_notes (id, customer_id, note, date)<br>
+                        • customer_documents (id, customer_id, file_path)
+                    </div>
+                </div>
+
+                <div class="table-item">
+                    <h5>Sales Management</h5>
+                    <div class="field-list">
+                        • leads (id, customer_id, source, status)<br>
+                        • opportunities (id, lead_id, value, stage)<br>
+                        • quotes (id, opportunity_id, amount, valid_until)<br>
+                        • orders (id, customer_id, total, status)
+                    </div>
+                </div>
+
+                <div class="table-item">
+                    <h5>Employee Management</h5>
+                    <div class="field-list">
+                        • employees (id, user_id, department, position)<br>
+                        • attendance (id, employee_id, date, check_in)<br>
+                        • leave_requests (id, employee_id, type, status)<br>
+                        • payroll (id, employee_id, salary, deductions)
+                    </div>
+                </div>
+
+                <div class="table-item">
+                    <h5>System Tables</h5>
+                    <div class="field-list">
+                        • audit_logs (id, user_id, action, timestamp)<br>
+                        • system_settings (key, value, description)<br>
+                        • file_uploads (id, filename, path, size)<br>
+                        • notifications (id, user_id, message, read)
+                    </div>
+                </div>
+
+                <div class="table-item">
+                    <h5>Reporting Tables</h5>
+                    <div class="field-list">
+                        • reports (id, name, query, parameters)<br>
+                        • report_schedules (id, report_id, frequency)<br>
+                        • dashboard_widgets (id, user_id, widget_type)<br>
+                        • analytics_data (id, metric, value, date)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3>5.5.1 Database Relationships</h3>
+        <div class="code-block">
+            <div class="code-header">Key Relationships and Constraints</div>
+            <pre><code>-- Foreign Key Relationships
+ALTER TABLE users 
+ADD CONSTRAINT fk_users_role 
+FOREIGN KEY (role_id) REFERENCES roles(id);
+
+ALTER TABLE employees 
+ADD CONSTRAINT fk_employees_user 
+FOREIGN KEY (user_id) REFERENCES users(id);
+
+ALTER TABLE customer_interactions 
+ADD CONSTRAINT fk_interactions_customer 
+FOREIGN KEY (customer_id) REFERENCES customers(id);
+
+ALTER TABLE attendance 
+ADD CONSTRAINT fk_attendance_employee 
+FOREIGN KEY (employee_id) REFERENCES employees(id);
+
+-- Indexes for Performance
+CREATE INDEX idx_users_username ON users(username);
+CREATE INDEX idx_customers_email ON customers(email);
+CREATE INDEX idx_attendance_date ON attendance(date);
+CREATE INDEX idx_leads_status ON leads(status);
+
+-- Composite Indexes
+CREATE INDEX idx_attendance_employee_date ON attendance(employee_id, date);
+CREATE INDEX idx_customer_interactions_date ON customer_interactions(customer_id, created_at);</code></pre>
+        </div>
+
+        <h2>5.6 Security Architecture</h2>
+
+        <div class="security-layers">
+            <h3>Multi-Layer Security Implementation</h3>
+            <p>The system implements defense-in-depth security principles with multiple layers of protection:</p>
+            
+            <div class="security-grid">
+                <div class="security-item">
+                    <h4>Network Security</h4>
+                    <p>SSL/TLS encryption, firewall protection, secure protocols</p>
+                </div>
+                <div class="security-item">
+                    <h4>Application Security</h4>
+                    <p>Input validation, output encoding, CSRF protection</p>
+                </div>
+                <div class="security-item">
+                    <h4>Authentication</h4>
+                    <p>Strong password policies, session management, MFA support</p>
+                </div>
+                <div class="security-item">
+                    <h4>Authorization</h4>
+                    <p>Role-based access control, permission matrices, audit trails</p>
+                </div>
+                <div class="security-item">
+                    <h4>Data Security</h4>
+                    <p>Encryption at rest, secure backups, data masking</p>
+                </div>
+                <div class="security-item">
+                    <h4>Monitoring</h4>
+                    <p>Security logging, intrusion detection, anomaly monitoring</p>
+                </div>
+            </div>
+        </div>
+
+        <h3>5.6.1 Authentication Flow</h3>
+        <div class="code-block">
+            <div class="code-header">Secure Authentication Implementation</div>
+            <pre><code>// Multi-step authentication process
+function authenticateUser($username, $password) {
+    // Step 1: Input validation
+    if (!validateInput($username, $password)) {
+        logSecurityEvent('Invalid input attempt', $username);
+        return false;
+    }
+    
+    // Step 2: Rate limiting check
+    if (isRateLimited($username)) {
+        logSecurityEvent('Rate limit exceeded', $username);
+        return false;
+    }
+    
+    // Step 3: Database lookup with prepared statement
+    $user = getUserByUsername($username);
+    if (!$user) {
+        logSecurityEvent('User not found', $username);
+        return false;
+    }
+    
+    // Step 4: Password verification
+    if (!password_verify($password, $user['password_hash'])) {
+        incrementFailedAttempts($username);
+        logSecurityEvent('Invalid password', $username);
+        return false;
+    }
+    
+    // Step 5: Account status check
+    if (!isAccountActive($user)) {
+        logSecurityEvent('Inactive account access attempt', $username);
+        return false;
+    }
+    
+    // Step 6: Session creation
+    createSecureSession($user);
+    logSecurityEvent('Successful login', $username);
+    
+    return true;
+}</code></pre>
+        </div>
+
+        <h2>5.7 API Architecture</h2>
+
+        <div class="api-structure">
+            <h3>RESTful API Design</h3>
+            <p>The system exposes a comprehensive RESTful API following industry standards and best practices:</p>
+
+            <h4>API Endpoints Structure</h4>
+            <ul>
+                <li><strong>GET /api/customers</strong> - Retrieve customer list</li>
+                <li><strong>GET /api/customers/{id}</strong> - Retrieve specific customer</li>
+                <li><strong>POST /api/customers</strong> - Create new customer</li>
+                <li><strong>PUT /api/customers/{id}</strong> - Update customer</li>
+                <li><strong>DELETE /api/customers/{id}</strong> - Delete customer</li>
+            </ul>
+
+            <h4>Response Format</h4>
+            <div class="code-block">
+                <div class="code-header">Standard API Response</div>
+                <pre><code>{
+    "status": "success",
+    "data": {
+        "id": 123,
+        "name": "John Doe",
+        "email": "john@example.com",
+        "created_at": "2025-01-01T10:00:00Z"
+    },
+    "meta": {
+        "timestamp": "2025-01-01T10:00:00Z",
+        "version": "1.0",
+        "request_id": "req_123456"
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <h2>5.8 Performance Architecture</h2>
+
+        <div class="performance-metrics">
+            <div class="metric-item">
+                <span class="metric-number"><200ms</span>
+                <span>Average Response Time</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-number">1000+</span>
+                <span>Concurrent Users</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-number">99.9%</span>
+                <span>System Uptime</span>
+            </div>
+            <div class="metric-item">
+                <span class="metric-number">50GB+</span>
+                <span>Data Capacity</span>
+            </div>
+        </div>
+
+        <h3>5.8.1 Performance Optimization Strategies</h3>
+        <ul>
+            <li><strong>Database Optimization:</strong> Query optimization, indexing, connection pooling</li>
+            <li><strong>Caching Layer:</strong> Application-level caching, query result caching</li>
+            <li><strong>Code Optimization:</strong> Efficient algorithms, memory management</li>
+            <li><strong>Asset Optimization:</strong> CSS/JS minification, image compression</li>
+            <li><strong>CDN Integration:</strong> Content delivery network for static assets</li>
+        </ul>
+
+        <h2>5.9 Scalability Architecture</h2>
+
+        <h3>5.9.1 Horizontal Scaling Capabilities</h3>
+        <p>The architecture supports horizontal scaling through:</p>
+        <ul>
+            <li><strong>Load Balancing:</strong> Multiple application server instances</li>
+            <li><strong>Database Clustering:</strong> Master-slave replication setup</li>
+            <li><strong>Session Management:</strong> Stateless design with external session storage</li>
+            <li><strong>Microservices Ready:</strong> Modular design for service separation</li>
+        </ul>
+
+        <h3>5.9.2 Vertical Scaling Support</h3>
+        <ul>
+            <li><strong>Resource Optimization:</strong> Efficient memory and CPU usage</li>
+            <li><strong>Database Tuning:</strong> Optimized queries and indexes</li>
+            <li><strong>Caching Strategies:</strong> Reduced database load</li>
+            <li><strong>Code Efficiency:</strong> Optimized algorithms and data structures</li>
+        </ul>
+
+        <h2>5.10 Integration Architecture</h2>
+
+        <h3>5.10.1 External System Integration</h3>
+        <p>The system provides flexible integration capabilities:</p>
+        <ul>
+            <li><strong>REST API Endpoints:</strong> Standard HTTP-based integration</li>
+            <li><strong>Webhook Support:</strong> Real-time event notifications</li>
+            <li><strong>File Import/Export:</strong> CSV, Excel, JSON data exchange</li>
+            <li><strong>Email Integration:</strong> SMTP-based email notifications</li>
+            <li><strong>Third-party APIs:</strong> Payment gateways, SMS services</li>
+            <li><strong>Single Sign-On (SSO):</strong> LDAP and OAuth integration</li>
+        </ul>
+
+        <div class="code-block">
+            <div class="code-header">Integration Example - Webhook Implementation</div>
+            <pre><code><?php
+class WebhookManager {
+    private $endpoints = [];
+    
+    public function registerWebhook($event, $url, $secret = null) {
+        $this->endpoints[$event][] = [
+            'url' => $url,
+            'secret' => $secret,
+            'created_at' => time()
+        ];
+    }
+    
+    public function triggerWebhook($event, $data) {
+        if (!isset($this->endpoints[$event])) {
+            return;
+        }
+        
+        foreach ($this->endpoints[$event] as $endpoint) {
+            $this->sendWebhook($endpoint, $event, $data);
+        }
+    }
+    
+    private function sendWebhook($endpoint, $event, $data) {
+        $payload = [
+            'event' => $event,
+            'data' => $data,
+            'timestamp' => time()
+        ];
+        
+        $headers = [
+            'Content-Type: application/json',
+            'User-Agent: CRM-System-Webhook/1.0'
+        ];
+        
+        if ($endpoint['secret']) {
+            $signature = hash_hmac('sha256', json_encode($payload), $endpoint['secret']);
+            $headers[] = 'X-Webhook-Signature: sha256=' . $signature;
+        }
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $endpoint['url']);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        
+        // Log webhook delivery
+        $this->logWebhookDelivery($endpoint['url'], $event, $httpCode, $response);
+    }
+}
+?></code></pre>
+        </div>
+
+        <h2>5.11 Monitoring and Logging Architecture</h2>
+
+        <div class="highlight-box">
+            <h3>Comprehensive System Monitoring</h3>
+            <p>The architecture includes robust monitoring and logging capabilities to ensure system health, performance tracking, and security auditing. This enables proactive issue detection and resolution.</p>
+        </div>
+
+        <h3>5.11.1 Logging Levels and Categories</h3>
+        <ul>
+            <li><strong>Error Logs:</strong> System errors, exceptions, and failures</li>
+            <li><strong>Security Logs:</strong> Authentication attempts, authorization failures</li>
+            <li><strong>Performance Logs:</strong> Response times, resource usage metrics</li>
+            <li><strong>Audit Logs:</strong> User actions, data modifications, system changes</li>
+            <li><strong>Debug Logs:</strong> Development and troubleshooting information</li>
+        </ul>
+
+        <div class="code-block">
+            <div class="code-header">Logging Implementation</div>
+            <pre><code><?php
+class Logger {
+    const ERROR = 'ERROR';
+    const WARNING = 'WARNING';
+    const INFO = 'INFO';
+    const DEBUG = 'DEBUG';
+    const SECURITY = 'SECURITY';
+    const AUDIT = 'AUDIT';
+    
+    private $logPath;
+    private $maxFileSize = 10485760; // 10MB
+    
+    public function __construct($logPath = 'logs/') {
+        $this->logPath = $logPath;
+        $this->ensureLogDirectory();
+    }
+    
+    public function log($level, $message, $context = []) {
+        $timestamp = date('Y-m-d H:i:s');
+        $userId = $_SESSION['user_id'] ?? 'anonymous';
+        $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+        
+        $logEntry = [
+            'timestamp' => $timestamp,
+            'level' => $level,
+            'message' => $message,
+            'user_id' => $userId,
+            'ip_address' => $ip,
+            'context' => $context,
+            'request_id' => $this->getRequestId()
+        ];
+        
+        $logLine = json_encode($logEntry) . PHP_EOL;
+        
+        $filename = $this->getLogFilename($level);
+        $this->writeToFile($filename, $logLine);
+        
+        // Also log to database for critical events
+        if (in_array($level, [self::ERROR, self::SECURITY, self::AUDIT])) {
+            $this->logToDatabase($logEntry);
+        }
+    }
+    
+    public function error($message, $context = []) {
+        $this->log(self::ERROR, $message, $context);
+    }
+    
+    public function security($message, $context = []) {
+        $this->log(self::SECURITY, $message, $context);
+    }
+    
+    public function audit($action, $resource, $context = []) {
+        $message = "Action: {$action} on {$resource}";
+        $this->log(self::AUDIT, $message, $context);
+    }
+    
+    private function getLogFilename($level) {
+        $date = date('Y-m-d');
+        return $this->logPath . strtolower($level) . "_{$date}.log";
+    }
+    
+    private function writeToFile($filename, $content) {
+        // Rotate log if too large
+        if (file_exists($filename) && filesize($filename) > $this->maxFileSize) {
+            $this->rotateLog($filename);
+        }
+        
+        file_put_contents($filename, $content, FILE_APPEND | LOCK_EX);
+    }
+    
+    private function rotateLog($filename) {
+        $timestamp = date('Y-m-d_H-i-s');
+        $rotatedName = $filename . '.' . $timestamp;
+        rename($filename, $rotatedName);
+        
+        // Compress old log
+        if (function_exists('gzopen')) {
+            $this->compressLog($rotatedName);
+        }
+    }
+}
+?></code></pre>
+        </div>
+
+        <h2>5.12 Backup and Recovery Architecture</h2>
+
+        <h3>5.12.1 Backup Strategy</h3>
+        <p>Multi-tier backup approach ensuring data protection and business continuity:</p>
+
+        <div class="layer-diagram">
+            <div class="layer">
+                <h4>Real-time Backup</h4>
+                <p>Database replication and transaction log shipping for immediate data protection</p>
+            </div>
+            <div class="layer">
+                <h4>Daily Incremental Backup</h4>
+                <p>Automated daily backups of changed data with compression and encryption</p>
+            </div>
+            <div class="layer">
+                <h4>Weekly Full Backup</h4>
+                <p>Complete system backup including database, files, and configuration</p>
+            </div>
+            <div class="layer">
+                <h4>Monthly Archive</h4>
+                <p>Long-term storage backup for compliance and historical data retention</p>
+            </div>
+        </div>
+
+        <h3>5.12.2 Recovery Procedures</h3>
+        <ul>
+            <li><strong>Point-in-Time Recovery:</strong> Restore to specific timestamp</li>
+            <li><strong>Selective Recovery:</strong> Restore specific tables or data sets</li>
+            <li><strong>Disaster Recovery:</strong> Complete system restoration procedures</li>
+            <li><strong>Hot Standby:</strong> Immediate failover to backup systems</li>
+        </ul>
+
+        <h2>5.13 Deployment Architecture</h2>
+
+        <div class="ascii-diagram">
+Production Environment Architecture:
+
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Load Balancer │    │   Web Server 1  │    │   Web Server 2  │
+│    (HAProxy)    │────│    (Apache)     │    │    (Apache)     │
+│                 │    │                 │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         │              ┌─────────────────┐              │
+         │              │  Application    │              │
+         └──────────────│     Servers     │──────────────┘
+                        │   (PHP-FPM)     │
+                        └─────────────────┘
+                                 │
+                    ┌─────────────────────────┐
+                    │                         │
+            ┌───────▼────────┐       ┌───────▼────────┐
+            │  Master DB     │       │   Slave DB     │
+            │   (MySQL)      │──────▶│   (MySQL)      │
+            │                │       │   (Read Only)  │
+            └────────────────┘       └────────────────┘
+                     │
+            ┌────────▼────────┐
+            │  File Storage   │
+            │    (NFS/S3)     │
+            └─────────────────┘
+        </div>
+
+        <h3>5.13.1 Environment Configuration</h3>
+        <div class="code-block">
+            <div class="code-header">Environment-Specific Configuration</div>
+            <pre><code><?php
+// config/environments.php
+class EnvironmentConfig {
+    private static $environments = [
+        'development' => [
+            'debug' => true,
+            'database' => [
+                'host' => 'localhost',
+                'name' => 'crm_dev',
+                'user' => 'dev_user',
+                'password' => 'dev_pass'
+            ],
+            'cache' => [
+                'enabled' => false,
+                'driver' => 'file'
+            ],
+            'logging' => [
+                'level' => 'DEBUG',
+                'output' => 'file'
+            ]
+        ],
+        'staging' => [
+            'debug' => false,
+            'database' => [
+                'host' => 'staging-db.company.com',
+                'name' => 'crm_staging',
+                'user' => 'staging_user',
+                'password' => getenv('STAGING_DB_PASSWORD')
+            ],
+            'cache' => [
+                'enabled' => true,
+                'driver' => 'redis',
+                'host' => 'staging-redis.company.com'
+            ],
+            'logging' => [
+                'level' => 'INFO',
+                'output' => 'database'
+            ]
+        ],
+        'production' => [
+            'debug' => false,
+            'database' => [
+                'host' => 'prod-db-cluster.company.com',
+                'name' => 'crm_production',
+                'user' => 'prod_user',
+                'password' => getenv('PROD_DB_PASSWORD')
+            ],
+            'cache' => [
+                'enabled' => true,
+                'driver' => 'redis',
+                'host' => 'prod-redis-cluster.company.com'
+            ],
+            'logging' => [
+                'level' => 'WARNING',
+                'output' => 'syslog'
+            ]
+        ]
+    ];
+    
+    public static function get($environment = null) {
+        $env = $environment ?: getenv('APP_ENV') ?: 'development';
+        return self::$environments[$env] ?? self::$environments['development'];
+    }
+}
+?></code></pre>
+        </div>
+
+        <h2>5.14 Future Architecture Considerations</h2>
+
+        <div class="highlight-box">
+            <h3>Evolutionary Architecture</h3>
+            <p>The system architecture is designed to evolve with changing business requirements and technological advancements. The modular design and well-defined interfaces enable gradual migration to new technologies and patterns.</p>
+        </div>
+
+        <h3>5.14.1 Microservices Migration Path</h3>
+        <p>Planned evolution towards microservices architecture:</p>
+        <ul>
+            <li><strong>Service Identification:</strong> Extract bounded contexts into separate services</li>
+            <li><strong>API Gateway:</strong> Centralized request routing and authentication</li>
+            <li><strong>Service Discovery:</strong> Dynamic service registration and discovery</li>
+            <li><strong>Event-Driven Architecture:</strong> Asynchronous communication between services</li>
+            <li><strong>Container Orchestration:</strong> Docker and Kubernetes deployment</li>
+        </ul>
+
+        <h3>5.14.2 Cloud-Native Transformation</h3>
+        <ul>
+            <li><strong>Containerization:</strong> Docker containers for consistent deployment</li>
+            <li><strong>Orchestration:</strong> Kubernetes for container management</li>
+            <li><strong>Service Mesh:</strong> Istio for service-to-service communication</li>
+            <li><strong>Observability:</strong> Distributed tracing and monitoring</li>
+            <li><strong>Auto-scaling:</strong> Dynamic resource allocation based on demand</li>
+        </ul>
+
+        <h2>5.15 Architecture Summary</h2>
+
+        <div class="architecture-overview">
+            <h3>Key Architectural Principles</h3>
+            <p>The CRM system architecture embodies several key principles that ensure its effectiveness, maintainability, and scalability:</p>
+            
+            <ul style="color: white; margin-top: 20px;">
+                <li><strong>Separation of Concerns:</strong> Clear boundaries between different system layers</li>
+                <li><strong>Modularity:</strong> Independent, loosely coupled components</li>
+                <li><strong>Scalability:</strong> Horizontal and vertical scaling capabilities</li>
+                <li><strong>Security:</strong> Defense-in-depth security implementation</li>
+                <li><strong>Performance:</strong> Optimized for speed and efficiency</li>
+                <li><strong>Maintainability:</strong> Clean code and well-documented interfaces</li>
+                <li><strong>Reliability:</strong> Fault tolerance and recovery mechanisms</li>
+                <li><strong>Extensibility:</strong> Easy to extend and modify</li>
+            </ul>
+        </div>
+
+        <p>The architecture provides a solid foundation for the CRM system while maintaining flexibility for future enhancements and technological evolution. The multi-tier design ensures proper separation of concerns, while the modular approach enables independent development and deployment of different system components.</p>
+
+        <p>This architectural approach has been validated through implementation and testing, demonstrating its effectiveness in meeting both current requirements and future scalability needs. The system can handle increasing user loads, data volumes, and feature complexity while maintaining performance and reliability standards.</p>
+
+        <div class="navigation">
+            <a href="chapter4.html" class="nav-button">← Previous: Technology Stack Used</a>
+            <a href="table_of_contents.html" class="nav-button">📚 Table of Contents</a>
+            <a href="chapter6.html" class="nav-button">Next: User Roles →</a>
+        </div>
+    </div>
+</body>
+</html>

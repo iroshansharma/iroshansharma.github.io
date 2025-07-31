@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 17: API & Backend Overview - CRM System Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #343a40 0%, #495057 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header .chapter-info {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        h2 {
+            color: #343a40;
+            border-bottom: 3px solid #343a40;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            font-size: 1.8em;
+        }
+        h3 {
+            color: #495057;
+            margin-top: 30px;
+            font-size: 1.4em;
+        }
+        h4 {
+            color: #555;
+            margin-top: 25px;
+            font-size: 1.2em;
+        }
+        .api-overview {
+            background: linear-gradient(135deg, #343a40 0%, #495057 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(52, 58, 64, 0.3);
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .feature-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border-left: 5px solid #343a40;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .feature-card h4 {
+            color: #343a40;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+        .feature-icon {
+            width: 30px;
+            height: 30px;
+            background: #343a40;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .api-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .stat-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            border-left: 5px solid #343a40;
+        }
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #343a40;
+            margin: 10px 0;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .endpoint-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .endpoint-table th,
+        .endpoint-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .endpoint-table th {
+            background: #343a40;
+            color: white;
+            font-weight: 600;
+        }
+        .endpoint-table tr:hover {
+            background: #f8f9fa;
+        }
+        .method-get {
+            background: #d4edda;
+            color: #155724;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .method-post {
+            background: #cce5ff;
+            color: #004085;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .method-put {
+            background: #fff3cd;
+            color: #856404;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .method-delete {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-header {
+            background: #343a40;
+            color: white;
+            padding: 8px 15px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 8px 8px 0 0;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .architecture-diagram {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .layer {
+            background: white;
+            border: 2px solid #343a40;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+        }
+        .layer h4 {
+            margin: 0 0 10px 0;
+            color: #343a40;
+        }
+        .layer-arrow {
+            font-size: 2em;
+            color: #343a40;
+            margin: 10px 0;
+        }
+        .database-schema {
+            background: #e8f4fd;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #17a2b8;
+        }
+        .schema-table {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .schema-table h5 {
+            margin: 0 0 10px 0;
+            color: #17a2b8;
+            font-size: 1.1em;
+        }
+        .field-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .field-list li {
+            padding: 5px 0;
+            border-bottom: 1px solid #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+        }
+        .field-list li:last-child {
+            border-bottom: none;
+        }
+        .field-name {
+            font-weight: 600;
+            color: #495057;
+        }
+        .field-type {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        .security-section {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #ffc107;
+        }
+        .security-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #ffeaa7;
+        }
+        .security-item:last-child {
+            border-bottom: none;
+        }
+        .performance-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .metric-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #343a40;
+        }
+        .metric-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #343a40;
+        }
+        .navigation {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #dee2e6;
+            text-align: center;
+        }
+        .nav-button {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 0 10px;
+            background: #343a40;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            background: #495057;
+            transform: translateY(-2px);
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .api-response {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .error-response {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Chapter 17: API & Backend Overview</h1>
+            <div class="chapter-info">RESTful APIs and Backend Architecture Documentation</div>
+        </div>
+
+        <h2>17.1 API & Backend Overview</h2>
+        
+        <div class="api-overview">
+            <h3>Comprehensive Backend Architecture</h3>
+            <p>The CRM system's backend architecture is built on a robust RESTful API framework that provides secure, scalable, and efficient data access for all frontend applications. The backend implements modern architectural patterns including MVC separation, dependency injection, and service-oriented design to ensure maintainability and extensibility.</p>
+        </div>
+
+        <p>The API layer serves as the central communication hub between the frontend applications, mobile clients, and third-party integrations, providing consistent data access patterns and business logic enforcement across all system components.</p>
+
+        <h2>17.2 API Performance Statistics</h2>
+
+        <div class="api-stats">
+            <div class="stat-card">
+                <div class="stat-label">Total Endpoints</div>
+                <div class="stat-value">127</div>
+                <div class="stat-detail">Active APIs</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Daily Requests</div>
+                <div class="stat-value">45.2K</div>
+                <div class="stat-detail">Average Volume</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Response Time</div>
+                <div class="stat-value">125ms</div>
+                <div class="stat-detail">Average</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Success Rate</div>
+                <div class="stat-value">99.7%</div>
+                <div class="stat-detail">Uptime</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Error Rate</div>
+                <div class="stat-value">0.3%</div>
+                <div class="stat-detail">4xx/5xx Errors</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Cache Hit Rate</div>
+                <div class="stat-value">87.5%</div>
+                <div class="stat-detail">Performance</div>
+            </div>
+        </div>
+
+        <h2>17.3 Backend Architecture Components</h2>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4><span class="feature-icon">🔗</span>RESTful APIs</h4>
+                <p>Comprehensive REST API implementation following industry standards and best practices.</p>
+                <ul>
+                    <li>HTTP method compliance</li>
+                    <li>Resource-based URLs</li>
+                    <li>JSON request/response format</li>
+                    <li>Proper status codes</li>
+                    <li>HATEOAS implementation</li>
+                    <li>API versioning support</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h4><span class="feature-icon">🔐</span>Authentication & Security</h4>
+                <p>Multi-layered security implementation with JWT tokens and role-based access control.</p>
+                <ul>
+                    <li>JWT token authentication</li>
+                    <li>Role-based authorization</li>
+                    <li>API rate limiting</li>
+                    <li>Input validation & sanitization</li>
+                    <li>SQL injection prevention</li>
+                    <li>CORS configuration</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h4><span class="feature-icon">💾</span>Database Layer</h4>
+                <p>Optimized database operations with connection pooling and query optimization.</p>
+                <ul>
+                    <li>MySQL database integration</li>
+                    <li>Connection pooling</li>
+                    <li>Prepared statements</li>
+                    <li>Transaction management</li>
+                    <li>Database migrations</li>
+                    <li>Query optimization</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h4><span class="feature-icon">⚡</span>Caching System</h4>
+                <p>Multi-level caching strategy for improved performance and reduced database load.</p>
+                <ul>
+                    <li>Redis caching layer</li>
+                    <li>Query result caching</li>
+                    <li>Session management</li>
+                    <li>Cache invalidation</li>
+                    <li>Memory optimization</li>
+                    <li>Cache warming strategies</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h4><span class="feature-icon">📊</span>Logging & Monitoring</h4>
+                <p>Comprehensive logging and monitoring system for performance tracking and debugging.</p>
+                <ul>
+                    <li>Structured logging</li>
+                    <li>Error tracking</li>
+                    <li>Performance monitoring</li>
+                    <li>API usage analytics</li>
+                    <li>Health check endpoints</li>
+                    <li>Alert notifications</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h4><span class="feature-icon">🔄</span>Background Processing</h4>
+                <p>Asynchronous task processing for heavy operations and scheduled jobs.</p>
+                <ul>
+                    <li>Queue management</li>
+                    <li>Scheduled tasks</li>
+                    <li>Email processing</li>
+                    <li>Report generation</li>
+                    <li>Data synchronization</li>
+                    <li>Cleanup operations</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>17.4 System Architecture Diagram</h2>
+
+        <div class="architecture-diagram">
+            <div class="layer">
+                <h4>Frontend Layer</h4>
+                <p>Web Application, Mobile Apps, Third-party Integrations</p>
+            </div>
+            <div class="layer-arrow">↓</div>
+            
+            <div class="layer">
+                <h4>API Gateway</h4>
+                <p>Authentication, Rate Limiting, Request Routing</p>
+            </div>
+            <div class="layer-arrow">↓</div>
+            
+            <div class="layer">
+                <h4>Application Layer</h4>
+                <p>Business Logic, Controllers, Services</p>
+            </div>
+            <div class="layer-arrow">↓</div>
+            
+            <div class="layer">
+                <h4>Data Access Layer</h4>
+                <p>Models, Repositories, Database Abstraction</p>
+            </div>
+            <div class="layer-arrow">↓</div>
+            
+            <div class="layer">
+                <h4>Database Layer</h4>
+                <p>MySQL Database, Redis Cache, File Storage</p>
+            </div>
+        </div>
+
+        <h2>17.5 Core API Endpoints</h2>
+
+        <table class="endpoint-table">
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>Endpoint</th>
+                    <th>Description</th>
+                    <th>Authentication</th>
+                    <th>Rate Limit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="method-post">POST</span></td>
+                    <td>/api/auth/login</td>
+                    <td>User authentication</td>
+                    <td>None</td>
+                    <td>5/min</td>
+                </tr>
+                <tr>
+                    <td><span class="method-post">POST</span></td>
+                    <td>/api/auth/refresh</td>
+                    <td>Token refresh</td>
+                    <td>JWT</td>
+                    <td>10/min</td>
+                </tr>
+                <tr>
+                    <td><span class="method-get">GET</span></td>
+                    <td>/api/employees</td>
+                    <td>List employees</td>
+                    <td>JWT</td>
+                    <td>100/min</td>
+                </tr>
+                <tr>
+                    <td><span class="method-post">POST</span></td>
+                    <td>/api/employees</td>
+                    <td>Create employee</td>
+                    <td>JWT</td>
+                    <td>20/min</td>
+                </tr>
+                <tr>
+                    <td><span class="method-put">PUT</span></td>
+                    <td>/api/employees/{id}</td>
+                    <td>Update employee</td>
+                    <td>JWT</td>
+                    <td>50/min</td>
+                </tr>
+                <tr>
+                    <td><span class="method-delete">DELETE</span></td>
+                    <td>/api/employees/{id}</td>
+                    <td>Delete employee</td>
+                    <td>JWT</td>
+                    <td>10/min</td>
+                </tr>
+                <tr>
+                    <td><span class="method-get">GET</span></td>
+                    <td>/api/attendance</td>
+                    <td>Attendance records</td>
+                    <td>JWT</td>
+                    <td>200/min</td>
+                </tr>
+                <tr>
+                    <td><span class="method-post">POST</span></td>
+                    <td>/api/attendance/checkin</td>
+                    <td>Check-in attendance</td>
+                    <td>JWT</td>
+                    <td>10/min</td>
+                </tr>
+                <tr>
+                    <td><span class="method-get">GET</span></td>
+                    <td>/api/payroll</td>
+                    <td>Payroll data</td>
+                    <td>JWT</td>
+                    <td>50/min</td>
+                </tr>
+                <tr>
+                    <td><span class="method-post">POST</span></td>
+                    <td>/api/payroll/process</td>
+                    <td>Process payroll</td>
+                    <td>JWT</td>
+                    <td>5/min</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>17.6 Database Schema Overview</h2>
+
+        <div class="database-schema">
+            <h3>Core Database Tables</h3>
+            
+            <div class="schema-table">
+                <h5>users</h5>
+                <ul class="field-list">
+                    <li><span class="field-name">id</span> <span class="field-type">INT PRIMARY KEY</span></li>
+                    <li><span class="field-name">username</span> <span class="field-type">VARCHAR(50) UNIQUE</span></li>
+                    <li><span class="field-name">email</span> <span class="field-type">VARCHAR(100) UNIQUE</span></li>
+                    <li><span class="field-name">password_hash</span> <span class="field-type">VARCHAR(255)</span></li>
+                    <li><span class="field-name">role_id</span> <span class="field-type">INT FOREIGN KEY</span></li>
+                    <li><span class="field-name">status</span> <span class="field-type">ENUM('active','inactive')</span></li>
+                    <li><span class="field-name">created_at</span> <span class="field-type">TIMESTAMP</span></li>
+                </ul>
+            </div>
+
+            <div class="schema-table">
+                <h5>employees</h5>
+                <ul class="field-list">
+                    <li><span class="field-name">id</span> <span class="field-type">INT PRIMARY KEY</span></li>
+                    <li><span class="field-name">employee_id</span> <span class="field-type">VARCHAR(20) UNIQUE</span></li>
+                    <li><span class="field-name">first_name</span> <span class="field-type">VARCHAR(50)</span></li>
+                    <li><span class="field-name">last_name</span> <span class="field-type">VARCHAR(50)</span></li>
+                    <li><span class="field-name">email</span> <span class="field-type">VARCHAR(100)</span></li>
+                    <li><span class="field-name">department_id</span> <span class="field-type">INT FOREIGN KEY</span></li>
+                    <li><span class="field-name">salary</span> <span class="field-type">DECIMAL(10,2)</span></li>
+                </ul>
+            </div>
+
+            <div class="schema-table">
+                <h5>attendance</h5>
+                <ul class="field-list">
+                    <li><span class="field-name">id</span> <span class="field-type">INT PRIMARY KEY</span></li>
+                    <li><span class="field-name">employee_id</span> <span class="field-type">INT FOREIGN KEY</span></li>
+                    <li><span class="field-name">date</span> <span class="field-type">DATE</span></li>
+                    <li><span class="field-name">check_in</span> <span class="field-type">TIME</span></li>
+                    <li><span class="field-name">check_out</span> <span class="field-type">TIME</span></li>
+                    <li><span class="field-name">status</span> <span class="field-type">ENUM('present','absent','late')</span></li>
+                    <li><span class="field-name">total_hours</span> <span class="field-type">DECIMAL(4,2)</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>17.7 API Implementation Examples</h2>
+
+        <div class="code-block">
+            <div class="code-header">Employee Management API Implementation</div>
+            <pre><code><?php
+class EmployeeAPI {
+    private $conn;
+    private $auth;
+    
+    public function __construct() {
+        global $conn;
+        $this->conn = $conn;
+        $this->auth = new AuthenticationManager();
+    }
+    
+    public function handleRequest() {
+        // Set CORS headers
+        $this->setCORSHeaders();
+        
+        // Handle preflight requests
+        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+            http_response_code(200);
+            exit();
+        }
+        
+        try {
+            // Authenticate request
+            $user = $this->auth->authenticateRequest();
+            
+            // Route request based on method and path
+            $method = $_SERVER['REQUEST_METHOD'];
+            $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            
+            switch ($method) {
+                case 'GET':
+                    if (preg_match('/\/api\/employees\/(\d+)$/', $path, $matches)) {
+                        $this->getEmployee($matches[1], $user);
+                    } else {
+                        $this->getEmployees($user);
+                    }
+                    break;
+                    
+                case 'POST':
+                    $this->createEmployee($user);
+                    break;
+                    
+                case 'PUT':
+                    if (preg_match('/\/api\/employees\/(\d+)$/', $path, $matches)) {
+                        $this->updateEmployee($matches[1], $user);
+                    } else {
+                        $this->sendError(400, 'Invalid endpoint');
+                    }
+                    break;
+                    
+                case 'DELETE':
+                    if (preg_match('/\/api\/employees\/(\d+)$/', $path, $matches)) {
+                        $this->deleteEmployee($matches[1], $user);
+                    } else {
+                        $this->sendError(400, 'Invalid endpoint');
+                    }
+                    break;
+                    
+                default:
+                    $this->sendError(405, 'Method not allowed');
+            }
+            
+        } catch (AuthenticationException $e) {
+            $this->sendError(401, 'Authentication failed: ' . $e->getMessage());
+        } catch (AuthorizationException $e) {
+            $this->sendError(403, 'Access denied: ' . $e->getMessage());
+        } catch (ValidationException $e) {
+            $this->sendError(400, 'Validation error: ' . $e->getMessage());
+        } catch (Exception $e) {
+            error_log('API Error: ' . $e->getMessage());
+            $this->sendError(500, 'Internal server error');
+        }
+    }
+    
+    private function getEmployees($user) {
+        // Check permissions
+        if (!$this->auth->hasPermission($user, 'employees.read')) {
+            throw new AuthorizationException('Insufficient permissions');
+        }
+        
+        // Get query parameters
+        $page = (int)($_GET['page'] ?? 1);
+        $limit = min((int)($_GET['limit'] ?? 20), 100);
+        $search = $_GET['search'] ?? '';
+        $department = $_GET['department'] ?? '';
+        
+        // Build query
+        $sql = "
+            SELECT e.*, d.name as department_name 
+            FROM employees e 
+            LEFT JOIN departments d ON e.department_id = d.id 
+            WHERE e.status = 'active'
+        ";
+        
+        $params = [];
+        $types = '';
+        
+        if ($search) {
+            $sql .= " AND (e.first_name LIKE ? OR e.last_name LIKE ? OR e.employee_id LIKE ?)";
+            $searchTerm = '%' . $search . '%';
+            $params[] = $searchTerm;
+            $params[] = $searchTerm;
+            $params[] = $searchTerm;
+            $types .= 'sss';
+        }
+        
+        if ($department) {
+            $sql .= " AND e.department_id = ?";
+            $params[] = $department;
+            $types .= 'i';
+        }
+        
+        // Apply role-based filtering
+        if ($user['role_id'] !== 1) { // Not super admin
+            $sql .= " AND e.department_id IN (
+                SELECT department_id FROM user_department_access 
+                WHERE user_id = ?
+            )";
+            $params[] = $user['id'];
+            $types .= 'i';
+        }
+        
+        // Add pagination
+        $offset = ($page - 1) * $limit;
+        $sql .= " ORDER BY e.created_at DESC LIMIT ? OFFSET ?";
+        $params[] = $limit;
+        $params[] = $offset;
+        $types .= 'ii';
+        
+        // Execute query
+        $stmt = $this->conn->prepare($sql);
+        if ($params) {
+            $stmt->bind_param($types, ...$params);
+        }
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        $employees = [];
+        while ($row = $result->fetch_assoc()) {
+            // Remove sensitive data
+            unset($row['password_hash']);
+            $employees[] = $row;
+        }
+        
+        // Get total count for pagination
+        $countSql = str_replace('SELECT e.*, d.name as department_name', 'SELECT COUNT(*)', $sql);
+        $countSql = preg_replace('/ORDER BY.*$/', '', $countSql);
+        $countSql = preg_replace('/LIMIT.*$/', '', $countSql);
+        
+        $countStmt = $this->conn->prepare($countSql);
+        if ($params) {
+            $countParams = array_slice($params, 0, -2); // Remove limit and offset
+            $countTypes = substr($types, 0, -2);
+            if ($countParams) {
+                $countStmt->bind_param($countTypes, ...$countParams);
+            }
+        }
+        $countStmt->execute();
+        $totalCount = $countStmt->get_result()->fetch_row()[0];
+        
+        // Send response
+        $this->sendSuccess([
+            'employees' => $employees,
+            'pagination' => [
+                'page' => $page,
+                'limit' => $limit,
+                'total' => (int)$totalCount,
+                'pages' => ceil($totalCount / $limit)
+            ]
+        ]);
+    }
+    
+    private function createEmployee($user) {
+        // Check permissions
+        if (!$this->auth->hasPermission($user, 'employees.create')) {
+            throw new AuthorizationException('Insufficient permissions');
+        }
+        
+        // Get and validate input
+        $input = json_decode(file_get_contents('php://input'), true);
+        $this->validateEmployeeInput($input);
+        
+        // Check for duplicate employee ID
+        $stmt = $this->conn->prepare("SELECT id FROM employees WHERE employee_id = ?");
+        $stmt->bind_param('s', $input['employee_id']);
+        $stmt->execute();
+        if ($stmt->get_result()->num_rows > 0) {
+            throw new ValidationException('Employee ID already exists');
+        }
+        
+        // Insert employee
+        $sql = "
+            INSERT INTO employees (
+                employee_id, first_name, last_name, email, 
+                department_id, position, salary, hire_date, status
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'active')
+        ";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param(
+            'ssssisds',
+            $input['employee_id'],
+            $input['first_name'],
+            $input['last_name'],
+            $input['email'],
+            $input['department_id'],
+            $input['position'],
+            $input['salary'],
+            $input['hire_date']
+        );
+        
+        if ($stmt->execute()) {
+            $employeeId = $this->conn->insert_id;
+            
+            // Log activity
+            $this->logActivity($user['id'], 'employee_created', $employeeId);
+            
+            $this->sendSuccess([
+                'message' => 'Employee created successfully',
+                'employee_id' => $employeeId
+            ], 201);
+        } else {
+            throw new Exception('Failed to create employee');
+        }
+    }
+    
+    private function validateEmployeeInput($input) {
+        $required = ['employee_id', 'first_name', 'last_name', 'email', 'department_id'];
+        
+        foreach ($required as $field) {
+            if (empty($input[$field])) {
+                throw new ValidationException("Field '$field' is required");
+            }
+        }
+        
+        if (!filter_var($input['email'], FILTER_VALIDATE_EMAIL)) {
+            throw new ValidationException('Invalid email format');
+        }
+        
+        if (isset($input['salary']) && (!is_numeric($input['salary']) || $input['salary'] < 0)) {
+            throw new ValidationException('Invalid salary amount');
+        }
+    }
+    
+    private function sendSuccess($data, $statusCode = 200) {
+        http_response_code($statusCode);
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => true,
+            'data' => $data,
+            'timestamp' => date('c')
+        ]);
+        exit();
+    }
+    
+    private function sendError($statusCode, $message) {
+        http_response_code($statusCode);
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => false,
+            'error' => [
+                'code' => $statusCode,
+                'message' => $message
+            ],
+            'timestamp' => date('c')
+        ]);
+        exit();
+    }
+    
+    private function setCORSHeaders() {
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type, Authorization');
+        header('Access-Control-Max-Age: 86400');
+    }
+}
+?></code></pre>
+        </div>
+
+        <h2>17.8 Authentication & Security Implementation</h2>
+
+        <div class="security-section">
+            <h3>Multi-Layer Security Architecture</h3>
+            
+            <div class="security-item">
+                <h4>JWT Token Authentication</h4>
+                <p>JSON Web Tokens provide stateless authentication with configurable expiration times and refresh token support.</p>
+                <ul>
+                    <li>Access tokens (15 minutes expiry)</li>
+                    <li>Refresh tokens (7 days expiry)</li>
+                    <li>Token blacklisting for logout</li>
+                    <li>Automatic token refresh</li>
+                </ul>
+            </div>
+
+            <div class="security-item">
+                <h4>Role-Based Access Control (RBAC)</h4>
+                <p>Granular permission system with hierarchical roles and resource-based access control.</p>
+                <ul>
+                    <li>Dynamic role assignment</li>
+                    <li>Permission inheritance</li>
+                    <li>Resource-level permissions</li>
+                    <li>Context-aware authorization</li>
+                </ul>
+            </div>
+
+            <div class="security-item">
+                <h4>Input Validation & Sanitization</h4>
+                <p>Comprehensive input validation to prevent injection attacks and data corruption.</p>
+                <ul>
+                    <li>SQL injection prevention</li>
+                    <li>XSS protection</li>
+                    <li>CSRF token validation</li>
+                    <li>File upload security</li>
+                </ul>
+            </div>
+
+            <div class="security-item">
+                <h4>API Rate Limiting</h4>
+                <p>Intelligent rate limiting to prevent abuse and ensure fair resource usage.</p>
+                <ul>
+                    <li>Per-endpoint rate limits</li>
+                    <li>User-based throttling</li>
+                    <li>IP-based restrictions</li>
+                    <li>Burst protection</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="code-block">
+            <div class="code-header">JWT Authentication Implementation</div>
+            <pre><code><?php
+class JWTAuthenticator {
+    private $secretKey;
+    private $algorithm = 'HS256';
+    private $accessTokenExpiry = 900; // 15 minutes
+    private $refreshTokenExpiry = 604800; // 7 days
+    
+    public function __construct() {
+        $this->secretKey = $_ENV['JWT_SECRET_KEY'] ?? 'default-secret-key';
+    }
+    
+    public function generateTokens($userId, $userData = []) {
+        $now = time();
+        
+        // Access token payload
+        $accessPayload = [
+            'iss' => 'crm-system',
+            'aud' => 'crm-users',
+            'iat' => $now,
+            'exp' => $now + $this->accessTokenExpiry,
+            'sub' => $userId,
+            'type' => 'access',
+            'data' => $userData
+        ];
+        
+        // Refresh token payload
+        $refreshPayload = [
+            'iss' => 'crm-system',
+            'aud' => 'crm-users',
+            'iat' => $now,
+            'exp' => $now + $this->refreshTokenExpiry,
+            'sub' => $userId,
+            'type' => 'refresh',
+            'jti' => bin2hex(random_bytes(16)) // Unique token ID
+        ];
+        
+        return [
+            'access_token' => $this->encodeJWT($accessPayload),
+            'refresh_token' => $this->encodeJWT($refreshPayload),
+            'expires_in' => $this->accessTokenExpiry,
+            'token_type' => 'Bearer'
+        ];
+    }
+    
+    public function validateToken($token) {
+        try {
+            $payload = $this->decodeJWT($token);
+            
+            // Check if token is blacklisted
+            if ($this->isTokenBlacklisted($token)) {
+                throw new AuthenticationException('Token has been revoked');
+            }
+            
+            // Validate token type and expiration
+            if ($payload['exp'] < time()) {
+                throw new AuthenticationException('Token has expired');
+            }
+            
+            return $payload;
+            
+        } catch (Exception $e) {
+            throw new AuthenticationException('Invalid token: ' . $e->getMessage());
+        }
+    }
+    
+    public function refreshAccessToken($refreshToken) {
+        $payload = $this->validateToken($refreshToken);
+        
+        if ($payload['type'] !== 'refresh') {
+            throw new AuthenticationException('Invalid token type');
+        }
+        
+        // Get user data
+        global $conn;
+        $stmt = $conn->prepare("
+            SELECT id, username, email, role_id, status 
+            FROM users 
+            WHERE id = ? AND status = 'active'
+        ");
+        $stmt->bind_param('i', $payload['sub']);
+        $stmt->execute();
+        $user = $stmt->get_result()->fetch_assoc();
+        
+        if (!$user) {
+            throw new AuthenticationException('User not found or inactive');
+        }
+        
+        // Generate new access token
+        return $this->generateTokens($user['id'], [
+            'username' => $user['username'],
+            'email' => $user['email'],
+            'role_id' => $user['role_id']
+        ]);
+    }
+    
+    private function encodeJWT($payload) {
+        $header = json_encode(['typ' => 'JWT', 'alg' => $this->algorithm]);
+        $payload = json_encode($payload);
+        
+        $base64Header = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
+        $base64Payload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload));
+        
+        $signature = hash_hmac('sha256', $base64Header . "." . $base64Payload, $this->secretKey, true);
+        $base64Signature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
+        
+        return $base64Header . "." . $base64Payload . "." . $base64Signature;
+    }
+    
+    private function decodeJWT($jwt) {
+        $parts = explode('.', $jwt);
+        if (count($parts) !== 3) {
+            throw new Exception('Invalid JWT format');
+        }
+        
+        [$header, $payload, $signature] = $parts;
+        
+        // Verify signature
+        $expectedSignature = hash_hmac('sha256', $header . "." . $payload, $this->secretKey, true);
+        $expectedSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($expectedSignature));
+        
+        if (!hash_equals($signature, $expectedSignature)) {
+            throw new Exception('Invalid signature');
+        }
+        
+        // Decode payload
+        $payload = str_replace(['-', '_'], ['+', '/'], $payload);
+        $payload = base64_decode($payload);
+        
+        return json_decode($payload, true);
+    }
+    
+    private function isTokenBlacklisted($token) {
+        global $conn;
+        $stmt = $conn->prepare("SELECT id FROM token_blacklist WHERE token_hash = ?");
+        $tokenHash = hash('sha256', $token);
+        $stmt->bind_param('s', $tokenHash);
+        $stmt->execute();
+        
+        return $stmt->get_result()->num_rows > 0;
+    }
+}
+?></code></pre>
+        </div>
+
+        <h2>17.9 Performance Optimization</h2>
+
+        <div class="performance-metrics">
+            <div class="metric-item">
+                <div class="metric-value">< 200ms</div>
+                <div>Average Response Time</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">1000+</div>
+                <div>Concurrent Users</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">99.9%</div>
+                <div>API Uptime</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">87%</div>
+                <div>Cache Hit Rate</div>
+            </div>
+        </div>
+
+        <h3>17.9.1 Caching Strategy</h3>
+        <div class="code-block">
+            <div class="code-header">Redis Caching Implementation</div>
+            <pre><code><?php
+class CacheManager {
+    private $redis;
+    private $defaultTTL = 3600; // 1 hour
+    
+    public function __construct() {
+        $this->redis = new Redis();
+        $this->redis->connect('127.0.0.1', 6379);
+        
+        // Set key prefix for namespace isolation
+        $this->redis->setOption(Redis::OPT_PREFIX, 'crm:');
+    }
+    
+    public function get($key) {
+        $data = $this->redis->get($key);
+        return $data ? json_decode($data, true) : null;
+    }
+    
+    public function set($key, $data, $ttl = null) {
+        $ttl = $ttl ?? $this->defaultTTL;
+        return $this->redis->setex($key, $ttl, json_encode($data));
+    }
+    
+    public function delete($key) {
+        return $this->redis->del($key);
+    }
+    
+    public function invalidatePattern($pattern) {
+        $keys = $this->redis->keys($pattern);
+        if (!empty($keys)) {
+            return $this->redis->del($keys);
+        }
+        return 0;
+    }
+    
+    // Cache with automatic invalidation
+    public function remember($key, $callback, $ttl = null) {
+        $data = $this->get($key);
+        
+        if ($data === null) {
+            $data = $callback();
+            $this->set($key, $data, $ttl);
+        }
+        
+        return $data;
+    }
+    
+    // Tag-based cache invalidation
+    public function tags($tags) {
+        return new TaggedCache($this->redis, $tags);
+    }
+}
+
+class TaggedCache {
+    private $redis;
+    private $tags;
+    
+    public function __construct($redis, $tags) {
+        $this->redis = $redis;
+        $this->tags = is_array($tags) ? $tags : [$tags];
+    }
+    
+    public function put($key, $data, $ttl = 3600) {
+        // Store the data
+        $this->redis->setex($key, $ttl, json_encode($data));
+        
+        // Associate with tags
+        foreach ($this->tags as $tag) {
+            $this->redis->sadd("tag:$tag", $key);
+            $this->redis->expire("tag:$tag", $ttl + 300); // Tag expires 5 min after data
+        }
+        
+        return true;
+    }
+    
+    public function flush() {
+        foreach ($this->tags as $tag) {
+            $keys = $this->redis->smembers("tag:$tag");
+            if (!empty($keys)) {
+                $this->redis->del($keys);
+            }
+            $this->redis->del("tag:$tag");
+        }
+    }
+}
+?></code></pre>
+        </div>
+
+        <h2>17.10 API Documentation & Testing</h2>
+
+        <div class="highlight-box">
+            <h3>API Documentation Standards</h3>
+            <p>All APIs are documented using OpenAPI 3.0 specification with interactive Swagger UI for testing and exploration. Documentation includes request/response schemas, authentication requirements, and example usage.</p>
+        </div>
+
+        <h3>17.10.1 Sample API Responses</h3>
+
+        <h4>Success Response Format</h4>
+        <div class="api-response">
+{
+  "success": true,
+  "data": {
+    "employees": [
+      {
+        "id": 1,
+        "employee_id": "EMP001",
+        "first_name": "John",
+        "last_name": "Doe",
+        "email": "john.doe@company.com",
+        "department_name": "Engineering",
+        "status": "active",
+        "created_at": "2025-01-01T10:00:00Z"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "limit": 20,
+      "total": 150,
+      "pages": 8
+    }
+  },
+  "timestamp": "2025-01-15T14:30:00Z"
+}
+        </div>
+
+        <h4>Error Response Format</h4>
+        <div class="error-response">
+{
+  "success": false,
+  "error": {
+    "code": 400,
+    "message": "Validation error: Field 'email' is required",
+    "details": {
+      "field": "email",
+      "type": "required"
+    }
+  },
+  "timestamp": "2025-01-15T14:30:00Z"
+}
+        </div>
+
+        <h3>17.10.2 API Testing Framework</h3>
+        <div class="code-block">
+            <div class="code-header">Automated API Testing</div>
+            <pre><code><?php
+class APITestSuite {
+    private $baseUrl;
+    private $authToken;
+    
+    public function __construct($baseUrl) {
+        $this->baseUrl = rtrim($baseUrl, '/');
+    }
+    
+    public function authenticate($username, $password) {
+        $response = $this->post('/api/auth/login', [
+            'username' => $username,
+            'password' => $password
+        ]);
+        
+        if ($response['success']) {
+            $this->authToken = $response['data']['access_token'];
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public function testEmployeeEndpoints() {
+        $tests = [
+            'GET /api/employees' => function() {
+                return $this->get('/api/employees');
+            },
+            'POST /api/employees' => function() {
+                return $this->post('/api/employees', [
+                    'employee_id' => 'TEST001',
+                    'first_name' => 'Test',
+                    'last_name' => 'User',
+                    'email' => 'test@example.com',
+                    'department_id' => 1
+                ]);
+            },
+            'GET /api/employees/{id}' => function() {
+                return $this->get('/api/employees/1');
+            }
+        ];
+        
+        $results = [];
+        foreach ($tests as $name => $test) {
+            try {
+                $response = $test();
+                $results[$name] = [
+                    'status' => 'PASS',
+                    'response_time' => $response['response_time'] ?? 0,
+                    'status_code' => $response['status_code'] ?? 200
+                ];
+            } catch (Exception $e) {
+                $results[$name] = [
+                    'status' => 'FAIL',
+                    'error' => $e->getMessage()
+                ];
+            }
+        }
+        
+        return $results;
+    }
+    
+    private function get($endpoint, $params = []) {
+        $url = $this->baseUrl . $endpoint;
+        if (!empty($params)) {
+            $url .= '?' . http_build_query($params);
+        }
+        
+        return $this->makeRequest('GET', $url);
+    }
+    
+    private function post($endpoint, $data = []) {
+        return $this->makeRequest('POST', $this->baseUrl . $endpoint, $data);
+    }
+    
+    private function makeRequest($method, $url, $data = null) {
+        $ch = curl_init();
+        
+        curl_setopt_array($ch, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => $method,
+            CURLOPT_HTTPHEADER => $this->getHeaders(),
+            CURLOPT_TIMEOUT => 30
+        ]);
+        
+        if ($data && in_array($method, ['POST', 'PUT', 'PATCH'])) {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        }
+        
+        $startTime = microtime(true);
+        $response = curl_exec($ch);
+        $responseTime = (microtime(true) - $startTime) * 1000;
+        
+        $statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        
+        $decodedResponse = json_decode($response, true);
+        $decodedResponse['response_time'] = $responseTime;
+        $decodedResponse['status_code'] = $statusCode;
+        
+        return $decodedResponse;
+    }
+    
+    private function getHeaders() {
+        $headers = [
+            'Content-Type: application/json',
+            'Accept: application/json'
+        ];
+        
+        if ($this->authToken) {
+            $headers[] = 'Authorization: Bearer ' . $this->authToken;
+        }
+        
+        return $headers;
+    }
+}
+?></code></pre>
+        </div>
+
+        <h2>17.11 Future Enhancements</h2>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4><span class="feature-icon">🚀</span>GraphQL Integration</h4>
+                <p>Implementation of GraphQL endpoints for more flexible data querying and reduced over-fetching.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4><span class="feature-icon">🔄</span>Real-time APIs</h4>
+                <p>WebSocket-based real-time APIs for live updates and notifications across the application.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4><span class="feature-icon">🌐</span>API Gateway</h4>
+                <p>Centralized API gateway for request routing, load balancing, and cross-cutting concerns.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4><span class="feature-icon">📊</span>Advanced Analytics</h4>
+                <p>Enhanced API analytics with detailed performance metrics, usage patterns, and predictive insights.</p>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="chapter16.html" class="nav-button">← Previous: Login & Security</a>
+            <a href="table_of_contents.html" class="nav-button">📚 Table of Contents</a>
+            <a href="chapter18.html" class="nav-button">Next: UI/UX Design →</a>
+        </div>
+    </div>
+</body>
+</html>

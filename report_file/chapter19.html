@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 19: Testing Methodology - CRM System Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #6f42c1 0%, #5a2d91 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header .chapter-info {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        h2 {
+            color: #6f42c1;
+            border-bottom: 3px solid #6f42c1;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            font-size: 1.8em;
+        }
+        h3 {
+            color: #5a2d91;
+            margin-top: 30px;
+            font-size: 1.4em;
+        }
+        h4 {
+            color: #555;
+            margin-top: 25px;
+            font-size: 1.2em;
+        }
+        .testing-overview {
+            background: linear-gradient(135deg, #6f42c1 0%, #5a2d91 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(111, 66, 193, 0.3);
+        }
+        .testing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .testing-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border-left: 5px solid #6f42c1;
+        }
+        .testing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .testing-card h4 {
+            color: #6f42c1;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+        .testing-icon {
+            width: 30px;
+            height: 30px;
+            background: #6f42c1;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .test-pyramid {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 2px solid #dee2e6;
+            text-align: center;
+        }
+        .pyramid-level {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .unit-tests {
+            background: #d4edda;
+            color: #155724;
+            width: 80%;
+            margin: 0 auto;
+        }
+        .integration-tests {
+            background: #fff3cd;
+            color: #856404;
+            width: 60%;
+            margin: 0 auto;
+        }
+        .e2e-tests {
+            background: #f8d7da;
+            color: #721c24;
+            width: 40%;
+            margin: 0 auto;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-header {
+            background: #6f42c1;
+            color: white;
+            padding: 8px 15px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 8px 8px 0 0;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .test-case-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-case-table th,
+        .test-case-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .test-case-table th {
+            background: #6f42c1;
+            color: white;
+            font-weight: 600;
+        }
+        .test-case-table tr:hover {
+            background: #f8f9fa;
+        }
+        .status-pass {
+            background: #d4edda;
+            color: #155724;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .status-fail {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .test-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .metric-item {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 3px solid #6f42c1;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #6f42c1;
+        }
+        .metric-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+        .navigation {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #dee2e6;
+            text-align: center;
+        }
+        .nav-button {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 0 10px;
+            background: #6f42c1;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            background: #5a2d91;
+            transform: translateY(-2px);
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);
+        }
+        .test-environment {
+            background: #d1ecf1;
+            border-left: 5px solid #17a2b8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .automation-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .tool-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 3px solid #6f42c1;
+        }
+        .test-flow {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            border-left: 4px solid #6f42c1;
+        }
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: #6f42c1;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .step-content {
+            flex: 1;
+        }
+        .step-title {
+            font-weight: bold;
+            color: #6f42c1;
+            margin-bottom: 5px;
+        }
+        .performance-chart {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .chart-bar {
+            display: inline-block;
+            width: 40px;
+            margin: 0 5px;
+            background: #6f42c1;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+        }
+        .chart-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            color: #666;
+        }
+        .security-checklist {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .checklist-icon {
+            width: 20px;
+            height: 20px;
+            background: #28a745;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Chapter 19: Testing Methodology</h1>
+            <div class="chapter-info">Comprehensive Quality Assurance and Testing Framework</div>
+        </div>
+
+        <h2>19.1 Testing Strategy Overview</h2>
+        
+        <div class="testing-overview">
+            <h3>Multi-Layered Testing Approach</h3>
+            <p>The CRM system employs a comprehensive testing methodology that encompasses unit testing, integration testing, system testing, and user acceptance testing. This multi-layered approach ensures high-quality software delivery with minimal defects, optimal performance, and excellent user experience across all system components.</p>
+        </div>
+
+        <p>Our testing strategy is built on industry best practices and follows the testing pyramid model, emphasizing automated testing at multiple levels while maintaining thorough manual testing for critical user scenarios and edge cases.</p>
+
+        <h2>19.2 Testing Pyramid Structure</h2>
+
+        <div class="test-pyramid">
+            <h3>Testing Pyramid Model</h3>
+            <div class="e2e-tests">End-to-End Tests (20%)</div>
+            <div class="integration-tests">Integration Tests (30%)</div>
+            <div class="unit-tests">Unit Tests (50%)</div>
+            <p style="margin-top: 20px; font-size: 0.9em; color: #666;">
+                The testing pyramid emphasizes a higher volume of fast, reliable unit tests at the base, 
+                with fewer but more comprehensive integration and end-to-end tests at higher levels.
+            </p>
+        </div>
+
+        <h2>19.3 Testing Types and Methodologies</h2>
+
+        <div class="testing-grid">
+            <div class="testing-card">
+                <h4><span class="testing-icon">🔬</span>Unit Testing</h4>
+                <p>Individual component testing with isolated functionality verification and comprehensive code coverage.</p>
+                <ul>
+                    <li>Function-level testing</li>
+                    <li>Class and method validation</li>
+                    <li>Mock and stub implementation</li>
+                    <li>Code coverage analysis</li>
+                    <li>Automated test execution</li>
+                    <li>Continuous integration</li>
+                </ul>
+            </div>
+
+            <div class="testing-card">
+                <h4><span class="testing-icon">🔗</span>Integration Testing</h4>
+                <p>Component interaction testing with API validation and database integration verification.</p>
+                <ul>
+                    <li>API endpoint testing</li>
+                    <li>Database integration</li>
+                    <li>Service communication</li>
+                    <li>Data flow validation</li>
+                    <li>Third-party integrations</li>
+                    <li>Error handling verification</li>
+                </ul>
+            </div>
+
+            <div class="testing-card">
+                <h4><span class="testing-icon">🖥️</span>System Testing</h4>
+                <p>Complete system functionality testing with end-to-end workflow validation and performance testing.</p>
+                <ul>
+                    <li>End-to-end workflows</li>
+                    <li>Cross-browser compatibility</li>
+                    <li>Performance benchmarking</li>
+                    <li>Load and stress testing</li>
+                    <li>Security vulnerability testing</li>
+                    <li>Usability assessment</li>
+                </ul>
+            </div>
+
+            <div class="testing-card">
+                <h4><span class="testing-icon">👥</span>User Acceptance Testing</h4>
+                <p>Business requirement validation with real user scenarios and stakeholder approval processes.</p>
+                <ul>
+                    <li>Business requirement validation</li>
+                    <li>User story verification</li>
+                    <li>Stakeholder approval</li>
+                    <li>Real-world scenario testing</li>
+                    <li>Accessibility compliance</li>
+                    <li>Training material validation</li>
+                </ul>
+            </div>
+
+            <div class="testing-card">
+                <h4><span class="testing-icon">🔒</span>Security Testing</h4>
+                <p>Comprehensive security assessment with vulnerability scanning and penetration testing.</p>
+                <ul>
+                    <li>Authentication testing</li>
+                    <li>Authorization validation</li>
+                    <li>SQL injection prevention</li>
+                    <li>XSS vulnerability testing</li>
+                    <li>Data encryption verification</li>
+                    <li>Session management testing</li>
+                </ul>
+            </div>
+
+            <div class="testing-card">
+                <h4><span class="testing-icon">⚡</span>Performance Testing</h4>
+                <p>System performance evaluation with load testing, stress testing, and optimization validation.</p>
+                <ul>
+                    <li>Load testing scenarios</li>
+                    <li>Stress testing limits</li>
+                    <li>Response time analysis</li>
+                    <li>Resource utilization</li>
+                    <li>Scalability assessment</li>
+                    <li>Bottleneck identification</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>19.4 Unit Testing Implementation</h2>
+
+        <h3>19.4.1 PHP Unit Testing with PHPUnit</h3>
+        <div class="code-block">
+            <div class="code-header">Employee Management Unit Tests</div>
+            <pre><code><?php
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+
+class EmployeeManagerTest extends TestCase {
+    private $employeeManager;
+    private $mockConnection;
+    private $mockStatement;
+    
+    protected function setUp(): void {
+        // Create mock database connection
+        $this->mockConnection = $this->createMock(mysqli::class);
+        $this->mockStatement = $this->createMock(mysqli_stmt::class);
+        
+        // Initialize EmployeeManager with mocked dependencies
+        $this->employeeManager = new EmployeeManager();
+        $this->employeeManager->setConnection($this->mockConnection);
+    }
+    
+    public function testRegisterEmployeeSuccess() {
+        // Arrange
+        $employeeData = [
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'john.doe@company.com',
+            'phone' => '1234567890',
+            'department' => 'IT',
+            'position' => 'Software Engineer',
+            'start_date' => '2025-01-15',
+            'role_id' => 3,
+            'salary' => 75000
+        ];
+        
+        // Mock database operations
+        $this->mockConnection
+            ->expects($this->once())
+            ->method('prepare')
+            ->willReturn($this->mockStatement);
+            
+        $this->mockStatement
+            ->expects($this->once())
+            ->method('bind_param')
+            ->willReturn(true);
+            
+        $this->mockStatement
+            ->expects($this->once())
+            ->method('execute')
+            ->willReturn(true);
+            
+        $this->mockConnection
+            ->expects($this->once())
+            ->method('insert_id')
+            ->willReturn(123);
+        
+        // Act
+        $result = $this->employeeManager->registerEmployee($employeeData);
+        
+        // Assert
+        $this->assertTrue($result['success']);
+        $this->assertEquals(123, $result['employee_id']);
+        $this->assertEquals('Employee registered successfully', $result['message']);
+    }
+    
+    public function testRegisterEmployeeValidationFailure() {
+        // Arrange
+        $invalidEmployeeData = [
+            'first_name' => '',  // Missing required field
+            'email' => 'invalid-email',  // Invalid email format
+            'department' => 'IT'
+        ];
+        
+        // Act
+        $result = $this->employeeManager->registerEmployee($invalidEmployeeData);
+        
+        // Assert
+        $this->assertFalse($result['success']);
+        $this->assertStringContains('Required field missing', $result['message']);
+    }
+}
+
+// Attendance System Unit Tests
+class AttendanceManagerTest extends TestCase {
+    private $attendanceManager;
+    private $mockConnection;
+    
+    protected function setUp(): void {
+        $this->mockConnection = $this->createMock(mysqli::class);
+        $this->attendanceManager = new AttendanceManager();
+        $this->attendanceManager->setConnection($this->mockConnection);
+    }
+    
+    public function testCheckInSuccess() {
+        // Arrange
+        $employeeId = 123;
+        $location = 'Office - Main Building';
+        
+        // Mock check for existing check-in
+        $mockStatement = $this->createMock(mysqli_stmt::class);
+        $mockResult = $this->createMock(mysqli_result::class);
+        
+        $this->mockConnection
+            ->expects($this->at(0))
+            ->method('prepare')
+            ->willReturn($mockStatement);
+            
+        $mockResult
+            ->expects($this->once())
+            ->method('num_rows')
+            ->willReturn(0); // No existing check-in
+            
+        $mockStatement
+            ->expects($this->once())
+            ->method('get_result')
+            ->willReturn($mockResult);
+        
+        // Mock insert operation
+        $this->mockConnection
+            ->expects($this->at(1))
+            ->method('prepare')
+            ->willReturn($mockStatement);
+            
+        $this->mockConnection
+            ->expects($this->once())
+            ->method('insert_id')
+            ->willReturn(456);
+        
+        // Act
+        $result = $this->attendanceManager->checkIn($employeeId, $location);
+        
+        // Assert
+        $this->assertTrue($result['success']);
+        $this->assertEquals(456, $result['attendance_id']);
+        $this->assertEquals('Check-in successful', $result['message']);
+    }
+}
+?></code></pre>
+        </div>
+
+        <h2>19.5 Integration Testing</h2>
+
+        <h3>19.5.1 API Integration Tests</h3>
+        <div class="code-block">
+            <div class="code-header">API Integration Testing</div>
+            <pre><code><?php
+class APIIntegrationTest extends TestCase {
+    private $baseUrl = 'http://localhost/crm-system/src/backend/';
+    private $authToken;
+    
+    protected function setUp(): void {
+        // Authenticate and get token for API testing
+        $this->authToken = $this->authenticateTestUser();
+    }
+    
+    public function testEmployeeAPIEndpoints() {
+        // Test GET /employees
+        $response = $this->makeAPIRequest('GET', 'employees.php');
+        $this->assertEquals(200, $response['status']);
+        $this->assertArrayHasKey('employees', $response['data']);
+        
+        // Test POST /employees (Create)
+        $newEmployee = [
+            'first_name' => 'Test',
+            'last_name' => 'Employee',
+            'email' => 'test.employee@company.com',
+            'department' => 'IT',
+            'position' => 'Tester'
+        ];
+        
+        $response = $this->makeAPIRequest('POST', 'employees.php', $newEmployee);
+        $this->assertEquals(201, $response['status']);
+        $this->assertArrayHasKey('employee_id', $response['data']);
+        
+        $employeeId = $response['data']['employee_id'];
+        
+        // Test PUT /employees/{id} (Update)
+        $updateData = ['position' => 'Senior Tester'];
+        $response = $this->makeAPIRequest('PUT', "employees.php?id={$employeeId}", $updateData);
+        $this->assertEquals(200, $response['status']);
+        
+        // Test DELETE /employees/{id}
+        $response = $this->makeAPIRequest('DELETE', "employees.php?id={$employeeId}");
+        $this->assertEquals(200, $response['status']);
+    }
+    
+    private function makeAPIRequest($method, $endpoint, $data = null) {
+        $url = $this->baseUrl . $endpoint;
+        $headers = [
+            'Authorization: Bearer ' . $this->authToken,
+            'Content-Type: application/json'
+        ];
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+        
+        if ($data && in_array($method, ['POST', 'PUT'])) {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        }
+        
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        
+        return [
+            'status' => $httpCode,
+            'data' => json_decode($response, true)
+        ];
+    }
+}
+?></code></pre>
+        </div>
+
+        <h2>19.6 Test Case Management</h2>
+
+        <h3>19.6.1 Sample Test Cases</h3>
+        <table class="test-case-table">
+            <thead>
+                <tr>
+                    <th>Test Case ID</th>
+                    <th>Module</th>
+                    <th>Test Scenario</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Last Executed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>TC001</td>
+                    <td>Authentication</td>
+                    <td>Valid user login with correct credentials</td>
+                    <td>High</td>
+                    <td><span class="status-pass">Pass</span></td>
+                    <td>2025-01-15</td>
+                </tr>
+                <tr>
+                    <td>TC002</td>
+                    <td>Authentication</td>
+                    <td>Invalid login attempt with wrong password</td>
+                    <td>High</td>
+                    <td><span class="status-pass">Pass</span></td>
+                    <td>2025-01-15</td>
+                </tr>
+                <tr>
+                    <td>TC003</td>
+                    <td>Employee Management</td>
+                    <td>Add new employee with valid data</td>
+                    <td>High</td>
+                    <td><span class="status-pass">Pass</span></td>
+                    <td>2025-01-14</td>
+                </tr>
+                <tr>
+                    <td>TC004</td>
+                    <td>Employee Management</td>
+                    <td>Update employee information</td>
+                    <td>Medium</td>
+                    <td><span class="status-pass">Pass</span></td>
+                    <td>2025-01-14</td>
+                </tr>
+                <tr>
+                    <td>TC005</td>
+                    <td>Attendance</td>
+                    <td>Employee check-in functionality</td>
+                    <td>High</td>
+                    <td><span class="status-pass">Pass</span></td>
+                    <td>2025-01-13</td>
+                </tr>
+                <tr>
+                    <td>TC006</td>
+                    <td>Payroll</td>
+                    <td>Monthly salary calculation</td>
+                    <td>High</td>
+                    <td><span class="status-pass">Pass</span></td>
+                    <td>2025-01-12</td>
+                </tr>
+                <tr>
+                    <td>TC007</td>
+                    <td>Leave Management</td>
+                    <td>Submit leave request</td>
+                    <td>Medium</td>
+                    <td><span class="status-pass">Pass</span></td>
+                    <td>2025-01-11</td>
+                </tr>
+                <tr>
+                    <td>TC008</td>
+                    <td>Reports</td>
+                    <td>Generate attendance report</td>
+                    <td>Medium</td>
+                    <td><span class="status-pass">Pass</span></td>
+                    <td>2025-01-10</td>
+                </tr>
+                <tr>
+                    <td>TC009</td>
+                    <td>Security</td>
+                    <td>SQL injection prevention</td>
+                    <td>High</td>
+                    <td><span class="status-pass">Pass</span></td>
+                    <td>2025-01-09</td>
+                </tr>
+                <tr>
+                    <td>TC010</td>
+                    <td>Performance</td>
+                    <td>Load testing with 100 concurrent users</td>
+                    <td>High</td>
+                    <td><span class="status-pending">Pending</span></td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>19.7 Test Metrics and Coverage</h2>
+
+        <div class="test-metrics">
+            <div class="metric-item">
+                <div class="metric-value">94.2%</div>
+                <div class="metric-label">Code Coverage</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">847</div>
+                <div class="metric-label">Total Test Cases</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">823</div>
+                <div class="metric-label">Passed Tests</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">12</div>
+                <div class="metric-label">Failed Tests</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">12</div>
+                <div class="metric-label">Pending Tests</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">2.3s</div>
+                <div class="metric-label">Avg Response Time</div>
+            </div>
+        </div>
+
+        <h2>19.8 Automated Testing Framework</h2>
+
+        <div class="automation-tools">
+            <div class="tool-item">
+                <h4>PHPUnit</h4>
+                <p>Primary unit testing framework for PHP backend components with comprehensive assertion library and mocking capabilities.</p>
+                <ul>
+                    <li>Unit test execution</li>
+                    <li>Code coverage analysis</li>
+                    <li>Mock object creation</li>
+                    <li>Test data providers</li>
+                </ul>
+            </div>
+
+            <div class="tool-item">
+                <h4>Selenium WebDriver</h4>
+                <p>Browser automation for end-to-end testing across multiple browsers and platforms with comprehensive UI interaction.</p>
+                <ul>
+                    <li>Cross-browser testing</li>
+                    <li>UI interaction automation</li>
+                    <li>Screenshot capture</li>
+                    <li>Parallel test execution</li>
+                </ul>
+            </div>
+
+            <div class="tool-item">
+                <h4>Jest & Cypress</h4>
+                <p>JavaScript testing frameworks for frontend component testing and end-to-end browser automation.</p>
+                <ul>
+                    <li>Component unit testing</li>
+                    <li>Integration testing</li>
+                    <li>Real browser testing</li>
+                    <li>Time-travel debugging</li>
+                </ul>
+            </div>
+
+            <div class="tool-item">
+                <h4>Apache JMeter</h4>
+                <p>Performance testing tool for load testing, stress testing, and performance measurement of web applications.</p>
+                <ul>
+                    <li>Load testing scenarios</li>
+                    <li>Performance benchmarking</li>
+                    <li>Stress testing</li>
+                    <li>Resource monitoring</li>
+                </ul>
+            </div>
+
+            <div class="tool-item">
+                <h4>OWASP ZAP</h4>
+                <p>Security testing tool for vulnerability scanning and penetration testing of web applications.</p>
+                <ul>
+                    <li>Vulnerability scanning</li>
+                    <li>Security assessment</li>
+                    <li>Penetration testing</li>
+                    <li>Security reporting</li>
+                </ul>
+            </div>
+
+            <div class="tool-item">
+                <h4>GitHub Actions</h4>
+                <p>Continuous integration and deployment platform for automated testing and deployment workflows.</p>
+                <ul>
+                    <li>Automated test execution</li>
+                    <li>CI/CD pipelines</li>
+                    <li>Multi-environment testing</li>
+                    <li>Deployment automation</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>19.9 Test Environment Setup</h2>
+
+        <div class="test-environment">
+            <h3>Multi-Environment Testing Strategy</h3>
+            <p>The CRM system utilizes multiple testing environments to ensure comprehensive validation across different stages of development and deployment.</p>
+        </div>
+
+        <div class="testing-grid">
+            <div class="testing-card">
+                <h4><span class="testing-icon">🔧</span>Development Environment</h4>
+                <p>Local development environment for initial testing and debugging during feature development.</p>
+                <ul>
+                    <li>Local database instance</li>
+                    <li>Debug mode enabled</li>
+                    <li>Hot reloading</li>
+                    <li>Developer tools access</li>
+                    <li>Mock external services</li>
+                    <li>Rapid iteration testing</li>
+                </ul>
+            </div>
+
+            <div class="testing-card">
+                <h4><span class="testing-icon">🧪</span>Testing Environment</h4>
+                <p>Dedicated testing environment that mirrors production for comprehensive system testing.</p>
+                <ul>
+                    <li>Production-like configuration</li>
+                    <li>Automated test execution</li>
+                    <li>Performance monitoring</li>
+                    <li>Security scanning</li>
+                    <li>Integration testing</li>
+                    <li>User acceptance testing</li>
+                </ul>
+            </div>
+
+            <div class="testing-card">
+                <h4><span class="testing-icon">🚀</span>Staging Environment</h4>
+                <p>Pre-production environment for final validation and stakeholder approval before deployment.</p>
+                <ul>
+                    <li>Production data subset</li>
+                    <li>Final integration testing</li>
+                    <li>Performance validation</li>
+                    <li>User training</li>
+                    <li>Deployment rehearsal</li>
+                    <li>Stakeholder sign-off</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>19.10 Performance Testing Strategy</h2>
+
+        <h3>19.10.1 Load Testing Scenarios</h3>
+        <div class="performance-chart">
+            <h4>Performance Test Results</h4>
+            <div style="display: flex; justify-content: space-around; align-items: end; height: 200px; margin: 20px 0;">
+                <div class="chart-bar" style="height: 80%;">
+                    <div class="chart-label">Login</div>
+                </div>
+                <div class="chart-bar" style="height: 65%;">
+                    <div class="chart-label">Dashboard</div>
+                </div>
+                <div class="chart-bar" style="height: 90%;">
+                    <div class="chart-label">Employee List</div>
+                </div>
+                <div class="chart-bar" style="height: 75%;">
+                    <div class="chart-label">Attendance</div>
+                </div>
+                <div class="chart-bar" style="height: 85%;">
+                    <div class="chart-label">Reports</div>
+                </div>
+                <div class="chart-bar" style="height: 70%;">
+                    <div class="chart-label">Payroll</div>
+                </div>
+            </div>
+            <p style="font-size: 0.9em; color: #666;">Response times under load (100 concurrent users)</p>
+        </div>
+
+        <div class="code-block">
+            <div class="code-header">JMeter Load Testing Configuration</div>
+            <pre><code><?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="CRM Load Test">
+      <stringProp name="TestPlan.comments">CRM System Load Testing</stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.arguments" elementType="Arguments" guiclass="ArgumentsPanel">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="User Load">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">10</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">100</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">60</stringProp>
+        <longProp name="ThreadGroup.start_time">1642000000000</longProp>
+        <longProp name="ThreadGroup.end_time">1642003600000</longProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">3600</stringProp>
+        <stringProp name="ThreadGroup.delay">0</stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Login Request">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{"username":"testuser","password":"testpass"}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">localhost</stringProp>
+          <stringProp name="HTTPSampler.port">80</stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/crm-system/src/backend/login.php</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan></code></pre>
+        </div>
+
+        <h2>19.11 Security Testing Implementation</h2>
+
+        <div class="security-checklist">
+            <h3>Security Testing Checklist</h3>
+            
+            <div class="checklist-item">
+                <div class="checklist-icon">✓</div>
+                <div>
+                    <strong>Authentication Security</strong><br>
+                    Password strength validation, account lockout mechanisms, and session management testing
+                </div>
+            </div>
+
+            <div class="checklist-item">
+                <div class="checklist-icon">✓</div>
+                <div>
+                    <strong>Authorization Testing</strong><br>
+                    Role-based access control validation and privilege escalation prevention
+                </div>
+            </div>
+
+            <div class="checklist-item">
+                <div class="checklist-icon">✓</div>
+                <div>
+                    <strong>Input Validation</strong><br>
+                    SQL injection, XSS, and CSRF attack prevention testing
+                </div>
+            </div>
+
+            <div class="checklist-item">
+                <div class="checklist-icon">✓</div>
+                <div>
+                    <strong>Data Protection</strong><br>
+                    Encryption validation, sensitive data handling, and secure transmission testing
+                </div>
+            </div>
+
+            <div class="checklist-item">
+                <div class="checklist-icon">✓</div>
+                <div>
+                    <strong>Session Security</strong><br>
+                    Session timeout, token validation, and secure cookie implementation
+                </div>
+            </div>
+
+            <div class="checklist-item">
+                <div class="checklist-icon">✓</div>
+                <div>
+                    <strong>API Security</strong><br>
+                    API authentication, rate limiting, and secure endpoint validation
+                </div>
+            </div>
+        </div>
+
+        <h2>19.12 User Acceptance Testing (UAT)</h2>
+
+        <div class="test-flow">
+            <h3>UAT Process Flow</h3>
+            
+            <div class="flow-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <div class="step-title">Requirements Review</div>
+                    <p>Stakeholders review business requirements and acceptance criteria with the testing team</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <div class="step-title">Test Scenario Creation</div>
+                    <p>Business users create realistic test scenarios based on actual workflow requirements</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <div class="step-title">Environment Preparation</div>
+                    <p>UAT environment setup with production-like data and configurations</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <div class="step-title">User Training</div>
+                    <p>End users receive training on system functionality and testing procedures</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <div class="step-title">Test Execution</div>
+                    <p>Business users execute test scenarios and document results and feedback</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <div class="step-title">Issue Resolution</div>
+                    <p>Development team addresses identified issues and implements necessary changes</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">7</div>
+                <div class="step-content">
+                    <div class="step-title">Final Approval</div>
+                    <p>Stakeholders provide final sign-off for production deployment</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>19.13 Continuous Integration Testing</h2>
+
+        <div class="code-block">
+            <div class="code-header">GitHub Actions CI/CD Pipeline</div>
+            <pre><code>name: CRM System CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: crm_test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql
+        coverage: xdebug
+    
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+    
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+    
+    - name: Setup test database
+      run: |
+        mysql -h 127.0.0.1 -u root -proot crm_test < database/schema.sql
+        mysql -h 127.0.0.1 -u root -proot crm_test < database/test_data.sql
+    
+    - name: Run PHPUnit tests
+      run: |
+        vendor/bin/phpunit --coverage-clover=coverage.xml --log-junit=test-results.xml
+    
+    - name: Run PHP CodeSniffer
+      run: vendor/bin/phpcs --standard=PSR12 src/
+    
+    - name: Run PHPStan
+      run: vendor/bin/phpstan analyse src/ --level=5
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install Node dependencies
+      run: npm ci
+    
+    - name: Run JavaScript tests
+      run: npm test
+    
+    - name: Run Cypress E2E tests
+      uses: cypress-io/github-action@v5
+      with:
+        start: npm run serve
+        wait-on: 'http://localhost:8080'
+        wait-on-timeout: 120
+        browser: chrome
+        headless: true
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results
+        path: |
+          test-results.xml
+          coverage.xml
+          cypress/screenshots/
+          cypress/videos/
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+
+  security-scan:
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Run security scan
+      uses: securecodewarrior/github-action-add-sarif@v1
+      with:
+        sarif-file: security-scan-results.sarif
+    
+    - name: OWASP ZAP Scan
+      uses: zaproxy/action-full-scan@v0.4.0
+      with:
+        target: 'http://localhost:8080'
+        rules_file_name: '.zap/rules.tsv'
+        cmd_options: '-a'
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [test, security-scan]
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Deploy to staging
+      run: |
+        echo "Deploying to staging environment"
+        # Add deployment commands here
+    
+    - name: Run smoke tests
+      run: |
+        echo "Running smoke tests on staging"
+        # Add smoke test commands here
+    
+    - name: Deploy to production
+      if: success()
+      run: |
+        echo "Deploying to production environment"
+        # Add production deployment commands here</code></pre>
+        </div>
+
+        <h2>19.14 Test Data Management</h2>
+
+        <div class="testing-grid">
+            <div class="testing-card">
+                <h4><span class="testing-icon">📊</span>Test Data Strategy</h4>
+                <p>Comprehensive test data management ensuring realistic and consistent testing scenarios.</p>
+                <ul>
+                    <li>Synthetic data generation</li>
+                    <li>Production data masking</li>
+                    <li>Data refresh automation</li>
+                    <li>Privacy compliance</li>
+                    <li>Data versioning</li>
+                    <li>Environment synchronization</li>
+                </ul>
+            </div>
+
+            <div class="testing-card">
+                <h4><span class="testing-icon">🔄</span>Data Refresh Process</h4>
+                <p>Automated processes for maintaining fresh and relevant test data across environments.</p>
+                <ul>
+                    <li>Scheduled data updates</li>
+                    <li>Incremental data sync</li>
+                    <li>Data validation checks</li>
+                    <li>Rollback capabilities</li>
+                    <li>Performance optimization</li>
+                    <li>Audit trail maintenance</li>
+                </ul>
+            </div>
+
+            <div class="testing-card">
+                <h4><span class="testing-icon">🛡️</span>Data Privacy & Security</h4>
+                <p>Ensuring test data compliance with privacy regulations and security requirements.</p>
+                <ul>
+                    <li>PII data masking</li>
+                    <li>GDPR compliance</li>
+                    <li>Access control</li>
+                    <li>Data encryption</li>
+                    <li>Retention policies</li>
+                    <li>Audit logging</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>19.15 Defect Management Process</h2>
+
+        <div class="test-flow">
+            <h3>Bug Lifecycle Management</h3>
+            
+            <div class="flow-step">
+                <div class="step-number">🐛</div>
+                <div class="step-content">
+                    <div class="step-title">Bug Discovery</div>
+                    <p>Defect identified during testing phase with detailed reproduction steps and evidence</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">📝</div>
+                <div class="step-content">
+                    <div class="step-title">Bug Reporting</div>
+                    <p>Comprehensive bug report created with severity, priority, and impact assessment</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">🔍</div>
+                <div class="step-content">
+                    <div class="step-title">Bug Triage</div>
+                    <p>Development team reviews and prioritizes bugs based on business impact and complexity</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">🔧</div>
+                <div class="step-content">
+                    <div class="step-title">Bug Resolution</div>
+                    <p>Developer implements fix and conducts unit testing to verify resolution</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">✅</div>
+                <div class="step-content">
+                    <div class="step-title">Verification Testing</div>
+                    <p>QA team verifies bug fix and conducts regression testing to ensure no new issues</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">🚀</div>
+                <div class="step-content">
+                    <div class="step-title">Bug Closure</div>
+                    <p>Bug marked as resolved and closed after successful verification and stakeholder approval</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>19.16 Test Reporting and Metrics</h2>
+
+        <div class="test-metrics">
+            <div class="metric-item">
+                <div class="metric-value">98.7%</div>
+                <div class="metric-label">Test Pass Rate</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">1,247</div>
+                <div class="metric-label">Total Test Cases</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">23</div>
+                <div class="metric-label">Bugs Found</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">21</div>
+                <div class="metric-label">Bugs Fixed</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">94.2%</div>
+                <div class="metric-label">Code Coverage</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">1.8s</div>
+                <div class="metric-label">Avg Response Time</div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h3>Quality Assurance Dashboard</h3>
+            <p>Real-time testing metrics and quality indicators provide comprehensive visibility into system health, test coverage, and defect trends. Automated reporting ensures stakeholders have up-to-date information on testing progress and system quality.</p>
+        </div>
+
+        <h2>19.17 Mobile Testing Strategy</h2>
+
+        <div class="testing-grid">
+            <div class="testing-card">
+                <h4><span class="testing-icon">📱</span>Device Testing</h4>
+                <p>Comprehensive testing across multiple mobile devices and operating systems.</p>
+                <ul>
+                    <li>iOS device testing</li>
+                    <li>Android device testing</li>
+                    <li>Tablet compatibility</li>
+                    <li>Screen size variations</li>
+                    <li>Touch interaction testing</li>
+                    <li>Orientation testing</li>
+                </ul>
+            </div>
+
+            <div class="testing-card">
+                <h4><span class="testing-icon">🌐</span>Browser Testing</h4>
+                <p>Cross-browser compatibility testing for mobile web applications.</p>
+                <ul>
+                    <li>Mobile Safari testing</li>
+                    <li>Chrome Mobile testing</li>
+                    <li>Firefox Mobile testing</li>
+                    <li>Edge Mobile testing</li>
+                    <li>Progressive Web App testing</li>
+                    <li>Offline functionality testing</li>
+                </ul>
+            </div>
+
+            <div class="testing-card">
+                <h4><span class="testing-icon">⚡</span>Performance Testing</h4>
+                <p>Mobile-specific performance testing and optimization validation.</p>
+                <ul>
+                    <li>Load time optimization</li>
+                    <li>Battery usage testing</li>
+                    <li>Network condition testing</li>
+                    <li>Memory usage analysis</li>
+                    <li>Touch response testing</li>
+                    <li>Gesture recognition testing</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>19.18 Future Testing Enhancements</h2>
+
+        <div class="testing-grid">
+            <div class="testing-card">
+                <h4><span class="testing-icon">🤖</span>AI-Powered Testing</h4>
+                <p>Implementation of artificial intelligence for intelligent test generation and execution.</p>
+                <ul>
+                    <li>Automated test case generation</li>
+                    <li>Intelligent bug detection</li>
+                    <li>Predictive quality analysis</li>
+                    <li>Smart test optimization</li>
+                    <li>Pattern recognition testing</li>
+                    <li>Self-healing test scripts</li>
+                </ul>
+            </div>
+
+            <div class="testing-card">
+                <h4><span class="testing-icon">☁️</span>Cloud Testing</h4>
+                <p>Scalable cloud-based testing infrastructure for enhanced testing capabilities.</p>
+                <ul>
+                    <li>Parallel test execution</li>
+                    <li>Scalable test environments</li>
+                    <li>Global testing infrastructure</li>
+                    <li>Cost-effective scaling</li>
+                    <li>Real device testing</li>
+                    <li>Automated provisioning</li>
+                </ul>
+            </div>
+
+            <div class="testing-card">
+                <h4><span class="testing-icon">📊</span>Advanced Analytics</h4>
+                <p>Enhanced testing analytics and reporting for deeper insights into system quality.</p>
+                <ul>
+                    <li>Predictive quality metrics</li>
+                    <li>Risk-based testing</li>
+                    <li>Quality trend analysis</li>
+                    <li>Performance benchmarking</li>
+                    <li>User behavior analysis</li>
+                    <li>Automated reporting</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h3>Testing Excellence Commitment</h3>
+            <p>Our comprehensive testing methodology ensures the highest quality standards for the CRM system. Through systematic testing approaches, automated processes, and continuous improvement, we deliver reliable, secure, and performant software that meets business requirements and exceeds user expectations. The testing framework evolves with technology trends and industry best practices to maintain excellence in software quality assurance.</p>
+        </div>
+
+        <div class="navigation">
+            <a href="chapter18.html" class="nav-button">← Previous: UI/UX Design</a>
+            <a href="table_of_contents.html" class="nav-button">📚 Table of Contents</a>
+            <a href="chapter20.html" class="nav-button">Next: Conclusion & Future Scope →</a>
+        </div>
+    </div>
+</body>
+</html>

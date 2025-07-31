@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 7: Employee Management - CRM System Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header .chapter-info {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        h2 {
+            color: #28a745;
+            border-bottom: 3px solid #28a745;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            font-size: 1.8em;
+        }
+        h3 {
+            color: #20c997;
+            margin-top: 30px;
+            font-size: 1.4em;
+        }
+        h4 {
+            color: #555;
+            margin-top: 25px;
+            font-size: 1.2em;
+        }
+        .feature-overview {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+        .functionality-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .function-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border-left: 5px solid #28a745;
+        }
+        .function-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .function-card h4 {
+            color: #28a745;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+        .function-icon {
+            width: 30px;
+            height: 30px;
+            background: #28a745;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .workflow-diagram {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 2px solid #dee2e6;
+        }
+        .workflow-step {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        .workflow-arrow {
+            color: #28a745;
+            font-size: 1.5em;
+            margin: 0 10px;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-header {
+            background: #28a745;
+            color: white;
+            padding: 8px 15px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 8px 8px 0 0;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .form-example {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 5px solid #28a745;
+        }
+        .database-schema {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #28a745;
+        }
+        .navigation {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #dee2e6;
+            text-align: center;
+        }
+        .nav-button {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 0 10px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            background: #20c997;
+            transform: translateY(-2px);
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);
+        }
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .feature-item {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #28a745;
+        }
+        .validation-rules {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Chapter 7: Employee Management</h1>
+            <div class="chapter-info">Comprehensive Employee Lifecycle Management System</div>
+        </div>
+
+        <h2>7.1 Employee Management Overview</h2>
+        
+        <div class="feature-overview">
+            <h3>Complete Employee Lifecycle Management</h3>
+            <p>The Employee Management module provides comprehensive functionality for managing the entire employee lifecycle, from recruitment and onboarding through performance management and offboarding. This system ensures efficient HR operations while maintaining detailed employee records and supporting organizational growth.</p>
+        </div>
+
+        <p>The Employee Management system is designed to handle all aspects of human resource management within the CRM platform. It provides role-based access to employee information, streamlined processes for common HR tasks, and comprehensive reporting capabilities that support strategic decision-making.</p>
+
+        <h2>7.2 Core Functionality</h2>
+
+        <div class="functionality-grid">
+            <div class="function-card">
+                <h4><span class="function-icon">+</span>Employee Registration</h4>
+                <p>Comprehensive employee onboarding process with detailed information collection and validation.</p>
+                <ul>
+                    <li>Personal information management</li>
+                    <li>Contact details and emergency contacts</li>
+                    <li>Employment history and qualifications</li>
+                    <li>Document upload and verification</li>
+                    <li>Role assignment and permissions</li>
+                    <li>Department and reporting structure</li>
+                </ul>
+            </div>
+
+            <div class="function-card">
+                <h4><span class="function-icon">✏</span>Employee Profile Updates</h4>
+                <p>Flexible system for updating employee information with proper authorization and audit trails.</p>
+                <ul>
+                    <li>Self-service profile updates</li>
+                    <li>Manager approval workflows</li>
+                    <li>HR verification processes</li>
+                    <li>Change history tracking</li>
+                    <li>Document version control</li>
+                    <li>Notification systems</li>
+                </ul>
+            </div>
+
+            <div class="function-card">
+                <h4><span class="function-icon">🗂</span>Employee Directory</h4>
+                <p>Searchable employee directory with advanced filtering and organizational chart integration.</p>
+                <ul>
+                    <li>Advanced search capabilities</li>
+                    <li>Department-wise filtering</li>
+                    <li>Role-based visibility controls</li>
+                    <li>Contact information access</li>
+                    <li>Organizational hierarchy view</li>
+                    <li>Export functionality</li>
+                </ul>
+            </div>
+
+            <div class="function-card">
+                <h4><span class="function-icon">📊</span>Performance Management</h4>
+                <p>Comprehensive performance tracking and evaluation system with goal setting and review cycles.</p>
+                <ul>
+                    <li>Goal setting and tracking</li>
+                    <li>Performance review cycles</li>
+                    <li>360-degree feedback</li>
+                    <li>Skill assessment</li>
+                    <li>Career development planning</li>
+                    <li>Performance analytics</li>
+                </ul>
+            </div>
+
+            <div class="function-card">
+                <h4><span class="function-icon">🎓</span>Training Management</h4>
+                <p>Training program management with course assignments, progress tracking, and certification management.</p>
+                <ul>
+                    <li>Training program catalog</li>
+                    <li>Course assignments</li>
+                    <li>Progress tracking</li>
+                    <li>Certification management</li>
+                    <li>Skill development paths</li>
+                    <li>Training analytics</li>
+                </ul>
+            </div>
+
+            <div class="function-card">
+                <h4><span class="function-icon">🔄</span>Employee Lifecycle</h4>
+                <p>Complete lifecycle management from onboarding through offboarding with automated workflows.</p>
+                <ul>
+                    <li>Onboarding checklists</li>
+                    <li>Probation period tracking</li>
+                    <li>Contract renewals</li>
+                    <li>Transfer processes</li>
+                    <li>Promotion workflows</li>
+                    <li>Offboarding procedures</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>7.3 Employee Registration Process</h2>
+
+        <div class="workflow-diagram">
+            <h3>Employee Onboarding Workflow</h3>
+            <div style="text-align: center; margin: 20px 0;">
+                <div class="workflow-step">Application Received</div>
+                <span class="workflow-arrow">→</span>
+                <div class="workflow-step">Initial Screening</div>
+                <span class="workflow-arrow">→</span>
+                <div class="workflow-step">Interview Process</div>
+                <span class="workflow-arrow">→</span>
+                <div class="workflow-step">Background Check</div>
+                <span class="workflow-arrow">→</span>
+                <div class="workflow-step">Offer Extended</div>
+            </div>
+            <div style="text-align: center; margin: 20px 0;">
+                <div class="workflow-step">Offer Accepted</div>
+                <span class="workflow-arrow">→</span>
+                <div class="workflow-step">System Registration</div>
+                <span class="workflow-arrow">→</span>
+                <div class="workflow-step">Document Collection</div>
+                <span class="workflow-arrow">→</span>
+                <div class="workflow-step">Orientation</div>
+                <span class="workflow-arrow">→</span>
+                <div class="workflow-step">Active Employee</div>
+            </div>
+        </div>
+
+        <h3>7.3.1 Registration Form Implementation</h3>
+        <div class="form-example">
+            <h4>Employee Registration Form Fields</h4>
+            <div class="feature-list">
+                <div class="feature-item"><strong>Personal Information:</strong> Name, DOB, Gender, Marital Status</div>
+                <div class="feature-item"><strong>Contact Details:</strong> Phone, Email, Address, Emergency Contact</div>
+                <div class="feature-item"><strong>Employment Info:</strong> Employee ID, Department, Position, Start Date</div>
+                <div class="feature-item"><strong>Compensation:</strong> Salary, Benefits, Payment Method</div>
+                <div class="feature-item"><strong>Documents:</strong> Resume, ID Proof, Address Proof, Certificates</div>
+                <div class="feature-item"><strong>System Access:</strong> Username, Role Assignment, Permissions</div>
+            </div>
+        </div>
+
+        <div class="code-block">
+            <div class="code-header">Employee Registration PHP Implementation</div>
+            <pre><code><?php
+// Employee Registration Handler
+require_once 'config.php';
+require_once 'auth.php';
+
+class EmployeeManager {
+    private $conn;
+    
+    public function __construct() {
+        global $conn;
+        $this->conn = $conn;
+    }
+    
+    public function registerEmployee($employeeData) {
+        try {
+            // Begin transaction
+            $this->conn->begin_transaction();
+            
+            // Validate input data
+            $validationResult = $this->validateEmployeeData($employeeData);
+            if (!$validationResult['valid']) {
+                throw new Exception($validationResult['message']);
+            }
+            
+            // Insert employee record
+            $employeeId = $this->insertEmployeeRecord($employeeData);
+            
+            // Create user account
+            $userId = $this->createUserAccount($employeeData, $employeeId);
+            
+            // Set up initial permissions
+            $this->setupEmployeePermissions($userId, $employeeData['role_id']);
+            
+            // Create employee profile
+            $this->createEmployeeProfile($employeeId, $employeeData);
+            
+            // Log the registration
+            $this->logEmployeeRegistration($employeeId, $_SESSION['user_id']);
+            
+            // Commit transaction
+            $this->conn->commit();
+            
+            return [
+                'success' => true,
+                'employee_id' => $employeeId,
+                'user_id' => $userId,
+                'message' => 'Employee registered successfully'
+            ];
+            
+        } catch (Exception $e) {
+            // Rollback transaction
+            $this->conn->rollback();
+            
+            return [
+                'success' => false,
+                'message' => 'Registration failed: ' . $e->getMessage()
+            ];
+        }
+    }
+    
+    private function validateEmployeeData($data) {
+        $required_fields = [
+            'first_name', 'last_name', 'email', 'phone',
+            'department', 'position', 'start_date', 'role_id'
+        ];
+        
+        foreach ($required_fields as $field) {
+            if (empty($data[$field])) {
+                return [
+                    'valid' => false,
+                    'message' => "Required field missing: {$field}"
+                ];
+            }
+        }
+        
+        // Validate email format
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            return [
+                'valid' => false,
+                'message' => 'Invalid email format'
+            ];
+        }
+        
+        // Check for duplicate email
+        if ($this->emailExists($data['email'])) {
+            return [
+                'valid' => false,
+                'message' => 'Email already exists in system'
+            ];
+        }
+        
+        return ['valid' => true];
+    }
+    
+    private function insertEmployeeRecord($data) {
+        $stmt = $this->conn->prepare("
+            INSERT INTO employees (
+                employee_id, first_name, last_name, email, phone,
+                department, position, start_date, salary, status,
+                created_by, created_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', ?, NOW())
+        ");
+        
+        $employee_id = $this->generateEmployeeId($data['department']);
+        
+        $stmt->bind_param(
+            'ssssssssdi',
+            $employee_id,
+            $data['first_name'],
+            $data['last_name'],
+            $data['email'],
+            $data['phone'],
+            $data['department'],
+            $data['position'],
+            $data['start_date'],
+            $data['salary'],
+            $_SESSION['user_id']
+        );
+        
+        $stmt->execute();
+        return $this->conn->insert_id;
+    }
+    
+    private function createUserAccount($data, $employeeId) {
+        // Generate username
+        $username = strtolower($data['first_name'] . '.' . $data['last_name']);
+        $username = $this->ensureUniqueUsername($username);
+        
+        // Generate temporary password
+        $temp_password = $this->generateTempPassword();
+        $password_hash = password_hash($temp_password, PASSWORD_DEFAULT);
+        
+        $stmt = $this->conn->prepare("
+            INSERT INTO users (
+                username, password_hash, email, role_id,
+                employee_id, status, created_at
+            ) VALUES (?, ?, ?, ?, ?, 'active', NOW())
+        ");
+        
+        $stmt->bind_param(
+            'sssii',
+            $username,
+            $password_hash,
+            $data['email'],
+            $data['role_id'],
+            $employeeId
+        );
+        
+        $stmt->execute();
+        
+        // Send welcome email with credentials
+        $this->sendWelcomeEmail($data['email'], $username, $temp_password);
+        
+        return $this->conn->insert_id;
+    }
+    
+    private function generateEmployeeId($department) {
+        $dept_code = strtoupper(substr($department, 0, 3));
+        $year = date('Y');
+        
+        // Get next sequence number
+        $stmt = $this->conn->prepare("
+            SELECT MAX(CAST(SUBSTRING(employee_id, -4) AS UNSIGNED)) as max_seq
+            FROM employees 
+            WHERE employee_id LIKE ?
+        ");
+        
+        $pattern = $dept_code . $year . '%';
+        $stmt->bind_param('s', $pattern);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        
+        $next_seq = ($row['max_seq'] ?? 0) + 1;
+        
+        return $dept_code . $year . str_pad($next_seq, 4, '0', STR_PAD_LEFT);
+    }
+}
+
+// Usage example
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $employeeManager = new EmployeeManager();
+    $result = $employeeManager->registerEmployee($_POST);
+    
+    header('Content-Type: application/json');
+    echo json_encode($result);
+}
+?></code></pre>
+        </div>
+
+        <h2>7.4 Database Schema</h2>
+
+        <div class="database-schema">
+            <h3>Employee Management Database Structure</h3>
+            <div class="code-block">
+                <div class="code-header">Employee Tables Schema</div>
+                <pre><code>-- Main employees table
+CREATE TABLE employees (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    employee_id VARCHAR(20) UNIQUE NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(20),
+    date_of_birth DATE,
+    gender ENUM('Male', 'Female', 'Other'),
+    marital_status ENUM('Single', 'Married', 'Divorced', 'Widowed'),
+    address TEXT,
+    emergency_contact_name VARCHAR(100),
+    emergency_contact_phone VARCHAR(20),
+    department VARCHAR(50) NOT NULL,
+    position VARCHAR(100) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NULL,
+    salary DECIMAL(10,2),
+    status ENUM('active', 'inactive', 'terminated') DEFAULT 'active',
+    manager_id INT,
+    created_by INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (manager_id) REFERENCES employees(id),
+    FOREIGN KEY (created_by) REFERENCES users(id),
+    INDEX idx_employee_id (employee_id),
+    INDEX idx_department (department),
+    INDEX idx_status (status),
+    INDEX idx_manager (manager_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Employee documents table
+CREATE TABLE employee_documents (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    employee_id INT NOT NULL,
+    document_type VARCHAR(50) NOT NULL,
+    document_name VARCHAR(255) NOT NULL,
+    file_path VARCHAR(500) NOT NULL,
+    file_size INT,
+    mime_type VARCHAR(100),
+    uploaded_by INT,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE,
+    FOREIGN KEY (uploaded_by) REFERENCES users(id),
+    INDEX idx_employee_docs (employee_id),
+    INDEX idx_doc_type (document_type)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Employee performance table
+CREATE TABLE employee_performance (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    employee_id INT NOT NULL,
+    review_period VARCHAR(20) NOT NULL,
+    reviewer_id INT NOT NULL,
+    overall_rating DECIMAL(3,2),
+    goals_achievement DECIMAL(3,2),
+    technical_skills DECIMAL(3,2),
+    communication_skills DECIMAL(3,2),
+    teamwork DECIMAL(3,2),
+    leadership DECIMAL(3,2),
+    comments TEXT,
+    improvement_areas TEXT,
+    goals_next_period TEXT,
+    review_date DATE,
+    status ENUM('draft', 'submitted', 'approved') DEFAULT 'draft',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE,
+    FOREIGN KEY (reviewer_id) REFERENCES employees(id),
+    INDEX idx_employee_perf (employee_id),
+    INDEX idx_review_period (review_period),
+    INDEX idx_reviewer (reviewer_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Employee training table
+CREATE TABLE employee_training (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    employee_id INT NOT NULL,
+    training_program VARCHAR(255) NOT NULL,
+    training_provider VARCHAR(255),
+    start_date DATE,
+    end_date DATE,
+    completion_status ENUM('enrolled', 'in_progress', 'completed', 'cancelled') DEFAULT 'enrolled',
+    completion_date DATE,
+    certificate_path VARCHAR(500),
+    cost DECIMAL(10,2),
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE,
+    INDEX idx_employee_training (employee_id),
+    INDEX idx_training_status (completion_status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;</code></pre>
+            </div>
+        </div>
+
+        <h2>7.5 Employee Update Operations</h2>
+
+        <h3>7.5.1 Profile Update Workflow</h3>
+        <div class="validation-rules">
+            <h4>Update Validation Rules</h4>
+            <ul>
+                <li><strong>Self-Service Updates:</strong> Employees can update personal contact information</li>
+                <li><strong>Manager Approval:</strong> Department transfers require manager approval</li>
+                <li><strong>HR Verification:</strong> Salary changes require HR department verification</li>
+                <li><strong>System Administrator:</strong> Role changes require system administrator approval</li>
+                <li><strong>Audit Trail:</strong> All changes are logged with timestamp and user information</li>
+            </ul>
+        </div>
+
+        <div class="code-block">
+            <div class="code-header">Employee Update Implementation</div>
+            <pre><code>public function updateEmployee($employeeId, $updateData, $updatedBy) {
+    try {
+        // Check permissions
+        if (!$this->canUpdateEmployee($employeeId, $updatedBy)) {
+            throw new Exception('Insufficient permissions to update employee');
+        }
+        
+        // Validate update data
+        $validationResult = $this->validateUpdateData($updateData);
+        if (!$validationResult['valid']) {
+            throw new Exception($validationResult['message']);
+        }
+        
+        // Begin transaction
+        $this->conn->begin_transaction();
+        
+        // Get current employee data for audit
+        $currentData = $this->getEmployeeData($employeeId);
+        
+        // Prepare update query
+        $updateFields = [];
+        $updateValues = [];
+        $types = '';
+        
+        foreach ($updateData as $field => $value) {
+            if ($this->isUpdatableField($field)) {
+                $updateFields[] = "{$field} = ?";
+                $updateValues[] = $value;
+                $types .= $this->getFieldType($field);
+            }
+        }
+        
+        if (empty($updateFields)) {
+            throw new Exception('No valid fields to update');
+        }
+        
+        // Add updated timestamp and user
+        $updateFields[] = 'updated_at = NOW()';
+        $updateFields[] = 'updated_by = ?';
+        $updateValues[] = $updatedBy;
+        $types .= 'i';
+        
+        // Execute update
+        $sql = "UPDATE employees SET " . implode(', ', $updateFields) . " WHERE id = ?";
+        $updateValues[] = $employeeId;
+        $types .= 'i';
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param($types, ...$updateValues);
+        $stmt->execute();
+        
+        // Log the changes
+        $this->logEmployeeChanges($employeeId, $currentData, $updateData, $updatedBy);
+        
+        // Send notifications if required
+        $this->sendUpdateNotifications($employeeId, $updateData);
+        
+        $this->conn->commit();
+        
+        return [
+            'success' => true,
+            'message' => 'Employee updated successfully'
+        ];
+        
+    } catch (Exception $e) {
+        $this->conn->rollback();
+        
+        return [
+            'success' => false,
+            'message' => 'Update failed: ' . $e->getMessage()
+        ];
+    }
+}</code></pre>
+        </div>
+
+        <h2>7.6 Employee Directory and Search</h2>
+
+        <h3>7.6.1 Advanced Search Functionality</h3>
+        <div class="feature-list">
+            <div class="feature-item"><strong>Name Search:</strong> First name, last name, or full name matching</div>
+            <div class="feature-item"><strong>Department Filter:</strong> Filter by specific departments or multiple departments</div>
+            <div class="feature-item"><strong>Position Filter:</strong> Search by job titles or position levels</div>
+            <div class="feature-item"><strong>Status Filter:</strong> Active, inactive, or terminated employees</div>
+            <div class="feature-item"><strong>Date Range:</strong> Filter by hire date, termination date, or other date fields</div>
+            <div class="feature-item"><strong>Manager Filter:</strong> Find employees under specific managers</div>
+        </div>
+
+        <div class="code-block">
+            <div class="code-header">Employee Search Implementation</div>
+            <pre><code>public function searchEmployees($searchCriteria, $userRole, $userId) {
+    try {
+        // Build base query with role-based access control
+        $sql = "SELECT e.*, u.username, m.first_name as manager_first_name, 
+                       m.last_name as manager_last_name
+                FROM employees e
+                LEFT JOIN users u ON e.id = u.employee_id
+                LEFT JOIN employees m ON e.manager_id = m.id
+                WHERE 1=1";
+        
+        $params = [];
+        $types = '';
+        
+        // Apply role-based filtering
+        if ($userRole !== 'super_admin' && $userRole !== 'hr_admin') {
+            // Regular users can only see employees in their department
+            $sql .= " AND e.department = (
+                SELECT department FROM employees WHERE id = 
+                (SELECT employee_id FROM users WHERE id = ?)
+            )";
+            $params[] = $userId;
+            $types .= 'i';
+        }
+        
+        // Apply search filters
+        if (!empty($searchCriteria['name'])) {
+            $sql .= " AND (e.first_name LIKE ? OR e.last_name LIKE ? 
+                          OR CONCAT(e.first_name, ' ', e.last_name) LIKE ?)";
+            $namePattern = '%' . $searchCriteria['name'] . '%';
+            $params[] = $namePattern;
+            $params[] = $namePattern;
+            $params[] = $namePattern;
+            $types .= 'sss';
+        }
+        
+        if (!empty($searchCriteria['department'])) {
+            $sql .= " AND e.department = ?";
+            $params[] = $searchCriteria['department'];
+            $types .= 's';
+        }
+        
+        if (!empty($searchCriteria['position'])) {
+            $sql .= " AND e.position LIKE ?";
+            $params[] = '%' . $searchCriteria['position'] . '%';
+            $types .= 's';
+        }
+        
+        if (!empty($searchCriteria['status'])) {
+            $sql .= " AND e.status = ?";
+            $params[] = $searchCriteria['status'];
+            $types .= 's';
+        }
+        
+        // Add ordering
+        $sql .= " ORDER BY e.first_name, e.last_name";
+        
+        // Add pagination
+        if (isset($searchCriteria['limit']) && isset($searchCriteria['offset'])) {
+            $sql .= " LIMIT ? OFFSET ?";
+            $params[] = (int)$searchCriteria['limit'];
+            $params[] = (int)$searchCriteria['offset'];
+            $types .= 'ii';
+        }
+        
+        $stmt = $this->conn->prepare($sql);
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+        $stmt->execute();
+        
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        
+    } catch (Exception $e) {
+        error_log("Employee search error: " . $e->getMessage());
+        return [];
+    }
+}</code></pre>
+        </div>
+
+        <h2>7.7 Employee Deletion and Deactivation</h2>
+
+        <div class="highlight-box">
+            <h3>Employee Termination Process</h3>
+            <p>The system provides comprehensive employee termination workflows that ensure proper documentation, asset recovery, and system access management while maintaining data integrity for historical records and compliance requirements.</p>
+        </div>
+
+        <h3>7.7.1 Soft Delete vs Hard Delete</h3>
+        <div class="feature-list">
+            <div class="feature-item"><strong>Soft Delete (Recommended):</strong> Employee marked as inactive, data preserved for historical records</div>
+            <div class="feature-item"><strong>Hard Delete:</strong> Complete removal from system, used only in exceptional circumstances</div>
+            <div class="feature-item"><strong>Archive Process:</strong> Move terminated employees to archive tables after retention period</div>
+            <div class="feature-item"><strong>Compliance:</strong> Maintain records as required by labor laws and regulations</div>
+        </div>
+
+        <div class="code-block">
+            <div class="code-header">Employee Termination Implementation</div>
+            <pre><code>public function terminateEmployee($employeeId, $terminationData, $terminatedBy) {
+    try {
+        // Validate termination request
+        if (!$this->canTerminateEmployee($employeeId, $terminatedBy)) {
+            throw new Exception('Insufficient permissions to terminate employee');
+        }
+        
+        // Begin transaction
+        $this->conn->begin_transaction();
+        
+        // Get employee data
+        $employee = $this->getEmployeeData($employeeId);
+        if (!$employee) {
+            throw new Exception('Employee not found');
+        }
+        
+        // Update employee status
+        $stmt = $this->conn->prepare("
+            UPDATE employees 
+            SET status = 'terminated',
+                end_date = ?,
+                termination_reason = ?,
+                termination_notes = ?,
+                terminated_by = ?,
+                updated_at = NOW()
+            WHERE id = ?
+        ");
+        
+        $stmt->bind_param(
+            'sssii',
+            $terminationData['end_date'],
+            $terminationData['reason'],
+            $terminationData['notes'],
+            $terminatedBy,
+            $employeeId
+        );
+        $stmt->execute();
+        
+        // Deactivate user account
+        $this->deactivateUserAccount($employeeId);
+        
+        // Revoke system permissions
+        $this->revokeAllPermissions($employeeId);
+        
+        // Create termination record
+        $this->createTerminationRecord($employeeId, $terminationData, $terminatedBy);
+        
+        // Initiate asset recovery process
+        $this->initiateAssetRecovery($employeeId);
+        
+        // Send notifications
+        $this->sendTerminationNotifications($employeeId, $terminationData);
+        
+        // Log the termination
+        $this->logEmployeeTermination($employeeId, $terminatedBy);
+        
+        $this->conn->commit();
+        
+        return [
+            'success' => true,
+            'message' => 'Employee terminated successfully'
+        ];
+        
+    } catch (Exception $e) {
+        $this->conn->rollback();
+        
+        return [
+            'success' => false,
+            'message' => 'Termination failed: ' . $e->getMessage()
+        ];
+    }
+}
+
+private function createTerminationRecord($employeeId, $terminationData, $terminatedBy) {
+    $stmt = $this->conn->prepare("
+        INSERT INTO employee_terminations (
+            employee_id, termination_date, reason, notes,
+            final_pay_amount, benefits_continuation,
+            asset_return_status, terminated_by, created_at
+        ) VALUES (?, ?, ?, ?, ?, ?, 'pending', ?, NOW())
+    ");
+    
+    $stmt->bind_param(
+        'isssdsi',
+        $employeeId,
+        $terminationData['end_date'],
+        $terminationData['reason'],
+        $terminationData['notes'],
+        $terminationData['final_pay'] ?? 0,
+        $terminationData['benefits_continuation'] ?? 0,
+        $terminatedBy
+    );
+    
+    $stmt->execute();
+}</code></pre>
+        </div>
+
+        <h2>7.8 Role-Based Access Control</h2>
+
+        <h3>7.8.1 Permission Matrix</h3>
+        <div class="database-schema">
+            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                <thead>
+                    <tr style="background-color: #28a745; color: white;">
+                        <th style="padding: 12px; border: 1px solid #ddd;">Role</th>
+                        <th style="padding: 12px; border: 1px solid #ddd;">View Employees</th>
+                        <th style="padding: 12px; border: 1px solid #ddd;">Add Employees</th>
+                        <th style="padding: 12px; border: 1px solid #ddd;">Edit Employees</th>
+                        <th style="padding: 12px; border: 1px solid #ddd;">Delete Employees</th>
+                        <th style="padding: 12px; border: 1px solid #ddd;">View Salary</th>
+                        <th style="padding: 12px; border: 1px solid #ddd;">Manage Roles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Super Admin</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✓</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✓</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✓</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✓</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✓</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✓</td>
+                    </tr>
+                    <tr style="background-color: #f8f9fa;">
+                        <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">HR Admin</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✓</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✓</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✓</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✓</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✓</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">Limited</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Department Manager</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">Dept Only</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✗</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">Limited</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✗</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✗</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✗</td>
+                    </tr>
+                    <tr style="background-color: #f8f9fa;">
+                        <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold;">Regular Employee</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">Directory Only</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✗</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">Self Only</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✗</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✗</td>
+                        <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✗</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>7.9 Reporting and Analytics</h2>
+
+        <h3>7.9.1 Employee Reports</h3>
+        <div class="functionality-grid">
+            <div class="function-card">
+                <h4><span class="function-icon">📊</span>Headcount Reports</h4>
+                <ul>
+                    <li>Total employee count by department</li>
+                    <li>New hires vs terminations</li>
+                    <li>Employee growth trends</li>
+                    <li>Turnover rate analysis</li>
+                </ul>
+            </div>
+
+            <div class="function-card">
+                <h4><span class="function-icon">📈</span>Performance Analytics</h4>
+                <ul>
+                    <li>Performance rating distributions</li>
+                    <li>Goal achievement rates</li>
+                    <li>Training completion rates</li>
+                    <li>Career progression tracking</li>
+                </ul>
+            </div>
+
+            <div class="function-card">
+                <h4><span class="function-icon">💰</span>Compensation Analysis</h4>
+                <ul>
+                    <li>Salary distribution by department</li>
+                    <li>Pay equity analysis</li>
+                    <li>Compensation benchmarking</li>
+                    <li>Benefits utilization</li>
+                </ul>
+            </div>
+
+            <div class="function-card">
+                <h4><span class="function-icon">📅</span>Compliance Reports</h4>
+                <ul>
+                    <li>Equal opportunity reporting</li>
+                    <li>Training compliance status</li>
+                    <li>Document expiration tracking</li>
+                    <li>Audit trail reports</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>7.10 Integration and API</h2>
+
+        <h3>7.10.1 REST API Endpoints</h3>
+        <div class="code-block">
+            <div class="code-header">Employee Management API Endpoints</div>
+            <pre><code>// Employee CRUD Operations
+GET    /api/employees              // List all employees (with pagination)
+GET    /api/employees/{id}         // Get specific employee
+POST   /api/employees              // Create new employee
+PUT    /api/employees/{id}         // Update employee
+DELETE /api/employees/{id}         // Delete/terminate employee
+
+// Employee Search and Filtering
+GET    /api/employees/search       // Search employees with filters
+GET    /api/employees/department/{dept}  // Get employees by department
+GET    /api/employees/manager/{id} // Get employees under manager
+
+// Employee Documents
+GET    /api/employees/{id}/documents     // Get employee documents
+POST   /api/employees/{id}/documents     // Upload document
+DELETE /api/employees/{id}/documents/{docId}  // Delete document
+
+// Performance Management
+GET    /api/employees/{id}/performance   // Get performance records
+POST   /api/employees/{id}/performance   // Add performance review
+PUT    /api/employees/{id}/performance/{reviewId}  // Update review
+
+// Training Management
+GET    /api/employees/{id}/training      // Get training records
+POST   /api/employees/{id}/training      // Assign training
+PUT    /api/employees/{id}/training/{trainingId}  // Update training status
+
+// Reporting
+GET    /api/reports/headcount            // Headcount reports
+GET    /api/reports/turnover             // Turnover analysis
+GET    /api/reports/performance          // Performance analytics
+GET    /api/reports/compliance           // Compliance reports</code></pre>
+        </div>
+
+        <h3>7.10.2 API Authentication and Security</h3>
+        <div class="validation-rules">
+            <h4>API Security Measures</h4>
+            <ul>
+                <li><strong>JWT Authentication:</strong> All API requests require valid JWT tokens</li>
+                <li><strong>Role-Based Access:</strong> Endpoints respect user role permissions</li>
+                <li><strong>Rate Limiting:</strong> API calls are rate-limited to prevent abuse</li>
+                <li><strong>Input Validation:</strong> All input data is validated and sanitized</li>
+                <li><strong>Audit Logging:</strong> All API operations are logged for security auditing</li>
+                <li><strong>HTTPS Only:</strong> All API communications must use HTTPS</li>
+            </ul>
+        </div>
+
+        <h2>7.11 Best Practices and Security</h2>
+
+        <h3>7.11.1 Data Security</h3>
+        <div class="feature-list">
+            <div class="feature-item"><strong>Encryption:</strong> Sensitive data encrypted at rest and in transit</div>
+            <div class="feature-item"><strong>Access Control:</strong> Strict role-based access to employee data</div>
+            <div class="feature-item"><strong>Audit Trails:</strong> Complete logging of all data access and modifications</div>
+            <div class="feature-item"><strong>Data Retention:</strong> Automated data archival and deletion policies</div>
+            <div class="feature-item"><strong>Backup Security:</strong> Encrypted backups with secure storage</div>
+            <div class="feature-item"><strong>Privacy Compliance:</strong> GDPR and other privacy regulation compliance</div>
+        </div>
+
+        <h3>7.11.2 Performance Optimization</h3>
+        <div class="code-block">
+            <div class="code-header">Database Optimization Strategies</div>
+            <pre><code>-- Index optimization for employee queries
+CREATE INDEX idx_employee_search ON employees(first_name, last_name, department, status);
+CREATE INDEX idx_employee_manager ON employees(manager_id, status);
+CREATE INDEX idx_employee_dates ON employees(start_date, end_date);
+
+-- Partitioning for large datasets
+ALTER TABLE employee_performance 
+PARTITION BY RANGE (YEAR(review_date)) (
+    PARTITION p2022 VALUES LESS THAN (2023),
+    PARTITION p2023 VALUES LESS THAN (2024),
+    PARTITION p2024 VALUES LESS THAN (2025),
+    PARTITION p_future VALUES LESS THAN MAXVALUE
+);
+
+-- Query optimization examples
+-- Use covering indexes for common queries
+CREATE INDEX idx_employee_directory ON employees(id, first_name, last_name, department, position, status);
+
+-- Optimize search queries with full-text search
+ALTER TABLE employees ADD FULLTEXT(first_name, last_name, position);
+SELECT * FROM employees WHERE MATCH(first_name, last_name, position) AGAINST('search term' IN BOOLEAN MODE);</code></pre>
+        </div>
+
+        <h2>7.12 Future Enhancements</h2>
+
+        <div class="highlight-box">
+            <h3>Planned Improvements</h3>
+            <ul>
+                <li><strong>AI-Powered Analytics:</strong> Machine learning for performance prediction and retention analysis</li>
+                <li><strong>Mobile Application:</strong> Native mobile app for employee self-service</li>
+                <li><strong>Advanced Workflows:</strong> Configurable approval workflows for various HR processes</li>
+                <li><strong>Integration Hub:</strong> Pre-built integrations with popular HR and payroll systems</li>
+                <li><strong>Employee Portal:</strong> Comprehensive self-service portal with career development tools</li>
+                <li><strong>Advanced Reporting:</strong> Interactive dashboards with real-time analytics</li>
+            </ul>
+        </div>
+
+        <h2>7.13 Conclusion</h2>
+
+        <p>The Employee Management module provides a comprehensive solution for managing the complete employee lifecycle within the CRM system. With robust security measures, flexible role-based access control, and extensive reporting capabilities, it serves as the foundation for effective human resource management.</p>
+
+        <p>The system's modular architecture ensures scalability and maintainability while providing the flexibility to adapt to changing organizational needs. Through careful implementation of best practices and security measures, the Employee Management module supports both operational efficiency and regulatory compliance.</p>
+
+        <div class="navigation">
+            <a href="chapter6.html" class="nav-button">← Previous: User Roles</a>
+            <a href="table_of_contents.html" class="nav-button">📚 Table of Contents</a>
+            <a href="chapter8.html" class="nav-button">Next: Attendance System →</a>
+        </div>
+    </div>
+</body>
+</html>

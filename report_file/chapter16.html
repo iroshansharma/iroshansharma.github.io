@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 16: Login and Security Modules - CRM System Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .content-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 1rem;
+            border-left: 4px solid #ffc107;
+            margin: 1rem 0;
+        }
+        .info-box {
+            background-color: #d1ecf1;
+            padding: 1rem;
+            border-left: 4px solid #17a2b8;
+            margin: 1rem 0;
+        }
+        .warning-box {
+            background-color: #f8d7da;
+            padding: 1rem;
+            border-left: 4px solid #dc3545;
+            margin: 1rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .navigation {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        .nav-button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #0056b3;
+        }
+        .diagram {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        .workflow-step {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 1rem;
+            margin: 0.5rem;
+            border-radius: 8px;
+            display: inline-block;
+            min-width: 150px;
+        }
+        .arrow {
+            font-size: 2rem;
+            color: #666;
+            margin: 0 1rem;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        .security-level {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .level-low { background-color: #f8d7da; color: #721c24; }
+        .level-medium { background-color: #fff3cd; color: #856404; }
+        .level-high { background-color: #d4edda; color: #155724; }
+        .level-critical { background-color: #d1ecf1; color: #0c5460; }
+        .auth-flow {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .login-form {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 1rem 0;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Chapter 16: Login and Security Modules</h1>
+        <p>Comprehensive Authentication, Authorization, and Security Framework</p>
+    </div>
+
+    <div class="content-section">
+        <h2>16.1 Security Framework Overview</h2>
+        <p>The Login and Security Modules provide a comprehensive security framework that protects the CRM system through multi-layered authentication, authorization, and security controls. This system ensures data protection, user privacy, and compliance with security standards.</p>
+
+        <h3>16.1.1 Security Architecture Components</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Authentication System</h4>
+                <p>Multi-factor authentication with password policies, session management, and secure login processes.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Authorization Framework</h4>
+                <p>Role-based access control (RBAC) with granular permissions and resource-level security.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Security Monitoring</h4>
+                <p>Real-time threat detection, audit logging, and security event monitoring.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Data Protection</h4>
+                <p>Encryption, data masking, and secure data handling throughout the application.</p>
+            </div>
+        </div>
+
+        <h3>16.1.2 Security Layers</h3>
+        <div class="diagram">
+            <div class="workflow-step">Network Security</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Application Security</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Authentication</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Authorization</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Data Security</div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>16.2 Authentication System</h2>
+        <p>The authentication system provides secure user login with multiple authentication methods and comprehensive session management.</p>
+
+        <h3>16.2.1 Login Process Flow</h3>
+        <div class="auth-flow">
+            <h4>Standard Login Flow</h4>
+            <div class="code-block">
+// Authentication Flow Implementation
+class AuthenticationManager {
+    constructor() {
+        this.maxLoginAttempts = 5;
+        this.lockoutDuration = 900000; // 15 minutes
+        this.sessionTimeout = 3600000; // 1 hour
+        this.passwordPolicy = {
+            minLength: 8,
+            requireUppercase: true,
+            requireLowercase: true,
+            requireNumbers: true,
+            requireSpecialChars: true,
+            preventReuse: 5 // Last 5 passwords
+        };
+    }
+    
+    // Main login function
+    async authenticateUser(credentials) {
+        const { username, password, rememberMe, captcha } = credentials;
+        
+        try {
+            // Step 1: Input validation
+            this.validateLoginInput(username, password);
+            
+            // Step 2: Check account lockout
+            await this.checkAccountLockout(username);
+            
+            // Step 3: Verify CAPTCHA if required
+            if (await this.requiresCaptcha(username)) {
+                await this.verifyCaptcha(captcha);
+            }
+            
+            // Step 4: Authenticate credentials
+            const user = await this.verifyCredentials(username, password);
+            
+            // Step 5: Check account status
+            this.checkAccountStatus(user);
+            
+            // Step 6: Two-factor authentication if enabled
+            if (user.two_factor_enabled) {
+                return await this.initiateTwoFactorAuth(user);
+            }
+            
+            // Step 7: Create session
+            const session = await this.createUserSession(user, rememberMe);
+            
+            // Step 8: Log successful login
+            await this.logSecurityEvent('login_success', {
+                user_id: user.id,
+                username: username,
+                ip_address: this.getClientIP(),
+                user_agent: this.getUserAgent(),
+                session_id: session.id
+            });
+            
+            // Step 9: Reset failed attempts
+            await this.resetFailedAttempts(username);
+            
+            return {
+                success: true,
+                user: this.sanitizeUserData(user),
+                session: session,
+                redirect_url: this.getDashboardURL(user.role_id)
+            };
+            
+        } catch (error) {
+            // Handle authentication failure
+            await this.handleAuthenticationFailure(username, error);
+            throw error;
+        }
+    }
+    
+    // Verify user credentials
+    async verifyCredentials(username, password) {
+        const user = await this.getUserByUsername(username);
+        
+        if (!user) {
+            throw new AuthenticationError('Invalid credentials');
+        }
+        
+        // Verify password hash
+        const isValidPassword = await this.verifyPasswordHash(password, user.password_hash);
+        
+        if (!isValidPassword) {
+            throw new AuthenticationError('Invalid credentials');
+        }
+        
+        return user;
+    }
+    
+    // Create secure user session
+    async createUserSession(user, rememberMe = false) {
+        const sessionData = {
+            id: this.generateSecureSessionId(),
+            user_id: user.id,
+            username: user.username,
+            role_id: user.role_id,
+            department: user.department,
+            ip_address: this.getClientIP(),
+            user_agent: this.getUserAgent(),
+            created_at: new Date(),
+            expires_at: new Date(Date.now() + (rememberMe ? 2592000000 : this.sessionTimeout)), // 30 days or 1 hour
+            is_active: true,
+            last_activity: new Date()
+        };
+        
+        // Store session in database
+        await this.storeSession(sessionData);
+        
+        // Set secure session cookie
+        this.setSessionCookie(sessionData.id, rememberMe);
+        
+        return sessionData;
+    }
+    
+    // Handle failed authentication attempts
+    async handleAuthenticationFailure(username, error) {
+        const failedAttempt = {
+            username: username,
+            ip_address: this.getClientIP(),
+            user_agent: this.getUserAgent(),
+            failure_reason: error.message,
+            timestamp: new Date()
+        };
+        
+        // Record failed attempt
+        await this.recordFailedAttempt(failedAttempt);
+        
+        // Check if account should be locked
+        const attemptCount = await this.getFailedAttemptCount(username);
+        
+        if (attemptCount >= this.maxLoginAttempts) {
+            await this.lockAccount(username, this.lockoutDuration);
+            
+            // Send security alert
+            await this.sendSecurityAlert('account_locked', {
+                username: username,
+                ip_address: this.getClientIP(),
+                attempt_count: attemptCount
+            });
+        }
+        
+        // Log security event
+        await this.logSecurityEvent('login_failure', failedAttempt);
+    }
+}
+            </div>
+        </div>
+
+        <h3>16.2.2 Multi-Factor Authentication (MFA)</h3>
+        <div class="code-block">
+// Two-Factor Authentication Implementation
+class TwoFactorAuthManager {
+    constructor() {
+        this.totpWindow = 30; // 30 seconds
+        this.backupCodesCount = 10;
+        this.smsProvider = new SMSProvider();
+        this.emailProvider = new EmailProvider();
+    }
+    
+    // Enable 2FA for user
+    async enableTwoFactorAuth(userId, method = 'totp') {
+        const user = await this.getUserById(userId);
+        
+        switch (method) {
+            case 'totp':
+                return await this.setupTOTP(user);
+            case 'sms':
+                return await this.setupSMS(user);
+            case 'email':
+                return await this.setupEmail(user);
+            default:
+                throw new Error('Unsupported 2FA method');
+        }
+    }
+    
+    // Setup TOTP (Time-based One-Time Password)
+    async setupTOTP(user) {
+        const secret = this.generateTOTPSecret();
+        const qrCode = await this.generateQRCode(user, secret);
+        
+        // Store secret temporarily (not activated until verified)
+        await this.storeTempTOTPSecret(user.id, secret);
+        
+        return {
+            method: 'totp',
+            secret: secret,
+            qr_code: qrCode,
+            backup_codes: await this.generateBackupCodes(user.id),
+            setup_instructions: this.getTOTPInstructions()
+        };
+    }
+    
+    // Verify 2FA setup
+    async verifyTwoFactorSetup(userId, verificationCode, method) {
+        const user = await this.getUserById(userId);
+        
+        let isValid = false;
+        
+        switch (method) {
+            case 'totp':
+                const tempSecret = await this.getTempTOTPSecret(userId);
+                isValid = this.verifyTOTPCode(tempSecret, verificationCode);
+                if (isValid) {
+                    await this.activateTOTP(userId, tempSecret);
+                }
+                break;
+                
+            case 'sms':
+                isValid = await this.verifySMSCode(userId, verificationCode);
+                if (isValid) {
+                    await this.activateSMS(userId);
+                }
+                break;
+                
+            case 'email':
+                isValid = await this.verifyEmailCode(userId, verificationCode);
+                if (isValid) {
+                    await this.activateEmail(userId);
+                }
+                break;
+        }
+        
+        if (isValid) {
+            await this.updateUserTwoFactorStatus(userId, true, method);
+            await this.logSecurityEvent('2fa_enabled', { user_id: userId, method: method });
+        }
+        
+        return { success: isValid };
+    }
+    
+    // Verify 2FA during login
+    async verifyTwoFactorLogin(userId, code, method) {
+        const user = await this.getUserById(userId);
+        
+        if (!user.two_factor_enabled) {
+            throw new Error('2FA not enabled for this user');
+        }
+        
+        let isValid = false;
+        
+        switch (method) {
+            case 'totp':
+                isValid = this.verifyTOTPCode(user.totp_secret, code);
+                break;
+                
+            case 'sms':
+                isValid = await this.verifySMSCode(userId, code);
+                break;
+                
+            case 'email':
+                isValid = await this.verifyEmailCode(userId, code);
+                break;
+                
+            case 'backup':
+                isValid = await this.verifyBackupCode(userId, code);
+                break;
+        }
+        
+        if (isValid) {
+            await this.logSecurityEvent('2fa_success', { 
+                user_id: userId, 
+                method: method,
+                ip_address: this.getClientIP()
+            });
+        } else {
+            await this.logSecurityEvent('2fa_failure', { 
+                user_id: userId, 
+                method: method,
+                ip_address: this.getClientIP()
+            });
+        }
+        
+        return { success: isValid };
+    }
+    
+    // Generate TOTP code
+    verifyTOTPCode(secret, userCode) {
+        const window = Math.floor(Date.now() / 1000 / this.totpWindow);
+        
+        // Check current window and adjacent windows for clock skew
+        for (let i = -1; i <= 1; i++) {
+            const expectedCode = this.generateTOTPForWindow(secret, window + i);
+            if (expectedCode === userCode) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    // Generate backup codes
+    async generateBackupCodes(userId) {
+        const codes = [];
+        
+        for (let i = 0; i < this.backupCodesCount; i++) {
+            codes.push(this.generateSecureCode(8));
+        }
+        
+        // Hash and store backup codes
+        const hashedCodes = await Promise.all(
+            codes.map(code => this.hashBackupCode(code))
+        );
+        
+        await this.storeBackupCodes(userId, hashedCodes);
+        
+        return codes; // Return plain codes for user to save
+    }
+}
+        </div>
+
+        <h3>16.2.3 Session Management</h3>
+        <div class="info-box">
+            <strong>Secure Session Handling:</strong> The system implements secure session management with automatic timeout, concurrent session limits, and secure cookie handling. Sessions are stored server-side with encrypted tokens and regular validation.
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>16.3 Role-Based Access Control (RBAC)</h2>
+        <p>The authorization system implements a comprehensive role-based access control framework with granular permissions and hierarchical role structures.</p>
+
+        <h3>16.3.1 Role Hierarchy and Permissions</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Level</th>
+                    <th>Access Scope</th>
+                    <th>Key Permissions</th>
+                    <th>Security Level</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Super Admin</td>
+                    <td>1</td>
+                    <td>System-wide</td>
+                    <td>All permissions, system configuration</td>
+                    <td><span class="security-level level-critical">Critical</span></td>
+                </tr>
+                <tr>
+                    <td>Admin</td>
+                    <td>2</td>
+                    <td>Organization-wide</td>
+                    <td>User management, module access</td>
+                    <td><span class="security-level level-high">High</span></td>
+                </tr>
+                <tr>
+                    <td>HR Admin</td>
+                    <td>4</td>
+                    <td>HR modules</td>
+                    <td>Employee data, payroll, attendance</td>
+                    <td><span class="security-level level-high">High</span></td>
+                </tr>
+                <tr>
+                    <td>Site Manager</td>
+                    <td>5</td>
+                    <td>Site operations</td>
+                    <td>Site-specific data and operations</td>
+                    <td><span class="security-level level-medium">Medium</span></td>
+                </tr>
+                <tr>
+                    <td>Accounts</td>
+                    <td>6</td>
+                    <td>Financial modules</td>
+                    <td>Financial data, invoicing, payments</td>
+                    <td><span class="security-level level-high">High</span></td>
+                </tr>
+                <tr>
+                    <td>User</td>
+                    <td>3</td>
+                    <td>Limited access</td>
+                    <td>Basic operations, own data</td>
+                    <td><span class="security-level level-low">Low</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>16.3.2 Permission Management System</h3>
+        <div class="code-block">
+// Role-Based Access Control Implementation
+class RBACManager {
+    constructor() {
+        this.permissions = new Map();
+        this.roles = new Map();
+        this.userRoles = new Map();
+        this.resourcePermissions = new Map();
+    }
+    
+    // Define system permissions
+    initializePermissions() {
+        const systemPermissions = [
+            // User Management
+            { id: 'user.create', name: 'Create Users', category: 'user_management' },
+            { id: 'user.read', name: 'View Users', category: 'user_management' },
+            { id: 'user.update', name: 'Update Users', category: 'user_management' },
+            { id: 'user.delete', name: 'Delete Users', category: 'user_management' },
+            
+            // Employee Management
+            { id: 'employee.create', name: 'Add Employees', category: 'hr' },
+            { id: 'employee.read', name: 'View Employees', category: 'hr' },
+            { id: 'employee.update', name: 'Update Employees', category: 'hr' },
+            { id: 'employee.delete', name: 'Delete Employees', category: 'hr' },
+            
+            // Payroll Management
+            { id: 'payroll.process', name: 'Process Payroll', category: 'hr' },
+            { id: 'payroll.view', name: 'View Payroll', category: 'hr' },
+            { id: 'payroll.reports', name: 'Payroll Reports', category: 'hr' },
+            
+            // Financial Management
+            { id: 'finance.invoices', name: 'Manage Invoices', category: 'finance' },
+            { id: 'finance.payments', name: 'Manage Payments', category: 'finance' },
+            { id: 'finance.reports', name: 'Financial Reports', category: 'finance' },
+            
+            // System Administration
+            { id: 'system.config', name: 'System Configuration', category: 'admin' },
+            { id: 'system.backup', name: 'System Backup', category: 'admin' },
+            { id: 'system.logs', name: 'View System Logs', category: 'admin' }
+        ];
+        
+        systemPermissions.forEach(permission => {
+            this.permissions.set(permission.id, permission);
+        });
+    }
+    
+    // Define roles with permissions
+    initializeRoles() {
+        const systemRoles = [
+            {
+                id: 1,
+                name: 'Super Admin',
+                description: 'Full system access',
+                permissions: Array.from(this.permissions.keys()) // All permissions
+            },
+            {
+                id: 2,
+                name: 'Admin',
+                description: 'Administrative access',
+                permissions: [
+                    'user.create', 'user.read', 'user.update',
+                    'employee.create', 'employee.read', 'employee.update',
+                    'system.logs'
+                ]
+            },
+            {
+                id: 4,
+                name: 'HR Admin',
+                description: 'HR management access',
+                permissions: [
+                    'employee.create', 'employee.read', 'employee.update',
+                    'payroll.process', 'payroll.view', 'payroll.reports'
+                ]
+            },
+            {
+                id: 6,
+                name: 'Accounts',
+                description: 'Financial management access',
+                permissions: [
+                    'finance.invoices', 'finance.payments', 'finance.reports'
+                ]
+            },
+            {
+                id: 3,
+                name: 'User',
+                description: 'Basic user access',
+                permissions: [
+                    'employee.read' // Limited to own data
+                ]
+            }
+        ];
+        
+        systemRoles.forEach(role => {
+            this.roles.set(role.id, role);
+        });
+    }
+    
+    // Check if user has permission
+    async hasPermission(userId, permission, resourceId = null) {
+        try {
+            // Get user's roles
+            const userRoles = await this.getUserRoles(userId);
+            
+            // Check each role for the permission
+            for (const roleId of userRoles) {
+                const role = this.roles.get(roleId);
+                
+                if (role && role.permissions.includes(permission)) {
+                    // If resource-specific permission is required
+                    if (resourceId) {
+                        return await this.checkResourcePermission(userId, permission, resourceId);
+                    }
+                    return true;
+                }
+            }
+            
+            // Check for custom user permissions
+            return await this.checkCustomUserPermission(userId, permission, resourceId);
+            
+        } catch (error) {
+            console.error('Error checking permission:', error);
+            return false; // Fail secure
+        }
+    }
+    
+    // Check resource-specific permissions
+    async checkResourcePermission(userId, permission, resourceId) {
+        // For employee data, users can only access their own records
+        if (permission.startsWith('employee.') && resourceId) {
+            const user = await this.getUserById(userId);
+            return user.id === parseInt(resourceId);
+        }
+        
+        // For department-specific data
+        if (permission.includes('department')) {
+            const user = await this.getUserById(userId);
+            const resource = await this.getResourceById(resourceId);
+            return user.department === resource.department;
+        }
+        
+        return true; // Default allow if no specific restrictions
+    }
+    
+    // Middleware for route protection
+    requirePermission(permission) {
+        return async (req, res, next) => {
+            try {
+                const userId = req.session?.user_id;
+                const resourceId = req.params?.id;
+                
+                if (!userId) {
+                    return res.status(401).json({ error: 'Authentication required' });
+                }
+                
+                const hasAccess = await this.hasPermission(userId, permission, resourceId);
+                
+                if (!hasAccess) {
+                    await this.logSecurityEvent('access_denied', {
+                        user_id: userId,
+                        permission: permission,
+                        resource_id: resourceId,
+                        ip_address: req.ip,
+                        user_agent: req.get('User-Agent')
+                    });
+                    
+                    return res.status(403).json({ error: 'Access denied' });
+                }
+                
+                next();
+                
+            } catch (error) {
+                console.error('Permission check error:', error);
+                res.status(500).json({ error: 'Internal server error' });
+            }
+        };
+    }
+    
+    // Dynamic permission assignment
+    async assignPermissionToUser(userId, permission, resourceId = null, expiresAt = null) {
+        const customPermission = {
+            user_id: userId,
+            permission: permission,
+            resource_id: resourceId,
+            granted_at: new Date(),
+            expires_at: expiresAt,
+            granted_by: this.getCurrentUserId()
+        };
+        
+        await this.storeCustomPermission(customPermission);
+        
+        await this.logSecurityEvent('permission_granted', {
+            target_user_id: userId,
+            permission: permission,
+            resource_id: resourceId,
+            granted_by: this.getCurrentUserId()
+        });
+    }
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>16.4 Security Monitoring and Audit</h2>
+        <p>The security monitoring system provides comprehensive logging, threat detection, and audit capabilities to maintain system security and compliance.</p>
+
+        <h3>16.4.1 Security Event Logging</h3>
+        <div class="code-block">
+// Security Audit and Monitoring System
+class SecurityMonitor {
+    constructor() {
+        this.eventTypes = {
+            'login_success': { level: 'info', retention: 90 },
+            'login_failure': { level: 'warning', retention: 365 },
+            'logout': { level: 'info', retention: 30 },
+            'password_change': { level: 'info', retention: 365 },
+            'account_locked': { level: 'warning', retention: 365 },
+            'permission_denied': { level: 'warning', retention: 180 },
+            'data_access': { level: 'info', retention: 90 },
+            'data_modification': { level: 'warning', retention: 365 },
+            'system_config_change': { level: 'critical', retention: 2555 }, // 7 years
+            'security_breach_attempt': { level: 'critical', retention: 2555 }
+        };
+        
+        this.alertThresholds = {
+            'failed_logins': { count: 5, window: 300000 }, // 5 attempts in 5 minutes
+            'permission_denials': { count: 10, window: 600000 }, // 10 denials in 10 minutes
+            'unusual_access_pattern': { count: 50, window: 3600000 } // 50 accesses in 1 hour
+        };
+    }
+    
+    // Log security event
+    async logSecurityEvent(eventType, eventData) {
+        const event = {
+            id: this.generateEventId(),
+            type: eventType,
+            level: this.eventTypes[eventType]?.level || 'info',
+            timestamp: new Date(),
+            user_id: eventData.user_id || null,
+            session_id: eventData.session_id || null,
+            ip_address: eventData.ip_address || this.getClientIP(),
+            user_agent: eventData.user_agent || this.getUserAgent(),
+            data: eventData,
+            processed: false
+        };
+        
+        // Store event in database
+        await this.storeSecurityEvent(event);
+        
+        // Real-time threat detection
+        await this.analyzeSecurityEvent(event);
+        
+        // Check for alert conditions
+        await this.checkAlertConditions(event);
+        
+        return event.id;
+    }
+    
+    // Real-time threat analysis
+    async analyzeSecurityEvent(event) {
+        const riskScore = await this.calculateRiskScore(event);
+        
+        if (riskScore > 80) {
+            await this.triggerHighRiskAlert(event, riskScore);
+        }
+        
+        // Pattern detection
+        await this.detectAnomalousPatterns(event);
+        
+        // Geographic analysis
+        await this.analyzeGeographicAnomaly(event);
+    }
+    
+    // Calculate risk score for security events
+    async calculateRiskScore(event) {
+        let riskScore = 0;
+        
+        // Base risk by event type
+        const eventRisks = {
+            'login_failure': 20,
+            'permission_denied': 30,
+            'account_locked': 60,
+            'data_modification': 40,
+            'system_config_change': 80,
+            'security_breach_attempt': 100
+        };
+        
+        riskScore += eventRisks[event.type] || 10;
+        
+        // IP reputation check
+        const ipRisk = await this.checkIPReputation(event.ip_address);
+        riskScore += ipRisk;
+        
+        // Time-based analysis
+        const timeRisk = this.analyzeTimePattern(event);
+        riskScore += timeRisk;
+        
+        // User behavior analysis
+        const behaviorRisk = await this.analyzeBehaviorPattern(event);
+        riskScore += behaviorRisk;
+        
+        return Math.min(riskScore, 100);
+    }
+    
+    // Generate security reports
+    async generateSecurityReport(startDate, endDate, reportType = 'summary') {
+        const events = await this.getSecurityEvents(startDate, endDate);
+        
+        const report = {
+            period: { start: startDate, end: endDate },
+            summary: {
+                total_events: events.length,
+                critical_events: events.filter(e => e.level === 'critical').length,
+                warning_events: events.filter(e => e.level === 'warning').length,
+                info_events: events.filter(e => e.level === 'info').length
+            },
+            top_threats: await this.identifyTopThreats(events),
+            user_activity: await this.analyzeUserActivity(events),
+            geographic_distribution: await this.analyzeGeographicDistribution(events),
+            recommendations: await this.generateSecurityRecommendations(events)
+        };
+        
+        if (reportType === 'detailed') {
+            report.detailed_events = events;
+            report.trend_analysis = await this.analyzeTrends(events);
+            report.compliance_status = await this.checkComplianceStatus(events);
+        }
+        
+        return report;
+    }
+}
+        </div>
+
+        <h3>16.4.2 Threat Detection and Response</h3>
+        <div class="warning-box">
+            <strong>Automated Threat Response:</strong> The system implements automated threat detection and response mechanisms that can identify suspicious activities, block malicious IP addresses, and trigger security alerts in real-time.
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Brute Force Protection</h4>
+                <p>Automatic detection and blocking of brute force login attempts with progressive delays and IP blocking.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Anomaly Detection</h4>
+                <p>Machine learning-based detection of unusual user behavior patterns and access anomalies.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Real-time Alerts</h4>
+                <p>Immediate notification system for critical security events with escalation procedures.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Incident Response</h4>
+                <p>Automated incident response workflows with containment and remediation procedures.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>16.5 Data Encryption and Protection</h2>
+        <p>The system implements comprehensive data protection measures including encryption at rest and in transit, data masking, and secure data handling procedures.</p>
+
+        <h3>16.5.1 Encryption Implementation</h3>
+        <div class="code-block">
+// Data Encryption Service
+class EncryptionService {
+    constructor() {
+        this.algorithm = 'aes-256-gcm';
+        this.keyLength = 32;
+        this.ivLength = 16;
+        this.tagLength = 16;
+        this.masterKey = this.deriveMasterKey();
+    }
+    
+    // Encrypt sensitive data
+    encrypt(plaintext, context = '') {
+        try {
+            const iv = crypto.randomBytes(this.ivLength);
+            const cipher = crypto.createCipher(this.algorithm, this.masterKey, { iv });
+            
+            // Add context for additional security
+            if (context) {
+                cipher.setAAD(Buffer.from(context, 'utf8'));
+            }
+            
+            let encrypted = cipher.update(plaintext, 'utf8');
+            encrypted = Buffer.concat([encrypted, cipher.final()]);
+            
+            const tag = cipher.getAuthTag();
+            
+            // Combine IV, tag, and encrypted data
+            const result = Buffer.concat([iv, tag, encrypted]);
+            
+            return {
+                encrypted: result.toString('base64'),
+                algorithm: this.algorithm,
+                context: context
+            };
+            
+        } catch (error) {
+            throw new Error('Encryption failed: ' + error.message);
+        }
+    }
+    
+    // Decrypt sensitive data
+    decrypt(encryptedData, context = '') {
+        try {
+            const buffer = Buffer.from(encryptedData, 'base64');
+            
+            // Extract IV, tag, and encrypted data
+            const iv = buffer.slice(0, this.ivLength);
+            const tag = buffer.slice(this.ivLength, this.ivLength + this.tagLength);
+            const encrypted = buffer.slice(this.ivLength + this.tagLength);
+            
+            const decipher = crypto.createDecipher(this.algorithm, this.masterKey, { iv });
+            decipher.setAuthTag(tag);
+            
+            if (context) {
+                decipher.setAAD(Buffer.from(context, 'utf8'));
+            }
+            
+            let decrypted = decipher.update(encrypted);
+            decrypted = Buffer.concat([decrypted, decipher.final()]);
+            
+            return decrypted.toString('utf8');
+            
+        } catch (error) {
+            throw new Error('Decryption failed: ' + error.message);
+        }
+    }
+    
+    // Hash passwords securely
+    async hashPassword(password, saltRounds = 12) {
+        try {
+            const salt = await bcrypt.genSalt(saltRounds);
+            const hash = await bcrypt.hash(password, salt);
+            
+            return {
+                hash: hash,
+                algorithm: 'bcrypt',
+                salt_rounds: saltRounds,
+                created_at: new Date().toISOString()
+            };
+            
+        } catch (error) {
+            throw new Error('Password hashing failed: ' + error.message);
+        }
+    }
+    
+    // Verify password hash
+    async verifyPassword(password, hashedPassword) {
+        try {
+            return await bcrypt.compare(password, hashedPassword);
+        } catch (error) {
+            throw new Error('Password verification failed: ' + error.message);
+        }
+    }
+    
+    // Generate secure tokens
+    generateSecureToken(length = 32) {
+        return crypto.randomBytes(length).toString('hex');
+    }
+    
+    // Data masking for sensitive information
+    maskSensitiveData(data, fieldMasks) {
+        const maskedData = { ...data };
+        
+        for (const [field, maskType] of Object.entries(fieldMasks)) {
+            if (maskedData[field]) {
+                maskedData[field] = this.applyMask(maskedData[field], maskType);
+            }
+        }
+        
+        return maskedData;
+    }
+    
+    // Apply specific mask types
+    applyMask(value, maskType) {
+        switch (maskType) {
+            case 'email':
+                const [username, domain] = value.split('@');
+                return username.charAt(0) + '*'.repeat(username.length - 2) + username.slice(-1) + '@' + domain;
+                
+            case 'phone':
+                return value.replace(/(\d{3})\d{4}(\d{3})/, '$1****$2');
+                
+            case 'credit_card':
+                return '*'.repeat(12) + value.slice(-4);
+                
+            case 'partial':
+                return value.charAt(0) + '*'.repeat(value.length - 2) + value.slice(-1);
+                
+            case 'full':
+                return '*'.repeat(value.length);
+                
+            default:
+                return value;
+        }
+    }
+}
+        </div>
+
+        <h3>16.5.2 Secure Communication</h3>
+        <div class="info-box">
+            <strong>TLS/SSL Implementation:</strong> All communication between client and server is encrypted using TLS 1.3 with strong cipher suites. The system also implements certificate pinning and HSTS headers for enhanced security.
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>16.6 Compliance and Regulatory Requirements</h2>
+        <p>The security framework is designed to meet various compliance requirements including GDPR, HIPAA, SOX, and other industry-specific regulations.</p>
+
+        <h3>16.6.1 Compliance Features</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Regulation</th>
+                    <th>Requirements</th>
+                    <th>Implementation</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>GDPR</td>
+                    <td>Data protection, consent management</td>
+                    <td>Encryption, audit logs, data portability</td>
+                    <td><span class="security-level level-high">Compliant</span></td>
+                </tr>
+                <tr>
+                    <td>HIPAA</td>
+                    <td>Healthcare data protection</td>
+                    <td>Access controls, encryption, audit trails</td>
+                    <td><span class="security-level level-high">Compliant</span></td>
+                </tr>
+                <tr>
+                    <td>SOX</td>
+                    <td>Financial data integrity</td>
+                    <td>Change management, access controls</td>
+                    <td><span class="security-level level-high">Compliant</span></td>
+                </tr>
+                <tr>
+                    <td>PCI DSS</td>
+                    <td>Payment card data security</td>
+                    <td>Tokenization, secure transmission</td>
+                    <td><span class="security-level level-medium">Partial</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>16.6.2 Audit and Reporting</h3>
+        <div class="code-block">
+// Compliance Reporting System
+class ComplianceReporter {
+    constructor() {
+        this.reportTypes = {
+            'gdpr': 'GDPR Compliance Report',
+            'hipaa': 'HIPAA Security Report',
+            'sox': 'SOX Controls Report',
+            'security': 'Security Audit Report'
+        };
+    }
+    
+    // Generate compliance report
+    async generateComplianceReport(reportType, startDate, endDate) {
+        const reportData = {
+            report_type: reportType,
+            period: { start: startDate, end: endDate },
+            generated_at: new Date().toISOString(),
+            generated_by: this.getCurrentUser(),
+            compliance_status: 'compliant'
+        };
+        
+        switch (reportType) {
+            case 'gdpr':
+                reportData.sections = await this.generateGDPRReport(startDate, endDate);
+                break;
+            case 'hipaa':
+                reportData.sections = await this.generateHIPAAReport(startDate, endDate);
+                break;
+            case 'sox':
+                reportData.sections = await this.generateSOXReport(startDate, endDate);
+                break;
+            case 'security':
+                reportData.sections = await this.generateSecurityReport(startDate, endDate);
+                break;
+        }
+        
+        // Store report for audit trail
+        await this.storeComplianceReport(reportData);
+        
+        return reportData;
+    }
+    
+    // GDPR specific reporting
+    async generateGDPRReport(startDate, endDate) {
+        return {
+            data_processing_activities: await this.getDataProcessingActivities(startDate, endDate),
+            consent_management: await this.getConsentRecords(startDate, endDate),
+            data_subject_requests: await this.getDataSubjectRequests(startDate, endDate),
+            data_breaches: await this.getDataBreaches(startDate, endDate),
+            privacy_impact_assessments: await this.getPIARecords(startDate, endDate)
+        };
+    }
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>16.7 Security Best Practices and Recommendations</h2>
+        <p>The system implements industry best practices for security and provides recommendations for maintaining a secure environment.</p>
+
+        <h3>16.7.1 Security Checklist</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>✅ Password Security</h4>
+                <ul>
+                    <li>Minimum 8 characters with complexity requirements</li>
+                    <li>Password history prevention (last 5 passwords)</li>
+                    <li>Regular password expiration (90 days)</li>
+                    <li>Account lockout after failed attempts</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4>✅ Access Controls</h4>
+                <ul>
+                    <li>Role-based access control (RBAC)</li>
+                    <li>Principle of least privilege</li>
+                    <li>Regular access reviews</li>
+                    <li>Segregation of duties</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4>✅ Data Protection</h4>
+                <ul>
+                    <li>Encryption at rest and in transit</li>
+                    <li>Data classification and handling</li>
+                    <li>Secure data disposal</li>
+                    <li>Data loss prevention (DLP)</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4>✅ Monitoring & Logging</h4>
+                <ul>
+                    <li>Comprehensive audit logging</li>
+                    <li>Real-time security monitoring</li>
+                    <li>Incident response procedures</li>
+                    <li>Regular security assessments</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>16.7.2 Security Maintenance</h3>
+        <div class="highlight">
+            <strong>Regular Security Updates:</strong> The system requires regular security updates including patch management, security configuration reviews, and vulnerability assessments to maintain optimal security posture.
+        </div>
+
+        <ul>
+            <li><strong>Patch Management:</strong> Regular application of security patches and updates</li>
+            <li><strong>Vulnerability Scanning:</strong> Automated vulnerability assessments and remediation</li>
+            <li><strong>Security Training:</strong> Regular security awareness training for users</li>
+            <li><strong>Incident Response:</strong> Documented incident response procedures and regular drills</li>
+            <li><strong>Business Continuity:</strong> Disaster recovery and business continuity planning</li>
+            <li><strong>Third-party Security:</strong> Security assessment of third-party integrations</li>
+        </ul>
+    </div>
+
+    <div class="content-section">
+        <h2>16.8 Future Security Enhancements</h2>
+        <p>The security framework continues to evolve with planned enhancements including advanced threat detection, zero-trust architecture, and AI-powered security analytics.</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>🔮 AI-Powered Security</h4>
+                <p>Machine learning algorithms for advanced threat detection and behavioral analysis.</p>
+            </div>
+            <div class="feature-card">
+                <h4>🛡️ Zero Trust Architecture</h4>
+                <p>Implementation of zero-trust security model with continuous verification.</p>
+            </div>
+            <div class="feature-card">
+                <h4>🔐 Advanced Authentication</h4>
+                <p>Biometric authentication and passwordless login options.</p>
+            </div>
+            <div class="feature-card">
+                <h4>📊 Security Analytics</h4>
+                <p>Advanced security analytics and predictive threat intelligence.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="chapter15.html" class="nav-button">← Previous: Analytics & Dashboard</a>
+        <a href="table_of_contents.html" class="nav-button">📚 Table of Contents</a>
+        <a href="chapter17.html" class="nav-button">Next: API & Backend →</a>
+    </div>
+</body>
+</html>

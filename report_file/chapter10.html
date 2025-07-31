@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 10: Customer Management - CRM System Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header .chapter-info {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        h2 {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            font-size: 1.8em;
+        }
+        h3 {
+            color: #0056b3;
+            margin-top: 30px;
+            font-size: 1.4em;
+        }
+        h4 {
+            color: #555;
+            margin-top: 25px;
+            font-size: 1.2em;
+        }
+        .customer-overview {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .feature-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border-left: 5px solid #007bff;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .feature-card h4 {
+            color: #007bff;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+        .feature-icon {
+            width: 30px;
+            height: 30px;
+            background: #007bff;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .customer-form {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 2px solid #dee2e6;
+        }
+        .form-section {
+            margin-bottom: 25px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .form-field {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #495057;
+        }
+        .form-input {
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-header {
+            background: #007bff;
+            color: white;
+            padding: 8px 15px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 8px 8px 0 0;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .customer-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .customer-table th,
+        .customer-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .customer-table th {
+            background: #007bff;
+            color: white;
+            font-weight: 600;
+        }
+        .customer-table tr:hover {
+            background: #f8f9fa;
+        }
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .status-prospect {
+            background: #fff3cd;
+            color: #856404;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .customer-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .stat-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            border-left: 5px solid #007bff;
+        }
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #007bff;
+            margin: 10px 0;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .navigation {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #dee2e6;
+            text-align: center;
+        }
+        .nav-button {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 0 10px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);
+        }
+        .interaction-timeline {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 5px solid #007bff;
+        }
+        .timeline-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+        .segmentation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .segment-item {
+            background: #d1ecf1;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Chapter 10: Customer Management</h1>
+            <div class="chapter-info">Comprehensive Customer Relationship and Data Management</div>
+        </div>
+
+        <h2>10.1 Customer Management Overview</h2>
+        
+        <div class="customer-overview">
+            <h3>360-Degree Customer Relationship Management</h3>
+            <p>The Customer Management module provides comprehensive tools for managing customer relationships throughout the entire customer lifecycle. From lead generation and prospect nurturing to customer retention and loyalty programs, this system ensures effective customer relationship management with detailed tracking, segmentation, and personalized communication capabilities.</p>
+        </div>
+
+        <p>The customer management system is designed to centralize all customer-related information, interactions, and transactions in a unified platform that enables businesses to deliver exceptional customer experiences while maximizing customer lifetime value.</p>
+
+        <h2>10.2 Customer Statistics Dashboard</h2>
+
+        <div class="customer-stats">
+            <div class="stat-card">
+                <div class="stat-label">Total Customers</div>
+                <div class="stat-value">1,247</div>
+                <div class="stat-detail">Active Accounts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">New This Month</div>
+                <div class="stat-value">89</div>
+                <div class="stat-detail">+12% Growth</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Prospects</div>
+                <div class="stat-value">156</div>
+                <div class="stat-detail">In Pipeline</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Avg. Order Value</div>
+                <div class="stat-value">₹24,500</div>
+                <div class="stat-detail">Last 30 Days</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Customer Retention</div>
+                <div class="stat-value">94.2%</div>
+                <div class="stat-detail">Annual Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Satisfaction Score</div>
+                <div class="stat-value">4.7/5</div>
+                <div class="stat-detail">Average Rating</div>
+            </div>
+        </div>
+
+        <h2>10.3 Core Customer Management Features</h2>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4><span class="feature-icon">👤</span>Customer Profiles</h4>
+                <p>Comprehensive customer information management with detailed contact information, preferences, and history.</p>
+                <ul>
+                    <li>Complete contact information</li>
+                    <li>Company and personal details</li>
+                    <li>Communication preferences</li>
+                    <li>Custom fields and tags</li>
+                    <li>Document attachments</li>
+                    <li>Relationship mapping</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h4><span class="feature-icon">📞</span>Interaction Tracking</h4>
+                <p>Complete history of all customer interactions across multiple channels and touchpoints.</p>
+                <ul>
+                    <li>Call logs and recordings</li>
+                    <li>Email communication history</li>
+                    <li>Meeting notes and outcomes</li>
+                    <li>Support ticket integration</li>
+                    <li>Social media interactions</li>
+                    <li>Website behavior tracking</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h4><span class="feature-icon">🎯</span>Lead Management</h4>
+                <p>Efficient lead capture, qualification, and nurturing processes with automated workflows.</p>
+                <ul>
+                    <li>Lead capture forms</li>
+                    <li>Lead scoring and qualification</li>
+                    <li>Automated nurturing campaigns</li>
+                    <li>Lead assignment rules</li>
+                    <li>Conversion tracking</li>
+                    <li>Pipeline management</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h4><span class="feature-icon">📊</span>Customer Segmentation</h4>
+                <p>Advanced customer segmentation based on demographics, behavior, and transaction history.</p>
+                <ul>
+                    <li>Demographic segmentation</li>
+                    <li>Behavioral analysis</li>
+                    <li>Purchase history patterns</li>
+                    <li>Engagement level scoring</li>
+                    <li>Custom segment creation</li>
+                    <li>Dynamic segment updates</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h4><span class="feature-icon">💰</span>Sales Tracking</h4>
+                <p>Complete sales history and opportunity management with revenue forecasting.</p>
+                <ul>
+                    <li>Sales opportunity tracking</li>
+                    <li>Revenue forecasting</li>
+                    <li>Deal pipeline management</li>
+                    <li>Quote and proposal tracking</li>
+                    <li>Win/loss analysis</li>
+                    <li>Sales performance metrics</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h4><span class="feature-icon">🎁</span>Loyalty Programs</h4>
+                <p>Customer loyalty and retention programs with rewards and incentive management.</p>
+                <ul>
+                    <li>Points-based rewards system</li>
+                    <li>Tier-based loyalty programs</li>
+                    <li>Referral tracking</li>
+                    <li>Special offers and discounts</li>
+                    <li>Birthday and anniversary campaigns</li>
+                    <li>Retention analytics</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>10.4 Customer Registration Form</h2>
+
+        <div class="customer-form">
+            <h3>New Customer Registration</h3>
+            
+            <div class="form-section">
+                <h4>Basic Information</h4>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="form-label">Customer Type *</label>
+                        <select class="form-input">
+                            <option>Individual</option>
+                            <option>Business</option>
+                            <option>Government</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Customer ID</label>
+                        <input type="text" class="form-input" value="CUST-2025-001" readonly>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="form-label">First Name *</label>
+                        <input type="text" class="form-input" placeholder="Enter first name">
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Last Name *</label>
+                        <input type="text" class="form-input" placeholder="Enter last name">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h4>Contact Information</h4>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" class="form-input" placeholder="customer@example.com">
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Phone Number *</label>
+                        <input type="tel" class="form-input" placeholder="+91 9876543210">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-input" rows="3" placeholder="Enter complete address"></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-input" placeholder="Enter city">
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">State</label>
+                        <input type="text" class="form-input" placeholder="Enter state">
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">PIN Code</label>
+                        <input type="text" class="form-input" placeholder="Enter PIN code">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h4>Business Information (if applicable)</h4>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="form-label">Company Name</label>
+                        <input type="text" class="form-input" placeholder="Enter company name">
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Industry</label>
+                        <select class="form-input">
+                            <option>Technology</option>
+                            <option>Manufacturing</option>
+                            <option>Healthcare</option>
+                            <option>Finance</option>
+                            <option>Retail</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="form-label">GST Number</label>
+                        <input type="text" class="form-input" placeholder="Enter GST number">
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">Annual Revenue</label>
+                        <select class="form-input">
+                            <option>< ₹1 Crore</option>
+                            <option>₹1-5 Crores</option>
+                            <option>₹5-10 Crores</option>
+                            <option>> ₹10 Crores</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>10.5 Customer Management Implementation</h2>
+
+        <div class="code-block">
+            <div class="code-header">Customer Management System Implementation</div>
+            <pre><code><?php
+class CustomerManager {
+    private $conn;
+    
+    public function __construct() {
+        global $conn;
+        $this->conn = $conn;
+    }
+    
+    public function createCustomer($customerData) {
+        try {
+            // Validate customer data
+            $validationResult = $this->validateCustomerData($customerData);
+            if (!$validationResult['valid']) {
+                return [
+                    'success' => false,
+                    'message' => $validationResult['message']
+                ];
+            }
+            
+            // Begin transaction
+            $this->conn->begin_transaction();
+            
+            // Generate customer ID
+            $customerId = $this->generateCustomerId($customerData['customer_type']);
+            
+            // Insert customer record
+            $stmt = $this->conn->prepare("
+                INSERT INTO customers (
+                    customer_id, customer_type, first_name, last_name, 
+                    email, phone, address, city, state, pin_code,
+                    company_name, industry, gst_number, annual_revenue,
+                    status, created_by, created_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active', ?, NOW())
+            ");
+            
+            $stmt->bind_param(
+                'ssssssssssssssi',
+                $customerId,
+                $customerData['customer_type'],
+                $customerData['first_name'],
+                $customerData['last_name'],
+                $customerData['email'],
+                $customerData['phone'],
+                $customerData['address'],
+                $customerData['city'],
+                $customerData['state'],
+                $customerData['pin_code'],
+                $customerData['company_name'] ?? null,
+                $customerData['industry'] ?? null,
+                $customerData['gst_number'] ?? null,
+                $customerData['annual_revenue'] ?? null,
+                $_SESSION['user_id']
+            );
+            
+            $stmt->execute();
+            $dbCustomerId = $this->conn->insert_id;
+            
+            // Create customer preferences
+            $this->createCustomerPreferences($dbCustomerId);
+            
+            // Initialize customer metrics
+            $this->initializeCustomerMetrics($dbCustomerId);
+            
+            // Log customer creation
+            $this->logCustomerActivity($dbCustomerId, 'created', 'Customer account created');
+            
+            // Send welcome communication
+            $this->sendWelcomeMessage($customerData['email'], $customerData['first_name']);
+            
+            $this->conn->commit();
+            
+            return [
+                'success' => true,
+                'customer_id' => $customerId,
+                'db_id' => $dbCustomerId,
+                'message' => 'Customer created successfully'
+            ];
+            
+        } catch (Exception $e) {
+            $this->conn->rollback();
+            
+            return [
+                'success' => false,
+                'message' => 'Customer creation failed: ' . $e->getMessage()
+            ];
+        }
+    }
+    
+    public function getCustomerInteractionHistory($customerId, $limit = 50) {
+        try {
+            $sql = "
+                SELECT 
+                    'call' as type, 
+                    call_date as date, 
+                    duration, 
+                    notes as description,
+                    created_by
+                FROM customer_calls 
+                WHERE customer_id = ?
+                
+                UNION ALL
+                
+                SELECT 
+                    'email' as type,
+                    sent_date as date,
+                    NULL as duration,
+                    subject as description,
+                    sent_by as created_by
+                FROM customer_emails
+                WHERE customer_id = ?
+                
+                UNION ALL
+                
+                SELECT
+                    'meeting' as type,
+                    meeting_date as date,
+                    duration,
+                    agenda as description,
+                    created_by
+                FROM customer_meetings
+                WHERE customer_id = ?
+                
+                ORDER BY date DESC
+                LIMIT ?
+            ";
+            
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param('iiii', $customerId, $customerId, $customerId, $limit);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            
+            $interactions = [];
+            while ($row = $result->fetch_assoc()) {
+                $interactions[] = $row;
+            }
+            
+            return [
+                'success' => true,
+                'interactions' => $interactions
+            ];
+            
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Failed to retrieve interaction history: ' . $e->getMessage()
+            ];
+        }
+    }
+    
+    private function calculateCustomerLifetimeValue($customerId) {
+        try {
+            $stmt = $this->conn->prepare("
+                SELECT 
+                    SUM(total_amount) as total_spent,
+                    COUNT(*) as total_orders,
+                    AVG(total_amount) as avg_order_value,
+                    DATEDIFF(NOW(), MIN(created_at)) as customer_age_days
+                FROM orders 
+                WHERE customer_id = ? AND status != 'cancelled'
+            ");
+            
+            $stmt->bind_param('i', $customerId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $data = $result->fetch_assoc();
+            
+            if ($data['customer_age_days'] > 0) {
+                $monthlyValue = ($data['total_spent'] / $data['customer_age_days']) * 30;
+                $projectedLifetime = 24; // 2 years average
+                return $monthlyValue * $projectedLifetime;
+            }
+            
+            return $data['total_spent'] ?? 0;
+            
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+    
+    private function calculateEngagementScore($customerId) {
+        try {
+            $score = 0;
+            
+            // Recent activity (30%)
+            $stmt = $this->conn->prepare("
+                SELECT COUNT(*) as recent_interactions
+                FROM (
+                    SELECT created_at FROM customer_calls WHERE customer_id = ? AND created_at > DATE_SUB(NOW(), INTERVAL 30 DAY)
+                    UNION ALL
+                    SELECT sent_date FROM customer_emails WHERE customer_id = ? AND sent_date > DATE_SUB(NOW(), INTERVAL 30 DAY)
+                    UNION ALL
+                    SELECT meeting_date FROM customer_meetings WHERE customer_id = ? AND meeting_date > DATE_SUB(NOW(), INTERVAL 30 DAY)
+                ) as interactions
+            ");
+            
+            $stmt->bind_param('iii', $customerId, $customerId, $customerId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $recentActivity = $result->fetch_assoc()['recent_interactions'];
+            
+            $score += min(($recentActivity * 10), 30);
+            
+            // Purchase frequency (40%)
+            $stmt = $this->conn->prepare("
+                SELECT COUNT(*) as recent_orders
+                FROM orders 
+                WHERE customer_id = ? AND created_at > DATE_SUB(NOW(), INTERVAL 90 DAY)
+            ");
+            
+            $stmt->bind_param('i', $customerId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $recentOrders = $result->fetch_assoc()['recent_orders'];
+            
+            $score += min(($recentOrders * 8), 40);
+            
+            // Response rate (30%)
+            $stmt = $this->conn->prepare("
+                SELECT 
+                    COUNT(*) as total_communications,
+                    SUM(CASE WHEN response_received = 1 THEN 1 ELSE 0 END) as responses
+                FROM customer_communications 
+                WHERE customer_id = ? AND created_at > DATE_SUB(NOW(), INTERVAL 180 DAY)
+            ");
+            
+            $stmt->bind_param('i', $customerId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $commData = $result->fetch_assoc();
+            
+            if ($commData['total_communications'] > 0) {
+                $responseRate = ($commData['responses'] / $commData['total_communications']) * 100;
+                $score += min(($responseRate * 0.3), 30);
+            }
+            
+            return min($score, 100);
+            
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+}
+?></code></pre>
+        </div>
+
+        <h2>10.6 Customer Segmentation</h2>
+
+        <div class="highlight-box">
+            <h3>Advanced Customer Segmentation</h3>
+            <p>The system provides sophisticated customer segmentation capabilities that enable targeted marketing campaigns, personalized communication, and improved customer service delivery.</p>
+        </div>
+
+        <div class="segmentation-grid">
+            <div class="segment-item">
+                <h4>Demographic Segmentation</h4>
+                <p>Age, gender, location, income level, education, and occupation-based grouping for targeted marketing.</p>
+            </div>
+            <div class="segment-item">
+                <h4>Behavioral Segmentation</h4>
+                <p>Purchase behavior, usage patterns, brand loyalty, and engagement level analysis.</p>
+            </div>
+            <div class="segment-item">
+                <h4>Geographic Segmentation</h4>
+                <p>Location-based segmentation for regional marketing campaigns and service delivery optimization.</p>
+            </div>
+            <div class="segment-item">
+                <h4>Psychographic Segmentation</h4>
+                <p>Lifestyle, values, interests, and personality traits for deeper customer understanding.</p>
+            </div>
+        </div>
+
+        <h2>10.7 Customer Interaction Timeline</h2>
+
+        <div class="interaction-timeline">
+            <h3>Recent Customer Interactions</h3>
+            <div class="timeline-item">
+                <strong>Email Sent</strong> - January 15, 2025 at 2:30 PM<br>
+                <em>Subject: Follow-up on Product Inquiry</em>
+            </div>
+            <div class="timeline-item">
+                <strong>Phone Call</strong> - January 12, 2025 at 10:15 AM<br>
+                <em>Duration: 15 minutes - Discussed pricing options</em>
+            </div>
+            <div class="timeline-item">
+                <strong>Meeting Scheduled</strong> - January 10, 2025 at 3:00 PM<br>
+                <em>Product demonstration meeting arranged</em>
+            </div>
+            <div class="timeline-item">
+                <strong>Website Visit</strong> - January 8, 2025 at 11:45 AM<br>
+                <em>Viewed product catalog and pricing page</em>
+            </div>
+        </div>
+
+        <h2>10.8 Customer Data Table</h2>
+
+        <table class="customer-table">
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Last Contact</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>CUST-2025-001</td>
+                    <td>John Smith</td>
+                    <td>john.smith@example.com</td>
+                    <td>+91 9876543210</td>
+                    <td>ABC Technologies</td>
+                    <td><span class="status-active">Active</span></td>
+                    <td>2025-01-15</td>
+                    <td>
+                        <button class="btn-action">View</button>
+                        <button class="btn-action">Edit</button>
+                        <button class="btn-action">Contact</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>CUST-2025-002</td>
+                    <td>Sarah Johnson</td>
+                    <td>sarah.j@company.com</td>
+                    <td>+91 9876543211</td>
+                    <td>XYZ Industries</td>
+                    <td><span class="status-prospect">Prospect</span></td>
+                    <td>2025-01-12</td>
+                    <td>
+                        <button class="btn-action">View</button>
+                        <button class="btn-action">Edit</button>
+                        <button class="btn-action">Contact</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>CUST-2025-003</td>
+                    <td>Michael Brown</td>
+                    <td>m.brown@business.com</td>
+                    <td>+91 9876543212</td>
+                    <td>Brown Enterprises</td>
+                    <td><span class="status-inactive">Inactive</span></td>
+                    <td>2024-12-20</td>
+                    <td>
+                        <button class="btn-action">View</button>
+                        <button class="btn-action">Edit</button>
+                        <button class="btn-action">Contact</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>10.9 Customer Analytics and Reporting</h2>
+
+        <div class="highlight-box">
+            <h3>Comprehensive Customer Analytics</h3>
+            <p>The system provides detailed analytics and reporting capabilities that help businesses understand customer behavior, track performance metrics, and make data-driven decisions for improved customer relationship management.</p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4><span class="feature-icon">📈</span>Customer Lifetime Value</h4>
+                <p>Calculate and track the total value a customer brings to your business over their entire relationship.</p>
+            </div>
+            <div class="feature-card">
+                <h4><span class="feature-icon">🎯</span>Conversion Tracking</h4>
+                <p>Monitor lead-to-customer conversion rates and identify the most effective acquisition channels.</p>
+            </div>
+            <div class="feature-card">
+                <h4><span class="feature-icon">📊</span>Engagement Metrics</h4>
+                <p>Track customer engagement levels across different touchpoints and communication channels.</p>
+            </div>
+            <div class="feature-card">
+                <h4><span class="feature-icon">🔄</span>Retention Analysis</h4>
+                <p>Analyze customer retention patterns and identify factors that contribute to customer churn.</p>
+            </div>
+        </div>
+
+        <h2>10.10 Integration and Data Management</h2>
+
+        <p>The Customer Management module integrates seamlessly with other CRM components including sales management, marketing automation, and support systems. This integration ensures consistent customer data across all business functions and provides a unified view of customer interactions.</p>
+
+        <div class="code-block">
+            <div class="code-header">Customer Data Integration</div>
+            <pre><code>// Customer data synchronization across modules
+class CustomerDataSync {
+    public function syncCustomerData($customerId) {
+        // Sync with sales module
+        $this->syncSalesData($customerId);
+        
+        // Sync with marketing module
+        $this->syncMarketingData($customerId);
+        
+        // Sync with support module
+        $this->syncSupportData($customerId);
+        
+        // Update customer analytics
+        $this->updateCustomerAnalytics($customerId);
+    }
+    
+    private function syncSalesData($customerId) {
+        // Update sales history and opportunities
+        $salesData = $this->getSalesData($customerId);
+        $this->updateCustomerSalesMetrics($customerId, $salesData);
+    }
+    
+    private function updateCustomerAnalytics($customerId) {
+        // Recalculate customer metrics
+        $metrics = [
+            'lifetime_value' => $this->calculateLifetimeValue($customerId),
+            'engagement_score' => $this->calculateEngagementScore($customerId),
+            'satisfaction_score' => $this->calculateSatisfactionScore($customerId),
+            'churn_risk' => $this->calculateChurnRisk($customerId)
+        ];
+        
+        $this->updateCustomerMetrics($customerId, $metrics);
+    }
+}</code></pre>
+        </div>
+
+        <h2>10.11 Customer Communication Management</h2>
+
+        <p>The system provides comprehensive communication management tools that enable businesses to maintain consistent and personalized communication with their customers across multiple channels.</p>
+
+        <div class="interaction-timeline">
+            <h3>Communication Features</h3>
+            <div class="timeline-item">
+                <strong>Email Templates</strong><br>
+                <em>Pre-designed templates for various communication scenarios including welcome emails, follow-ups, and promotional messages.</em>
+            </div>
+            <div class="timeline-item">
+                <strong>Automated Workflows</strong><br>
+                <em>Trigger-based communication workflows that automatically send relevant messages based on customer actions or milestones.</em>
+            </div>
+            <div class="timeline-item">
+                <strong>Multi-channel Integration</strong><br>
+                <em>Unified communication across email, SMS, phone calls, and social media platforms.</em>
+            </div>
+            <div class="timeline-item">
+                <strong>Communication History</strong><br>
+                <em>Complete record of all customer communications with timestamps, content, and response tracking.</em>
+            </div>
+        </div>
+
+        <h2>10.12 Customer Support Integration</h2>
+
+        <p>The Customer Management module integrates with the support system to provide comprehensive customer service capabilities, including ticket management, issue tracking, and resolution monitoring.</p>
+
+        <div class="segmentation-grid">
+            <div class="segment-item">
+                <h4>Ticket Management</h4>
+                <p>Automatic ticket creation from customer inquiries with priority assignment and escalation rules.</p>
+            </div>
+            <div class="segment-item">
+                <h4>Knowledge Base</h4>
+                <p>Integrated knowledge base for quick access to solutions and customer self-service options.</p>
+            </div>
+            <div class="segment-item">
+                <h4>SLA Monitoring</h4>
+                <p>Service level agreement tracking with automated alerts for response time compliance.</p>
+            </div>
+            <div class="segment-item">
+                <h4>Satisfaction Surveys</h4>
+                <p>Automated customer satisfaction surveys after issue resolution with feedback analysis.</p>
+            </div>
+        </div>
+
+        <h2>10.13 Data Privacy and Security</h2>
+
+        <div class="highlight-box">
+            <h3>Customer Data Protection</h3>
+            <p>The system implements comprehensive data protection measures to ensure customer information security and compliance with privacy regulations including GDPR and local data protection laws.</p>
+        </div>
+
+        <ul>
+            <li><strong>Data Encryption:</strong> All customer data is encrypted both in transit and at rest</li>
+            <li><strong>Access Controls:</strong> Role-based access controls ensure only authorized personnel can access customer data</li>
+            <li><strong>Audit Trails:</strong> Complete audit logs of all data access and modifications</li>
+            <li><strong>Data Retention:</strong> Configurable data retention policies with automatic cleanup</li>
+            <li><strong>Privacy Controls:</strong> Customer consent management and data portability features</li>
+            <li><strong>Compliance Reporting:</strong> Built-in compliance reporting for regulatory requirements</li>
+        </ul>
+
+        <h2>10.14 Mobile Access and Offline Capabilities</h2>
+
+        <p>The Customer Management system provides mobile access capabilities that allow sales teams and customer service representatives to access customer information and update records while on the go, with offline synchronization capabilities for areas with limited connectivity.</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4><span class="feature-icon">📱</span>Mobile App</h4>
+                <p>Native mobile applications for iOS and Android with full customer management capabilities.</p>
+            </div>
+            <div class="feature-card">
+                <h4><span class="feature-icon">🔄</span>Offline Sync</h4>
+                <p>Offline data access and synchronization when connectivity is restored.</p>
+            </div>
+            <div class="feature-card">
+                <h4><span class="feature-icon">📍</span>Location Services</h4>
+                <p>GPS integration for location-based customer visits and check-ins.</p>
+            </div>
+            <div class="feature-card">
+                <h4><span class="feature-icon">📷</span>Document Capture</h4>
+                <p>Mobile document scanning and attachment capabilities for customer records.</p>
+            </div>
+        </div>
+
+        <h2>10.15 Future Enhancements and Roadmap</h2>
+
+        <p>The Customer Management module is continuously evolving with planned enhancements including artificial intelligence integration, predictive analytics, and advanced automation capabilities.</p>
+
+        <div class="segmentation-grid">
+            <div class="segment-item">
+                <h4>AI-Powered Insights</h4>
+                <p>Machine learning algorithms for customer behavior prediction and personalized recommendations.</p>
+            </div>
+            <div class="segment-item">
+                <h4>Advanced Analytics</h4>
+                <p>Predictive analytics for customer lifetime value, churn prediction, and sales forecasting.</p>
+            </div>
+            <div class="segment-item">
+                <h4>Chatbot Integration</h4>
+                <p>AI-powered chatbots for automated customer service and lead qualification.</p>
+            </div>
+            <div class="segment-item">
+                <h4>Social Media Integration</h4>
+                <p>Enhanced social media monitoring and engagement capabilities.</p>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="chapter9.html" class="nav-button">← Previous: Leave Request Summary</a>
+            <a href="table_of_contents.html" class="nav-button">📚 Table of Contents</a>
+            <a href="chapter11.html" class="nav-button">Next: Sales Management →</a>
+        </div>
+    </div>
+</body>
+</html>

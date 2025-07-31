@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 12: Stock Management - CRM System Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .content-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 1rem;
+            border-left: 4px solid #ffc107;
+            margin: 1rem 0;
+        }
+        .info-box {
+            background-color: #d1ecf1;
+            padding: 1rem;
+            border-left: 4px solid #17a2b8;
+            margin: 1rem 0;
+        }
+        .warning-box {
+            background-color: #f8d7da;
+            padding: 1rem;
+            border-left: 4px solid #dc3545;
+            margin: 1rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .navigation {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .nav-button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #0056b3;
+        }
+        .diagram {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        .workflow-step {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 1rem;
+            margin: 0.5rem;
+            border-radius: 8px;
+            display: inline-block;
+            min-width: 150px;
+        }
+        .arrow {
+            font-size: 2rem;
+            color: #666;
+            margin: 0 1rem;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .status-in-stock { background-color: #d4edda; color: #155724; }
+        .status-low-stock { background-color: #fff3cd; color: #856404; }
+        .status-out-of-stock { background-color: #f8d7da; color: #721c24; }
+        .inventory-chart {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Chapter 12: Stock Management</h1>
+        <p>Comprehensive Inventory Control, Real-time Tracking, and Automated Stock Management System</p>
+    </div>
+    <div class="content-section">
+        <h2>12.1 Stock Management Overview</h2>
+        <p>The Stock Management module provides comprehensive inventory control capabilities, enabling businesses to track, manage, and optimize their stock levels in real-time. This system integrates seamlessly with sales, purchasing, and accounting modules to provide complete inventory visibility.</p>
+
+        <h3>12.1.1 Core Features</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Real-time Inventory Tracking</h4>
+                <p>Live stock level monitoring with automatic updates on sales, purchases, and adjustments.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Multi-location Support</h4>
+                <p>Manage inventory across multiple warehouses, showrooms, and storage locations.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Automated Alerts</h4>
+                <p>Low stock alerts, reorder notifications, and expiry date warnings.</p>
+            </div>
+            <div class="feature-card">
+                <h4>HSN Code Management</h4>
+                <p>Complete HSN code integration for GST compliance and tax calculations.</p>
+            </div>
+        </div>
+
+        <h3>12.1.2 System Architecture</h3>
+        <div class="diagram">
+            <div class="workflow-step">Stock Receipt</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Quality Check</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Storage Assignment</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Sales Processing</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Stock Adjustment</div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>12.2 Inventory Data Structure</h2>
+        <p>The stock management system uses a comprehensive data structure to track all aspects of inventory items.</p>
+
+        <h3>12.2.1 Stock Item Schema</h3>
+        <div class="code-block">
+{
+  "stock_item": {
+    "id": "STK-001",
+    "name": "Premium Laptop",
+    "description": "High-performance business laptop with 16GB RAM",
+    "sku": "LAP-HP-001",
+    "barcode": "1234567890123",
+    "hsn_code": "84713000",
+    "category": "Electronics",
+    "subcategory": "Computers",
+    "brand": "HP",
+    "model": "EliteBook 840",
+    "color": "Silver",
+    "size": "14-inch",
+    "unit_of_measure": "Piece",
+    "cost_price": 45000.00,
+    "selling_price": 55000.00,
+    "mrp": 60000.00,
+    "tax_rate": 18.0,
+    "current_stock": 25,
+    "reserved_stock": 5,
+    "available_stock": 20,
+    "minimum_stock_level": 10,
+    "maximum_stock_level": 100,
+    "reorder_point": 15,
+    "reorder_quantity": 50,
+    "locations": [
+      {
+        "location_id": "WH-001",
+        "location_name": "Main Warehouse",
+        "quantity": 20
+      },
+      {
+        "location_id": "SR-001", 
+        "location_name": "Showroom",
+        "quantity": 5
+      }
+    ],
+    "supplier_info": {
+      "primary_supplier": "Tech Distributors Ltd",
+      "supplier_code": "SUP-001",
+      "lead_time_days": 7
+    },
+    "created_at": "2025-01-01T00:00:00Z",
+    "updated_at": "2025-01-15T10:30:00Z",
+    "created_by": "admin",
+    "status": "active"
+  }
+}
+        </div>
+
+        <h3>12.2.2 Stock Transaction Schema</h3>
+        <div class="code-block">
+{
+  "stock_transaction": {
+    "id": "TXN-001",
+    "item_id": "STK-001",
+    "transaction_type": "in", // in, out, adjustment, transfer
+    "quantity": 10,
+    "unit_cost": 45000.00,
+    "total_value": 450000.00,
+    "reference_type": "purchase_order", // sale, purchase_order, adjustment, transfer
+    "reference_id": "PO-001",
+    "location_from": null,
+    "location_to": "WH-001",
+    "reason": "New stock arrival",
+    "transaction_date": "2025-01-15T10:30:00Z",
+    "processed_by": "warehouse_manager",
+    "approved_by": "admin",
+    "batch_number": "BATCH-001",
+    "expiry_date": null,
+    "notes": "Quality checked and approved"
+  }
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>12.3 Stock Operations</h2>
+        <p>The system supports various stock operations to maintain accurate inventory levels.</p>
+
+        <h3>12.3.1 Stock Receipt Process</h3>
+        <div class="code-block">
+// Stock Receipt Implementation
+function processStockReceipt(receiptData) {
+    // Validate receipt data
+    if (!validateReceiptData(receiptData)) {
+        throw new Error('Invalid receipt data');
+    }
+    
+    // Begin transaction
+    beginTransaction();
+    
+    try {
+        // Create stock transaction record
+        const transaction = createStockTransaction({
+            item_id: receiptData.item_id,
+            transaction_type: 'in',
+            quantity: receiptData.quantity,
+            unit_cost: receiptData.unit_cost,
+            total_value: receiptData.quantity * receiptData.unit_cost,
+            reference_type: 'purchase_order',
+            reference_id: receiptData.po_number,
+            location_to: receiptData.location_id,
+            reason: 'Stock receipt',
+            batch_number: receiptData.batch_number,
+            expiry_date: receiptData.expiry_date
+        });
+        
+        // Update stock levels
+        updateStockLevels(receiptData.item_id, receiptData.location_id, receiptData.quantity);
+        
+        // Update average cost
+        updateAverageCost(receiptData.item_id, receiptData.unit_cost, receiptData.quantity);
+        
+        // Check for low stock alerts resolution
+        checkLowStockAlerts(receiptData.item_id);
+        
+        // Generate receipt document
+        generateReceiptDocument(transaction.id);
+        
+        commitTransaction();
+        
+        return {
+            success: true,
+            transaction_id: transaction.id,
+            new_stock_level: getCurrentStockLevel(receiptData.item_id)
+        };
+        
+    } catch (error) {
+        rollbackTransaction();
+        throw error;
+    }
+}
+        </div>
+
+        <h3>12.3.2 Stock Issue Process</h3>
+        <div class="code-block">
+// Stock Issue for Sales
+function processStockIssue(issueData) {
+    // Check stock availability
+    const availableStock = getAvailableStock(issueData.item_id, issueData.location_id);
+    if (availableStock < issueData.quantity) {
+        throw new Error(`Insufficient stock. Available: ${availableStock}, Required: ${issueData.quantity}`);
+    }
+    
+    // Begin transaction
+    beginTransaction();
+    
+    try {
+        // Create stock transaction record
+        const transaction = createStockTransaction({
+            item_id: issueData.item_id,
+            transaction_type: 'out',
+            quantity: -issueData.quantity, // Negative for outward movement
+            reference_type: 'sale',
+            reference_id: issueData.invoice_number,
+            location_from: issueData.location_id,
+            reason: 'Sale to customer'
+        });
+        
+        // Update stock levels
+        updateStockLevels(issueData.item_id, issueData.location_id, -issueData.quantity);
+        
+        // Check for low stock alerts
+        checkAndTriggerLowStockAlerts(issueData.item_id);
+        
+        // Update reserved stock if applicable
+        if (issueData.reserved_quantity) {
+            updateReservedStock(issueData.item_id, -issueData.reserved_quantity);
+        }
+        
+        commitTransaction();
+        
+        return {
+            success: true,
+            transaction_id: transaction.id,
+            remaining_stock: getCurrentStockLevel(issueData.item_id)
+        };
+        
+    } catch (error) {
+        rollbackTransaction();
+        throw error;
+    }
+}
+        </div>
+
+        <h3>12.3.3 Stock Transfer Between Locations</h3>
+        <div class="code-block">
+// Inter-location Stock Transfer
+function processStockTransfer(transferData) {
+    // Validate transfer data
+    if (transferData.from_location === transferData.to_location) {
+        throw new Error('Source and destination locations cannot be the same');
+    }
+    
+    // Check source stock availability
+    const sourceStock = getLocationStock(transferData.item_id, transferData.from_location);
+    if (sourceStock < transferData.quantity) {
+        throw new Error('Insufficient stock at source location');
+    }
+    
+    beginTransaction();
+    
+    try {
+        // Create outward transaction from source
+        createStockTransaction({
+            item_id: transferData.item_id,
+            transaction_type: 'transfer_out',
+            quantity: -transferData.quantity,
+            location_from: transferData.from_location,
+            reference_type: 'transfer',
+            reference_id: transferData.transfer_id,
+            reason: `Transfer to ${transferData.to_location_name}`
+        });
+        
+        // Create inward transaction to destination
+        createStockTransaction({
+            item_id: transferData.item_id,
+            transaction_type: 'transfer_in',
+            quantity: transferData.quantity,
+            location_to: transferData.to_location,
+            reference_type: 'transfer',
+            reference_id: transferData.transfer_id,
+            reason: `Transfer from ${transferData.from_location_name}`
+        });
+        
+        // Update location stock levels
+        updateLocationStock(transferData.item_id, transferData.from_location, -transferData.quantity);
+        updateLocationStock(transferData.item_id, transferData.to_location, transferData.quantity);
+        
+        // Generate transfer document
+        generateTransferDocument(transferData.transfer_id);
+        
+        commitTransaction();
+        
+        return {
+            success: true,
+            transfer_id: transferData.transfer_id
+        };
+        
+    } catch (error) {
+        rollbackTransaction();
+        throw error;
+    }
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>12.4 Inventory Valuation Methods</h2>
+        <p>The system supports multiple inventory valuation methods to meet different business and accounting requirements.</p>
+
+        <h3>12.4.1 Supported Valuation Methods</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                    <th>Use Case</th>
+                    <th>Advantages</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>FIFO</td>
+                    <td>First In, First Out</td>
+                    <td>Perishable goods, electronics</td>
+                    <td>Reflects current market value</td>
+                </tr>
+                <tr>
+                    <td>LIFO</td>
+                    <td>Last In, First Out</td>
+                    <td>Non-perishable commodities</td>
+                    <td>Tax advantages in inflation</td>
+                </tr>
+                <tr>
+                    <td>Weighted Average</td>
+                    <td>Average cost of all units</td>
+                    <td>Homogeneous products</td>
+                    <td>Smooths price fluctuations</td>
+                </tr>
+                <tr>
+                    <td>Standard Cost</td>
+                    <td>Predetermined cost</td>
+                    <td>Manufacturing environments</td>
+                    <td>Simplifies costing</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>12.4.2 FIFO Implementation</h3>
+        <div class="code-block">
+// FIFO Cost Calculation
+function calculateFIFOCost(itemId, quantityToIssue) {
+    // Get stock batches ordered by receipt date
+    const stockBatches = getStockBatches(itemId, 'ASC'); // Oldest first
+    
+    let remainingQuantity = quantityToIssue;
+    let totalCost = 0;
+    const issuedBatches = [];
+    
+    for (const batch of stockBatches) {
+        if (remainingQuantity <= 0) break;
+        
+        const quantityFromBatch = Math.min(remainingQuantity, batch.available_quantity);
+        const costFromBatch = quantityFromBatch * batch.unit_cost;
+        
+        totalCost += costFromBatch;
+        remainingQuantity -= quantityFromBatch;
+        
+        issuedBatches.push({
+            batch_id: batch.id,
+            quantity: quantityFromBatch,
+            unit_cost: batch.unit_cost,
+            total_cost: costFromBatch
+        });
+        
+        // Update batch quantity
+        updateBatchQuantity(batch.id, -quantityFromBatch);
+    }
+    
+    if (remainingQuantity > 0) {
+        throw new Error('Insufficient stock for FIFO issue');
+    }
+    
+    return {
+        total_cost: totalCost,
+        average_cost: totalCost / quantityToIssue,
+        issued_batches: issuedBatches
+    };
+}
+        </div>
+
+        <h3>12.4.3 Weighted Average Cost</h3>
+        <div class="code-block">
+// Weighted Average Cost Calculation
+function updateWeightedAverageCost(itemId, newQuantity, newUnitCost) {
+    const currentStock = getCurrentStockLevel(itemId);
+    const currentAverageCost = getCurrentAverageCost(itemId);
+    
+    // Calculate new weighted average
+    const totalCurrentValue = currentStock * currentAverageCost;
+    const newValue = newQuantity * newUnitCost;
+    const totalQuantity = currentStock + newQuantity;
+    const totalValue = totalCurrentValue + newValue;
+    
+    const newAverageCost = totalQuantity > 0 ? totalValue / totalQuantity : 0;
+    
+    // Update item's average cost
+    updateItemAverageCost(itemId, newAverageCost);
+    
+    return {
+        previous_average_cost: currentAverageCost,
+        new_average_cost: newAverageCost,
+        total_quantity: totalQuantity,
+        total_value: totalValue
+    };
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>12.5 Stock Alerts and Notifications</h2>
+        <p>The system provides comprehensive alerting mechanisms to prevent stockouts and manage inventory efficiently.</p>
+
+        <h3>12.5.1 Alert Types</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Low Stock Alert</h4>
+                <p>Triggered when stock level falls below minimum threshold.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Reorder Point Alert</h4>
+                <p>Automated purchase order suggestions when reorder point is reached.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Overstock Alert</h4>
+                <p>Warning when stock levels exceed maximum capacity.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Expiry Alert</h4>
+                <p>Notifications for items approaching expiry dates.</p>
+            </div>
+        </div>
+
+        <h3>12.5.2 Alert Processing System</h3>
+        <div class="code-block">
+// Stock Alert Processing
+function processStockAlerts() {
+    const alertsToProcess = [];
+    
+    // Get all active stock items
+    const stockItems = getActiveStockItems();
+    
+    for (const item of stockItems) {
+        const currentStock = item.current_stock;
+        const alerts = [];
+        
+        // Check low stock
+        if (currentStock <= item.minimum_stock_level) {
+            alerts.push({
+                type: 'low_stock',
+                severity: currentStock === 0 ? 'critical' : 'warning',
+                message: `${item.name} is running low. Current stock: ${currentStock}`,
+                recommended_action: 'Reorder immediately'
+            });
+        }
+        
+        // Check reorder point
+        if (currentStock <= item.reorder_point) {
+            alerts.push({
+                type: 'reorder_point',
+                severity: 'info',
+                message: `${item.name} has reached reorder point`,
+                recommended_action: `Order ${item.reorder_quantity} units`
+            });
+        }
+        
+        // Check overstock
+        if (currentStock >= item.maximum_stock_level) {
+            alerts.push({
+                type: 'overstock',
+                severity: 'warning',
+                message: `${item.name} is overstocked. Current: ${currentStock}, Max: ${item.maximum_stock_level}`,
+                recommended_action: 'Consider promotional sales'
+            });
+        }
+        
+        // Check expiry (if applicable)
+        if (item.expiry_date) {
+            const daysToExpiry = getDaysToExpiry(item.expiry_date);
+            if (daysToExpiry <= 30) {
+                alerts.push({
+                    type: 'expiry_warning',
+                    severity: daysToExpiry <= 7 ? 'critical' : 'warning',
+                    message: `${item.name} expires in ${daysToExpiry} days`,
+                    recommended_action: 'Prioritize sales or return to supplier'
+                });
+            }
+        }
+        
+        if (alerts.length > 0) {
+            alertsToProcess.push({
+                item_id: item.id,
+                item_name: item.name,
+                alerts: alerts
+            });
+        }
+    }
+    
+    // Process and send alerts
+    for (const itemAlert of alertsToProcess) {
+        sendStockAlerts(itemAlert);
+        logStockAlert(itemAlert);
+    }
+    
+    return alertsToProcess;
+}
+        </div>
+
+        <h3>12.5.3 Automated Reorder System</h3>
+        <div class="code-block">
+// Automated Reorder Processing
+function processAutomatedReorders() {
+    const reorderItems = getItemsRequiringReorder();
+    const generatedOrders = [];
+    
+    for (const item of reorderItems) {
+        // Check if there's already a pending order
+        const pendingOrders = getPendingPurchaseOrders(item.id);
+        if (pendingOrders.length > 0) {
+            continue; // Skip if order already exists
+        }
+        
+        // Calculate optimal order quantity
+        const orderQuantity = calculateOptimalOrderQuantity(item);
+        
+        // Create purchase order
+        const purchaseOrder = {
+            supplier_id: item.primary_supplier_id,
+            items: [{
+                item_id: item.id,
+                quantity: orderQuantity,
+                unit_cost: item.last_purchase_cost
+            }],
+            order_type: 'automated_reorder',
+            priority: item.current_stock === 0 ? 'urgent' : 'normal',
+            expected_delivery: calculateExpectedDelivery(item.lead_time_days),
+            created_by: 'system'
+        };
+        
+        const orderId = createPurchaseOrder(purchaseOrder);
+        
+        generatedOrders.push({
+            item_id: item.id,
+            item_name: item.name,
+            order_id: orderId,
+            quantity: orderQuantity,
+            supplier: item.supplier_name
+        });
+        
+        // Send notification to procurement team
+        notifyProcurementTeam(orderId, item);
+    }
+    
+    return generatedOrders;
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>12.6 Stock Reporting and Analytics</h2>
+        <p>Comprehensive reporting capabilities provide insights into inventory performance and trends.</p>
+
+        <h3>12.6.1 Key Stock Reports</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Report Type</th>
+                    <th>Description</th>
+                    <th>Frequency</th>
+                    <th>Key Metrics</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Stock Summary</td>
+                    <td>Current stock levels across all items</td>
+                    <td>Real-time</td>
+                    <td>Total value, item count, low stock items</td>
+                </tr>
+                <tr>
+                    <td>Stock Movement</td>
+                    <td>Detailed transaction history</td>
+                    <td>Daily/Weekly</td>
+                    <td>Receipts, issues, transfers, adjustments</td>
+                </tr>
+                <tr>
+                    <td>ABC Analysis</td>
+                    <td>Items categorized by value contribution</td>
+                    <td>Monthly</td>
+                    <td>A, B, C category distribution</td>
+                </tr>
+                <tr>
+                    <td>Slow Moving Stock</td>
+                    <td>Items with low turnover rates</td>
+                    <td>Monthly</td>
+                    <td>Days in stock, turnover ratio</td>
+                </tr>
+                <tr>
+                    <td>Stock Valuation</td>
+                    <td>Financial value of inventory</td>
+                    <td>Monthly</td>
+                    <td>Total value by category, location</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>12.6.2 ABC Analysis Implementation</h3>
+        <div class="code-block">
+// ABC Analysis for Inventory Classification
+function performABCAnalysis(analysisDate) {
+    // Get sales data for the analysis period (typically 12 months)
+    const salesData = getSalesDataForPeriod(analysisDate, 365);
+    
+    // Calculate annual consumption value for each item
+    const itemAnalysis = salesData.reduce((acc, sale) => {
+        for (const item of sale.items) {
+            if (!acc[item.id]) {
+                acc[item.id] = {
+                    item_id: item.id,
+                    item_name: item.name,
+                    total_quantity: 0,
+                    total_value: 0,
+                    unit_cost: item.unit_cost
+                };
+            }
+            acc[item.id].total_quantity += item.quantity;
+            acc[item.id].total_value += item.quantity * item.unit_cost;
+        }
+        return acc;
+    }, {});
+    
+    // Convert to array and sort by value (descending)
+    const sortedItems = Object.values(itemAnalysis)
+        .sort((a, b) => b.total_value - a.total_value);
+    
+    // Calculate cumulative percentages
+    const totalValue = sortedItems.reduce((sum, item) => sum + item.total_value, 0);
+    let cumulativeValue = 0;
+    
+    const classifiedItems = sortedItems.map((item, index) => {
+        cumulativeValue += item.total_value;
+        const cumulativePercentage = (cumulativeValue / totalValue) * 100;
+        
+        // Classify items (80-15-5 rule)
+        let category;
+        if (cumulativePercentage <= 80) {
+            category = 'A'; // High value items
+        } else if (cumulativePercentage <= 95) {
+            category = 'B'; // Medium value items
+        } else {
+            category = 'C'; // Low value items
+        }
+        
+        return {
+            ...item,
+            rank: index + 1,
+            value_percentage: (item.total_value / totalValue) * 100,
+            cumulative_percentage: cumulativePercentage,
+            category: category
+        };
+    });
+    
+    // Update item categories in database
+    updateItemCategories(classifiedItems);
+    
+    return {
+        analysis_date: analysisDate,
+        total_items: classifiedItems.length,
+        total_value: totalValue,
+        category_summary: {
+            A: classifiedItems.filter(item => item.category === 'A').length,
+            B: classifiedItems.filter(item => item.category === 'B').length,
+            C: classifiedItems.filter(item => item.category === 'C').length
+        },
+        items: classifiedItems
+    };
+}
+        </div>
+
+        <h3>12.6.3 Stock Turnover Analysis</h3>
+        <div class="inventory-chart">
+            <h4>Stock Turnover Calculation</h4>
+            <div class="code-block">
+Stock Turnover Ratio = Cost of Goods Sold / Average Inventory Value
+
+Days in Inventory = 365 / Stock Turnover Ratio
+
+// Stock Turnover Analysis Implementation
+function calculateStockTurnover(itemId, periodDays = 365) {
+    const endDate = new Date();
+    const startDate = new Date(endDate.getTime() - (periodDays * 24 * 60 * 60 * 1000));
+    
+    // Get cost of goods sold for the period
+    const salesData = getSalesDataForItem(itemId, startDate, endDate);
+    const costOfGoodsSold = salesData.reduce((total, sale) => {
+        return total + (sale.quantity * sale.unit_cost);
+    }, 0);
+    
+    // Get average inventory value
+    const inventorySnapshots = getInventorySnapshots(itemId, startDate, endDate);
+    const averageInventoryValue = inventorySnapshots.reduce((total, snapshot) => {
+        return total + snapshot.value;
+    }, 0) / inventorySnapshots.length;
+    
+    // Calculate turnover metrics
+    const turnoverRatio = averageInventoryValue > 0 ? costOfGoodsSold / averageInventoryValue : 0;
+    const daysInInventory = turnoverRatio > 0 ? 365 / turnoverRatio : 0;
+    
+    return {
+        item_id: itemId,
+        period_days: periodDays,
+        cost_of_goods_sold: costOfGoodsSold,
+        average_inventory_value: averageInventoryValue,
+        turnover_ratio: turnoverRatio,
+        days_in_inventory: daysInInventory,
+        turnover_category: categorizeTurnover(turnoverRatio)
+    };
+}
+
+function categorizeTurnover(turnoverRatio) {
+    if (turnoverRatio >= 12) return 'Fast Moving';
+    if (turnoverRatio >= 6) return 'Medium Moving';
+    if (turnoverRatio >= 2) return 'Slow Moving';
+    return 'Dead Stock';
+}
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>12.7 Integration with Other Modules</h2>
+        <p>The Stock Management module integrates seamlessly with other CRM modules to provide comprehensive business management.</p>
+
+        <h3>12.7.1 Sales Integration</h3>
+        <div class="info-box">
+            <strong>Real-time Stock Updates:</strong> Every sale automatically updates stock levels, triggers reorder alerts, and maintains accurate inventory records across all locations.
+        </div>
+
+        <h3>12.7.2 Purchase Integration</h3>
+        <div class="code-block">
+// Purchase Order to Stock Receipt Integration
+function processPurchaseOrderReceipt(poId, receivedItems) {
+    const purchaseOrder = getPurchaseOrder(poId);
+    
+    beginTransaction();
+    
+    try {
+        for (const receivedItem of receivedItems) {
+            // Validate received quantity against ordered quantity
+            const orderedItem = purchaseOrder.items.find(item => item.id === receivedItem.item_id);
+            if (!orderedItem) {
+                throw new Error(`Item ${receivedItem.item_id} not found in purchase order`);
+            }
+            
+            // Process stock receipt
+            const receiptResult = processStockReceipt({
+                item_id: receivedItem.item_id,
+                quantity: receivedItem.received_quantity,
+                unit_cost: receivedItem.actual_cost || orderedItem.unit_cost,
+                location_id: receivedItem.location_id,
+                po_number: poId,
+                batch_number: receivedItem.batch_number,
+                expiry_date: receivedItem.expiry_date
+            });
+            
+            // Update purchase order item status
+            updatePurchaseOrderItemStatus(poId, receivedItem.item_id, {
+                received_quantity: receivedItem.received_quantity,
+                status: receivedItem.received_quantity >= orderedItem.quantity ? 'completed' : 'partial'
+            });
+        }
+        
+        // Update overall purchase order status
+        updatePurchaseOrderStatus(poId);
+        
+        commitTransaction();
+        
+        return {
+            success: true,
+            po_id: poId,
+            received_items: receivedItems.length
+        };
+        
+    } catch (error) {
+        rollbackTransaction();
+        throw error;
+    }
+}
+        </div>
+
+        <h3>12.7.3 Accounting Integration</h3>
+        <ul>
+            <li><strong>Inventory Valuation:</strong> Automatic calculation of inventory value for balance sheet</li>
+            <li><strong>Cost of Goods Sold:</strong> Real-time COGS calculation for P&L statements</li>
+            <li><strong>Stock Adjustments:</strong> Automatic journal entries for stock write-offs and adjustments</li>
+            <li><strong>Purchase Accruals:</strong> Goods received but not invoiced tracking</li>
+        </ul>
+    </div>
+
+    <div class="content-section">
+        <h2>12.8 Mobile and Barcode Integration</h2>
+        <p>The system supports mobile devices and barcode scanning for efficient warehouse operations.</p>
+
+        <h3>12.8.1 Mobile Features</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Mobile Stock Taking</h4>
+                <p>Conduct physical stock counts using mobile devices with offline capability.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Barcode Scanning</h4>
+                <p>Quick stock receipts, issues, and transfers using barcode scanning technology.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Real-time Updates</h4>
+                <p>Instant synchronization of stock movements with the central database.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Offline Mode</h4>
+                <p>Continue operations even without internet connectivity with automatic sync when connected.</p>
+            </div>
+        </div>
+
+        <h3>12.8.2 Barcode Implementation</h3>
+        <div class="code-block">
+// Barcode Processing System
+class BarcodeProcessor {
+    constructor() {
+        this.barcodeFormats = ['EAN-13', 'UPC-A', 'Code-128', 'QR Code'];
+        this.scanHistory = [];
+    }
+    
+    // Process scanned barcode
+    async processBarcodeScann(barcodeData, scanContext) {
+        try {
+            // Validate barcode format
+            const barcodeInfo = this.validateBarcode(barcodeData);
+            
+            // Find item by barcode
+            const item = await this.findItemByBarcode(barcodeData);
+            if (!item) {
+                throw new Error('Item not found for barcode: ' + barcodeData);
+            }
+            
+            // Process based on context
+            let result;
+            switch (scanContext.operation) {
+                case 'stock_receipt':
+                    result = await this.processReceiptScan(item, scanContext);
+                    break;
+                case 'stock_issue':
+                    result = await this.processIssueScan(item, scanContext);
+                    break;
+                case 'stock_count':
+                    result = await this.processCountScan(item, scanContext);
+                    break;
+                case 'price_check':
+                    result = await this.processPriceCheck(item);
+                    break;
+                default:
+                    throw new Error('Unknown scan operation: ' + scanContext.operation);
+            }
+            
+            // Log scan history
+            this.logScanHistory({
+                barcode: barcodeData,
+                item_id: item.id,
+                operation: scanContext.operation,
+                timestamp: new Date(),
+                user_id: scanContext.user_id,
+                location_id: scanContext.location_id
+            });
+            
+            return result;
+            
+        } catch (error) {
+            console.error('Barcode processing error:', error);
+            throw error;
+        }
+    }
+    
+    // Validate barcode format
+    validateBarcode(barcodeData) {
+        // EAN-13 validation
+        if (/^\d{13}$/.test(barcodeData)) {
+            return { format: 'EAN-13', valid: this.validateEAN13(barcodeData) };
+        }
+        
+        // UPC-A validation
+        if (/^\d{12}$/.test(barcodeData)) {
+            return { format: 'UPC-A', valid: this.validateUPCA(barcodeData) };
+        }
+        
+        // Code-128 validation
+        if (/^[A-Za-z0-9\-\.\ \$\/\+\%]+$/.test(barcodeData)) {
+            return { format: 'Code-128', valid: true };
+        }
+        
+        return { format: 'Unknown', valid: false };
+    }
+    
+    // Process stock receipt scan
+    async processReceiptScan(item, context) {
+        const quantity = context.quantity || 1;
+        
+        return await processStockReceipt({
+            item_id: item.id,
+            quantity: quantity,
+            unit_cost: context.unit_cost || item.cost_price,
+            location_id: context.location_id,
+            po_number: context.po_number,
+            batch_number: context.batch_number
+        });
+    }
+    
+    // Generate barcode for new items
+    generateBarcode(item) {
+        // Generate EAN-13 barcode
+        const countryCode = '890'; // India
+        const companyCode = '12345'; // Company identifier
+        const itemCode = item.id.toString().padStart(5, '0');
+        const baseCode = countryCode + companyCode + itemCode;
+        
+        // Calculate check digit
+        const checkDigit = this.calculateEAN13CheckDigit(baseCode);
+        
+        return baseCode + checkDigit;
+    }
+    
+    // Calculate EAN-13 check digit
+    calculateEAN13CheckDigit(code) {
+        let sum = 0;
+        for (let i = 0; i < 12; i++) {
+            const digit = parseInt(code[i]);
+            sum += (i % 2 === 0) ? digit : digit * 3;
+        }
+        return ((10 - (sum % 10)) % 10).toString();
+    }
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>12.9 Performance and Scalability</h2>
+        <p>The stock management system is designed for high performance and can scale to handle large inventories.</p>
+
+        <h3>12.9.1 Performance Optimizations</h3>
+        <div class="code-block">
+-- Database Indexing Strategy
+CREATE INDEX idx_stock_items_category ON stock_items(category, status);
+CREATE INDEX idx_stock_items_location ON stock_items(location_id, current_stock);
+CREATE INDEX idx_stock_transactions_item_date ON stock_transactions(item_id, transaction_date);
+CREATE INDEX idx_stock_transactions_type ON stock_transactions(transaction_type, transaction_date);
+
+-- Optimized Stock Level Query
+SELECT 
+    si.id,
+    si.name,
+    si.current_stock,
+    si.minimum_stock_level,
+    CASE 
+        WHEN si.current_stock <= 0 THEN 'Out of Stock'
+        WHEN si.current_stock <= si.minimum_stock_level THEN 'Low Stock'
+        ELSE 'In Stock'
+    END as stock_status
+FROM stock_items si
+WHERE si.status = 'active'
+ORDER BY 
+    CASE 
+        WHEN si.current_stock <= 0 THEN 1
+        WHEN si.current_stock <= si.minimum_stock_level THEN 2
+        ELSE 3
+    END,
+    si.name;
+        </div>
+
+        <h3>12.9.2 Scalability Features</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Current Capacity</th>
+                    <th>Scalability Limit</th>
+                    <th>Performance Impact</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Stock Items</td>
+                    <td>100,000 items</td>
+                    <td>1,000,000+ items</td>
+                    <td>Minimal with proper indexing</td>
+                </tr>
+                <tr>
+                    <td>Transactions/Day</td>
+                    <td>50,000 transactions</td>
+                    <td>500,000+ transactions</td>
+                    <td>Linear scaling with hardware</td>
+                </tr>
+                <tr>
+                    <td>Locations</td>
+                    <td>100 locations</td>
+                    <td>1,000+ locations</td>
+                    <td>No significant impact</td>
+                </tr>
+                <tr>
+                    <td>Concurrent Users</td>
+                    <td>500 users</td>
+                    <td>5,000+ users</td>
+                    <td>Requires load balancing</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="content-section">
+        <h2>12.10 Future Enhancements</h2>
+        <p>Planned improvements and advanced features for the stock management system.</p>
+
+        <h3>12.10.1 Upcoming Features</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>🤖 AI-Powered Demand Forecasting</h4>
+                <p>Machine learning algorithms to predict demand patterns and optimize stock levels.</p>
+            </div>
+            <div class="feature-card">
+                <h4>📱 Advanced Mobile App</h4>
+                <p>Dedicated mobile application with offline capabilities and advanced barcode scanning.</p>
+            </div>
+            <div class="feature-card">
+                <h4>🏭 IoT Integration</h4>
+                <p>Integration with IoT sensors for real-time environmental monitoring and automated alerts.</p>
+            </div>
+            <div class="feature-card">
+                <h4>🔗 Blockchain Traceability</h4>
+                <p>Blockchain-based supply chain traceability for enhanced transparency and authenticity.</p>
+            </div>
+        </div>
+
+        <h3>12.10.2 Advanced Analytics</h3>
+        <div class="highlight">
+            <strong>Predictive Analytics:</strong> Future versions will include advanced predictive analytics for demand forecasting, seasonal trend analysis, and automated procurement optimization using machine learning algorithms.
+        </div>
+
+        <ul>
+            <li><strong>Demand Forecasting:</strong> AI-powered prediction of future stock requirements</li>
+            <li><strong>Seasonal Analysis:</strong> Automatic detection of seasonal patterns and trends</li>
+            <li><strong>Supplier Performance:</strong> Advanced supplier analytics and performance scoring</li>
+            <li><strong>Cost Optimization:</strong> Automated recommendations for cost reduction opportunities</li>
+            <li><strong>Risk Management:</strong> Predictive alerts for supply chain disruptions</li>
+        </ul>
+    </div>
+
+    <div class="navigation">
+        <a href="chapter11.html" class="nav-button">← Previous: Sales Management</a>
+        <a href="table_of_contents.html" class="nav-button">📚 Table of Contents</a>
+        <a href="chapter13.html" class="nav-button">Next: Salary & Payroll →</a>
+    </div>
+</body>
+</html>

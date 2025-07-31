@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 6: User Roles - CRM System Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header .chapter-info {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        h2 {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            font-size: 1.8em;
+        }
+        h3 {
+            color: #764ba2;
+            margin-top: 30px;
+            font-size: 1.4em;
+        }
+        h4 {
+            color: #555;
+            margin-top: 25px;
+            font-size: 1.2em;
+        }
+        .roles-overview {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .role-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border-left: 6px solid #667eea;
+        }
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        .role-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .role-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .superadmin { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
+        .admin { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .user { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        .showroom { background: linear-gradient(135deg, #fa709a, #fee140); }
+        .hr { background: linear-gradient(135deg, #a8edea, #fed6e3); }
+        .accounts { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .sitemanager { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
+        .role-title {
+            color: #333;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin: 0;
+        }
+        .role-subtitle {
+            color: #666;
+            font-size: 0.9em;
+            margin: 5px 0 0 0;
+        }
+        .permissions-list {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+        .permissions-list li {
+            background: #f8f9fa;
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 3px solid #28a745;
+            font-size: 0.9em;
+        }
+        .access-level {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .full-access { background: #d4edda; color: #155724; }
+        .limited-access { background: #fff3cd; color: #856404; }
+        .read-only { background: #f8d7da; color: #721c24; }
+        .hierarchy-diagram {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .hierarchy-level {
+            margin: 20px 0;
+            position: relative;
+        }
+        .hierarchy-box {
+            display: inline-block;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 0 10px;
+            border-left: 5px solid #667eea;
+        }
+        .hierarchy-connector {
+            color: #667eea;
+            font-size: 2em;
+            margin: 10px 0;
+        }
+        .permission-matrix {
+            overflow-x: auto;
+            margin: 25px 0;
+        }
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 0.9em;
+        }
+        .matrix-table th,
+        .matrix-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .matrix-table th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        .matrix-table tr:hover {
+            background: #f8f9fa;
+        }
+        .permission-yes {
+            background: #d4edda;
+            color: #155724;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+        .permission-no {
+            background: #f8d7da;
+            color: #721c24;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+        .permission-limited {
+            background: #fff3cd;
+            color: #856404;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+        .workflow-diagram {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 2px solid #dee2e6;
+        }
+        .workflow-step {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        .workflow-arrow {
+            color: #667eea;
+            font-size: 1.5em;
+            margin: 0 10px;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-header {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 8px 8px 0 0;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .navigation {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #dee2e6;
+            text-align: center;
+        }
+        .nav-button {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 0 10px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .nav-button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);
+        }
+        .dashboard-preview {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 5px solid #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Chapter 6: User Roles</h1>
+            <div class="chapter-info">Comprehensive Role-Based Access Control System</div>
+        </div>
+
+        <h2>6.1 Role-Based Access Control Overview</h2>
+        
+        <div class="roles-overview">
+            <h3>Multi-Tier Role Architecture</h3>
+            <p>The CRM system implements a sophisticated role-based access control (RBAC) system that ensures appropriate access levels for different user types while maintaining security and operational efficiency. The system supports seven distinct user roles, each with carefully defined permissions and access levels.</p>
+        </div>
+
+        <p>The role-based system is designed to reflect real-world organizational hierarchies and operational requirements. Each role has been carefully crafted to provide the necessary access while maintaining the principle of least privilege, ensuring users have access only to the resources and functions required for their specific responsibilities.</p>
+
+        <h2>6.2 Organizational Hierarchy</h2>
+
+        <div class="hierarchy-diagram">
+            <h3>Role Hierarchy Structure</h3>
+            
+            <div class="hierarchy-level">
+                <div class="hierarchy-box">
+                    <strong>Super Admin</strong><br>
+                    <small>System-wide control</small>
+                </div>
+            </div>
+            
+            <div class="hierarchy-connector">↓</div>
+            
+            <div class="hierarchy-level">
+                <div class="hierarchy-box">
+                    <strong>Admin</strong><br>
+                    <small>Operational management</small>
+                </div>
+                <div class="hierarchy-box">
+                    <strong>HR Admin</strong><br>
+                    <small>Human resources</small>
+                </div>
+                <div class="hierarchy-box">
+                    <strong>Accounts</strong><br>
+                    <small>Financial management</small>
+                </div>
+            </div>
+            
+            <div class="hierarchy-connector">↓</div>
+            
+            <div class="hierarchy-level">
+                <div class="hierarchy-box">
+                    <strong>Site Manager</strong><br>
+                    <small>Location management</small>
+                </div>
+                <div class="hierarchy-box">
+                    <strong>User</strong><br>
+                    <small>General operations</small>
+                </div>
+                <div class="hierarchy-box">
+                    <strong>Showroom User</strong><br>
+                    <small>Customer-facing</small>
+                </div>
+            </div>
+        </div>
+
+        <h2>6.3 Detailed Role Specifications</h2>
+
+        <div class="role-grid">
+            <div class="role-card">
+                <div class="role-header">
+                    <div class="role-icon superadmin">SA</div>
+                    <div>
+                        <h3 class="role-title">Super Admin</h3>
+                        <p class="role-subtitle">System Administrator & Owner</p>
+                        <span class="access-level full-access">Full System Access</span>
+                    </div>
+                </div>
+                
+                <h4>Primary Responsibilities:</h4>
+                <ul class="permissions-list">
+                    <li>Complete system administration and configuration</li>
+                    <li>User management and role assignment</li>
+                    <li>System security and backup management</li>
+                    <li>Database administration and maintenance</li>
+                    <li>System monitoring and performance optimization</li>
+                    <li>Integration management and API configuration</li>
+                </ul>
+
+                <h4>Key Permissions:</h4>
+                <ul class="permissions-list">
+                    <li>Create, modify, and delete all user accounts</li>
+                    <li>Access all modules and features</li>
+                    <li>System configuration and settings management</li>
+                    <li>Audit log access and security monitoring</li>
+                    <li>Database backup and restore operations</li>
+                    <li>API key management and integrations</li>
+                </ul>
+
+                <div class="dashboard-preview">
+                    <strong>Dashboard Features:</strong> System health monitoring, user activity analytics, security alerts, performance metrics, backup status, integration monitoring
+                </div>
+            </div>
+
+            <div class="role-card">
+                <div class="role-header">
+                    <div class="role-icon admin">AD</div>
+                    <div>
+                        <h3 class="role-title">Admin</h3>
+                        <p class="role-subtitle">Operations Manager</p>
+                        <span class="access-level full-access">Operational Control</span>
+                    </div>
+                </div>
+                
+                <h4>Primary Responsibilities:</h4>
+                <ul class="permissions-list">
+                    <li>Daily operational management and oversight</li>
+                    <li>Customer relationship management</li>
+                    <li>Sales pipeline and opportunity management</li>
+                    <li>Team coordination and task assignment</li>
+                    <li>Reporting and analytics review</li>
+                    <li>Quality assurance and process improvement</li>
+                </ul>
+
+                <h4>Key Permissions:</h4>
+                <ul class="permissions-list">
+                    <li>Full access to customer management</li>
+                    <li>Sales and opportunity management</li>
+                    <li>Team member management (limited)</li>
+                    <li>Advanced reporting and analytics</li>
+                    <li>Task and project management</li>
+                    <li>Communication and notification management</li>
+                </ul>
+
+                <div class="dashboard-preview">
+                    <strong>Dashboard Features:</strong> Sales pipeline overview, customer activity summary, team performance metrics, task management, communication center
+                </div>
+            </div>
+
+            <div class="role-card">
+                <div class="role-header">
+                    <div class="role-icon user">US</div>
+                    <div>
+                        <h3 class="role-title">User</h3>
+                        <p class="role-subtitle">General Employee</p>
+                        <span class="access-level limited-access">Standard Access</span>
+                    </div>
+                </div>
+                
+                <h4>Primary Responsibilities:</h4>
+                <ul class="permissions-list">
+                    <li>Customer interaction and relationship building</li>
+                    <li>Lead generation and follow-up activities</li>
+                    <li>Data entry and record maintenance</li>
+                    <li>Task completion and progress reporting</li>
+                    <li>Attendance and time tracking</li>
+                    <li>Basic reporting and documentation</li>
+                </ul>
+
+                <h4>Key Permissions:</h4>
+                <ul class="permissions-list">
+                    <li>Customer contact and interaction logging</li>
+                    <li>Lead management and follow-up</li>
+                    <li>Personal task and calendar management</li>
+                    <li>Attendance check-in/check-out</li>
+                    <li>Basic reporting access</li>
+                    <li>Profile and settings management</li>
+                </ul>
+
+                <div class="dashboard-preview">
+                    <strong>Dashboard Features:</strong> Personal task list, customer interactions, lead pipeline, attendance summary, performance metrics
+                </div>
+            </div>
+
+            <div class="role-card">
+                <div class="role-header">
+                    <div class="role-icon showroom">SU</div>
+                    <div>
+                        <h3 class="role-title">Showroom User</h3>
+                        <p class="role-subtitle">Customer-Facing Representative</p>
+                        <span class="access-level limited-access">Customer-Focused Access</span>
+                    </div>
+                </div>
+                
+                <h4>Primary Responsibilities:</h4>
+                <ul class="permissions-list">
+                    <li>Direct customer service and support</li>
+                    <li>Product demonstration and presentation</li>
+                    <li>Customer inquiry handling and resolution</li>
+                    <li>Sales support and order processing</li>
+                    <li>Customer feedback collection</li>
+                    <li>Showroom activity reporting</li>
+                </ul>
+
+                <h4>Key Permissions:</h4>
+                <ul class="permissions-list">
+                    <li>Customer information access (limited)</li>
+                    <li>Product catalog and pricing access</li>
+                    <li>Order creation and status tracking</li>
+                    <li>Customer service ticket management</li>
+                    <li>Appointment scheduling</li>
+                    <li>Basic inventory visibility</li>
+                </ul>
+
+                <div class="dashboard-preview">
+                    <strong>Dashboard Features:</strong> Customer appointments, product catalog, order status, service tickets, daily activity log
+                </div>
+            </div>
+
+            <div class="role-card">
+                <div class="role-header">
+                    <div class="role-icon hr">HR</div>
+                    <div>
+                        <h3 class="role-title">HR Admin</h3>
+                        <p class="role-subtitle">Human Resources Manager</p>
+                        <span class="access-level full-access">HR Operations Control</span>
+                    </div>
+                </div>
+                
+                <h4>Primary Responsibilities:</h4>
+                <ul class="permissions-list">
+                    <li>Employee lifecycle management</li>
+                    <li>Payroll processing and management</li>
+                    <li>Leave request approval and tracking</li>
+                    <li>Performance evaluation coordination</li>
+                    <li>Recruitment and onboarding</li>
+                    <li>HR policy implementation and compliance</li>
+                </ul>
+
+                <h4>Key Permissions:</h4>
+                <ul class="permissions-list">
+                    <li>Complete employee record access</li>
+                    <li>Payroll calculation and processing</li>
+                    <li>Leave management and approval</li>
+                    <li>Attendance monitoring and reporting</li>
+                    <li>Performance review management</li>
+                    <li>HR analytics and reporting</li>
+                </ul>
+
+                <div class="dashboard-preview">
+                    <strong>Dashboard Features:</strong> Employee overview, payroll summary, leave requests, attendance analytics, performance tracking
+                </div>
+            </div>
+
+            <div class="role-card">
+                <div class="role-header">
+                    <div class="role-icon accounts">AC</div>
+                    <div>
+                        <h3 class="role-title">Accounts</h3>
+                        <p class="role-subtitle">Financial Manager</p>
+                        <span class="access-level full-access">Financial Control</span>
+                    </div>
+                </div>
+                
+                <h4>Primary Responsibilities:</h4>
+                <ul class="permissions-list">
+                    <li>Financial transaction management</li>
+                    <li>Invoice generation and tracking</li>
+                    <li>Payment processing and reconciliation</li>
+                    <li>Financial reporting and analysis</li>
+                    <li>Budget management and forecasting</li>
+                    <li>Compliance and audit support</li>
+                </ul>
+
+                <h4>Key Permissions:</h4>
+                <ul class="permissions-list">
+                    <li>Complete financial data access</li>
+                    <li>Invoice creation and management</li>
+                    <li>Payment processing and tracking</li>
+                    <li>Financial reporting and analytics</li>
+                    <li>Expense management and approval</li>
+                    <li>Tax and compliance reporting</li>
+                </ul>
+
+                <div class="dashboard-preview">
+                    <strong>Dashboard Features:</strong> Financial overview, invoice status, payment tracking, expense reports, budget analysis
+                </div>
+            </div>
+
+            <div class="role-card">
+                <div class="role-header">
+                    <div class="role-icon sitemanager">SM</div>
+                    <div>
+                        <h3 class="role-title">Site Manager</h3>
+                        <p class="role-subtitle">Location Operations Manager</p>
+                        <span class="access-level limited-access">Site-Specific Control</span>
+                    </div>
+                </div>
+                
+                <h4>Primary Responsibilities:</h4>
+                <ul class="permissions-list">
+                    <li>Site-specific operations management</li>
+                    <li>Local team coordination and supervision</li>
+                    <li>Inventory management and control</li>
+                    <li>Local customer relationship management</li>
+                    <li>Site performance monitoring</li>
+                    <li>Safety and compliance oversight</li>
+                </ul>
+
+                <h4>Key Permissions:</h4>
+                <ul class="permissions-list">
+                    <li>Site-specific data access</li>
+                    <li>Local team management</li>
+                    <li>Inventory tracking and management</li>
+                    <li>Local customer interactions</li>
+                    <li>Site performance reporting</li>
+                    <li>Local task and project management</li>
+                </ul>
+
+                <div class="dashboard-preview">
+                    <strong>Dashboard Features:</strong> Site performance metrics, local team status, inventory levels, customer activity, task management
+                </div>
+            </div>
+        </div>
+
+        <h2>6.4 Permission Matrix</h2>
+
+        <div class="permission-matrix">
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th>Module/Feature</th>
+                        <th>Super Admin</th>
+                        <th>Admin</th>
+                        <th>User</th>
+                        <th>Showroom User</th>
+                        <th>HR Admin</th>
+                        <th>Accounts</th>
+                        <th>Site Manager</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>User Management</strong></td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-limited">Limited</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-limited">Site Only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Customer Management</strong></td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-limited">Limited</td>
+                        <td class="permission-limited">View Only</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-limited">Financial</td>
+                        <td class="permission-limited">Site Only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sales Management</strong></td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-limited">Limited</td>
+                        <td class="permission-limited">Orders Only</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-limited">Financial</td>
+                        <td class="permission-limited">Site Only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Employee Management</strong></td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-limited">Limited</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-limited">Site Only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Attendance System</strong></td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-yes">View All</td>
+                        <td class="permission-limited">Self Only</td>
+                        <td class="permission-limited">Self Only</td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-limited">Site Only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Leave Management</strong></td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-limited">Approve</td>
+                        <td class="permission-limited">Request</td>
+                        <td class="permission-limited">Request</td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-limited">Site Only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Payroll Management</strong></td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-limited">Self Only</td>
+                        <td class="permission-limited">Self Only</td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-no">No</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Stock Management</strong></td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-limited">View Only</td>
+                        <td class="permission-limited">View Only</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-limited">Financial</td>
+                        <td class="permission-limited">Site Only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Financial Reports</strong></td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-limited">Summary</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-limited">Payroll</td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-limited">Site Only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>System Settings</strong></td>
+                        <td class="permission-yes">Full</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-no">No</td>
+                        <td class="permission-limited">HR Only</td>
+                        <td class="permission-limited">Finance Only</td>
+                        <td class="permission-no">No</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>6.5 Role Implementation</h2>
+
+        <h3>6.5.1 Database Structure</h3>
+        <div class="code-block">
+            <div class="code-header">Role Management Database Schema</div>
+            <pre><code>-- Roles table
+CREATE TABLE roles (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) UNIQUE NOT NULL,
+    description TEXT,
+    level INT NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Insert default roles
+INSERT INTO roles (id, name, description, level) VALUES
+(1, 'Super Admin', 'System administrator with full access', 10),
+(2, 'Admin', 'Operations manager with administrative access', 8),
+(3, 'User', 'General employee with standard access', 5),
+(4, 'HR Admin', 'Human resources administrator', 7),
+(5, 'Site Manager', 'Site-specific operations manager', 6),
+(6, 'Accounts', 'Financial manager with accounting access', 7),
+(7, 'Showroom User', 'Customer-facing representative', 4);
+
+-- Permissions table
+CREATE TABLE permissions (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) UNIQUE NOT NULL,
+    description TEXT,
+    module VARCHAR(50) NOT NULL,
+    action VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Role permissions mapping
+CREATE TABLE role_permissions (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    role_id INT NOT NULL,
+    permission_id INT NOT NULL,
+    granted BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE,
+    FOREIGN KEY (permission_id) REFERENCES permissions(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_role_permission (role_id, permission_id)
+);
+
+-- User role assignments
+CREATE TABLE user_roles (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    role_id INT NOT NULL,
+    assigned_by INT,
+    assigned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE,
+    FOREIGN KEY (assigned_by) REFERENCES users(id),
+    UNIQUE KEY unique_user_role (user_id, role_id)
+);
+
+-- Custom user permissions (overrides)
+CREATE TABLE user_permissions (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    permission_id INT NOT NULL,
+    granted BOOLEAN DEFAULT TRUE,
+    granted_by INT,
+    granted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP NULL,
+    
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (permission_id) REFERENCES permissions(id) ON DELETE CASCADE,
+    FOREIGN KEY (granted_by) REFERENCES users(id),
+    UNIQUE KEY unique_user_permission (user_id, permission_id)
+);</code></pre>
+        </div>
+
+        <h3>6.5.2 Role Validation and Authorization</h3>
+        <div class="code-block">
+            <div class="code-header">Role-Based Authorization Implementation</div>
+            <pre><code><?php
+class RoleManager {
+    private $conn;
+    private $userPermissions = [];
+    
+    public function __construct($connection) {
+        $this->conn = $connection;
+    }
+    
+    /**
+     * Check if user has specific permission
+     */
+    public function hasPermission($userId, $permission, $module = null) {
+        // Check cache first
+        $cacheKey = "{$userId}_{$permission}_{$module}";
+        if (isset($this->userPermissions[$cacheKey])) {
+            return $this->userPermissions[$cacheKey];
+        }
+        
+        // Get user's role
+        $userRole = $this->getUserRole($userId);
+        if (!$userRole) {
+            return false;
+        }
+        
+        // Check role-based permissions
+        $hasRolePermission = $this->checkRolePermission($userRole['id'], $permission, $module);
+        
+        // Check for user-specific permission overrides
+        $userOverride = $this->checkUserPermissionOverride($userId, $permission, $module);
+        
+        // User override takes precedence
+        $result = $userOverride !== null ? $userOverride : $hasRolePermission;
+        
+        // Cache the result
+        $this->userPermissions[$cacheKey] = $result;
+        
+        return $result;
+    }
+    
+    /**
+     * Get user's primary role
+     */
+    private function getUserRole($userId) {
+        $stmt = $this->conn->prepare("
+            SELECT r.* FROM roles r 
+            JOIN users u ON r.id = u.role_id 
+            WHERE u.id = ? AND u.is_active = 1
+        ");
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        return $stmt->get_result()->fetch_assoc();
+    }
+    
+    /**
+     * Check role-based permission
+     */
+    private function checkRolePermission($roleId, $permission, $module) {
+        $stmt = $this->conn->prepare("
+            SELECT rp.granted FROM role_permissions rp
+            JOIN permissions p ON rp.permission_id = p.id
+            WHERE rp.role_id = ? AND p.name = ? 
+            AND (p.module = ? OR ? IS NULL)
+            AND rp.granted = 1
+        ");
+        $stmt->bind_param('isss', $roleId, $permission, $module, $module);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        return $result->num_rows > 0;
+    }
+    
+    /**
+     * Check user-specific permission override
+     */
+    private function checkUserPermissionOverride($userId, $permission, $module) {
+        $stmt = $this->conn->prepare("
+            SELECT up.granted FROM user_permissions up
+            JOIN permissions p ON up.permission_id = p.id
+            WHERE up.user_id = ? AND p.name = ?
+            AND (p.module = ? OR ? IS NULL)
+            AND (up.expires_at IS NULL OR up.expires_at > NOW())
+        ");
+        $stmt->bind_param('isss', $userId, $permission, $module, $module);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return (bool)$row['granted'];
+        }
+        
+        return null; // No override found
+    }
+    
+    /**
+     * Assign role to user
+     */
+    public function assignRole($userId, $roleId, $assignedBy) {
+        try {
+            $this->conn->begin_transaction();
+            
+            // Deactivate existing roles
+            $stmt = $this->conn->prepare("
+                UPDATE user_roles SET is_active = 0 
+                WHERE user_id = ? AND is_active = 1
+            ");
+            $stmt->bind_param('i', $userId);
+            $stmt->execute();
+            
+            // Assign new role
+            $stmt = $this->conn->prepare("
+                INSERT INTO user_roles (user_id, role_id, assigned_by) 
+                VALUES (?, ?, ?)
+            ");
+            $stmt->bind_param('iii', $userId, $roleId, $assignedBy);
+            $stmt->execute();
+            
+            // Update user table
+            $stmt = $this->conn->prepare("
+                UPDATE users SET role_id = ? WHERE id = ?
+            ");
+            $stmt->bind_param('ii', $roleId, $userId);
+            $stmt->execute();
+            
+            $this->conn->commit();
+            
+            // Clear permission cache
+            $this->clearUserPermissionCache($userId);
+            
+            return true;
+        } catch (Exception $e) {
+            $this->conn->rollback();
+            error_log("Role assignment error: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Grant specific permission to user
+     */
+    public function grantUserPermission($userId, $permissionId, $grantedBy, $expiresAt = null) {
+        try {
+            $stmt = $this->conn->prepare("
+                INSERT INTO user_permissions (user_id, permission_id, granted, granted_by, expires_at)
+                VALUES (?, ?, 1, ?, ?)
+                ON DUPLICATE KEY UPDATE 
+                granted = 1, granted_by = ?, granted_at = NOW(), expires_at = ?
+            ");
+            $stmt->bind_param('iiisis', $userId, $permissionId, $grantedBy, $expiresAt, $grantedBy, $expiresAt);
+            $stmt->execute();
+            
+            // Clear permission cache
+            $this->clearUserPermissionCache($userId);
+            
+            return true;
+        } catch (Exception $e) {
+            error_log("Permission grant error: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Clear user permission cache
+     */
+    private function clearUserPermissionCache($userId) {
+        foreach (array_keys($this->userPermissions) as $key) {
+            if (strpos($key, $userId . '_') === 0) {
+                unset($this->userPermissions[$key]);
+            }
+        }
+    }
+}
+?></code></pre>
+        </div>
+
+        <h2>6.6 Role-Based Dashboard Customization</h2>
+
+        <div class="highlight-box">
+            <h3>Dynamic Dashboard Generation</h3>
+            <p>Each user role receives a customized dashboard experience tailored to their specific responsibilities and access levels. The system dynamically generates dashboard content based on role permissions and organizational requirements.</p>
+        </div>
+
+        <h3>6.6.1 Dashboard Components by Role</h3>
+
+        <div class="workflow-diagram">
+            <h4>Super Admin Dashboard Flow</h4>
+            <div class="workflow-step">System Health</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">User Management</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">Security Monitoring</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">Performance Analytics</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">System Configuration</div>
+        </div>
+
+        <div class="workflow-diagram">
+            <h4>Admin Dashboard Flow</h4>
+            <div class="workflow-step">Sales Overview</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">Customer Management</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">Team Performance</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">Task Management</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">Reports & Analytics</div>
+        </div>
+
+        <div class="workflow-diagram">
+            <h4>HR Admin Dashboard Flow</h4>
+            <div class="workflow-step">Employee Overview</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">Attendance Monitoring</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">Leave Management</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">Payroll Processing</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">Performance Tracking</div>
+        </div>
+
+        <h3>6.6.2 Role-Based Menu Generation</h3>
+        <div class="code-block">
+            <div class="code-header">Dynamic Menu Generation</div>
+            <pre><code><?php
+class MenuGenerator {
+    private $roleManager;
+    private $menuItems = [
+        'dashboard' => [
+            'title' => 'Dashboard',
+            'icon' => 'dashboard',
+            'url' => 'dashboard.php',
+            'permission' => 'view_dashboard'
+        ],
+        'customers' => [
+            'title' => 'Customer Management',
+            'icon' => 'people',
+            'url' => 'customers.php',
+            'permission' => 'manage_customers',
+            'submenu' => [
+                'add_customer' => [
+                    'title' => 'Add Customer',
+                    'url' => 'add-customer.php',
+                    'permission' => 'create_customer'
+                ],
+                'customer_list' => [
+                    'title' => 'Customer List',
+                    'url' => 'customer-list.php',
+                    'permission' => 'view_customers'
+                ]
+            ]
+        ],
+        'sales' => [
+            'title' => 'Sales Management',
+            'icon' => 'trending_up',
+            'url' => 'sales.php',
+            'permission' => 'manage_sales'
+        ],
+        'employees' => [
+            'title' => 'Employee Management',
+            'icon' => 'badge',
+            'url' => 'employees.php',
+            'permission' => 'manage_employees'
+        ],
+        'attendance' => [
+            'title' => 'Attendance',
+            'icon' => 'access_time',
+            'url' => 'attendance.php',
+            'permission' => 'view_attendance'
+        ],
+        'payroll' => [
+            'title' => 'Payroll',
+            'icon' => 'account_balance_wallet',
+            'url' => 'payroll.php',
+            'permission' => 'manage_payroll'
+        ],
+        'reports' => [
+            'title' => 'Reports',
+            'icon' => 'assessment',
+            'url' => 'reports.php',
+            'permission' => 'view_reports'
+        ],
+        'settings' => [
+            'title' => 'Settings',
+            'icon' => 'settings',
+            'url' => 'settings.php',
+            'permission' => 'manage_settings'
+        ]
+    ];
+    
+    public function __construct($roleManager) {
+        $this->roleManager = $roleManager;
+    }
+    
+    public function generateMenu($userId) {
+        $menu = [];
+        
+        foreach ($this->menuItems as $key => $item) {
+            if ($this->roleManager->hasPermission($userId, $item['permission'])) {
+                $menuItem = [
+                    'key' => $key,
+                    'title' => $item['title'],
+                    'icon' => $item['icon'],
+                    'url' => $item['url']
+                ];
+                
+                // Check submenu items
+                if (isset($item['submenu'])) {
+                    $submenu = [];
+                    foreach ($item['submenu'] as $subKey => $subItem) {
+                        if ($this->roleManager->hasPermission($userId, $subItem['permission'])) {
+                            $submenu[] = [
+                                'key' => $subKey,
+                                'title' => $subItem['title'],
+                                'url' => $subItem['url']
+                            ];
+                        }
+                    }
+                    if (!empty($submenu)) {
+                        $menuItem['submenu'] = $submenu;
+                    }
+                }
+                
+                $menu[] = $menuItem;
+            }
+        }
+        
+        return $menu;
+    }
+    
+    public function renderMenu($userId) {
+        $menu = $this->generateMenu($userId);
+        $html = '<nav class="main-navigation"><ul class="nav-list">';
+        
+        foreach ($menu as $item) {
+            $html .= '<li class="nav-item">';
+            $html .= '<a href="' . htmlspecialchars($item['url']) . '" class="nav-link">';
+            $html .= '<span class="material-icons">' . htmlspecialchars($item['icon']) . '</span>';
+            $html .= '<span class="nav-text">' . htmlspecialchars($item['title']) . '</span>';
+            $html .= '</a>';
+            
+            if (isset($item['submenu'])) {
+                $html .= '<ul class="submenu">';
+                foreach ($item['submenu'] as $subItem) {
+                    $html .= '<li><a href="' . htmlspecialchars($subItem['url']) . '">';
+                    $html .= htmlspecialchars($subItem['title']) . '</a></li>';
+                }
+                $html .= '</ul>';
+            }
+            
+            $html .= '</li>';
+        }
+        
+        $html .= '</ul></nav>';
+        return $html;
+    }
+}
+?></code></pre>
+        </div>
+
+        <h2>6.7 Role Transition and Workflow</h2>
+
+        <h3>6.7.1 Role Assignment Workflow</h3>
+        <div class="workflow-diagram">
+            <h4>New User Role Assignment Process</h4>
+            <div class="workflow-step">User Registration</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">Admin Review</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">Role Assignment</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">Permission Validation</div>
+            <span class="workflow-arrow">→</span>
+            <div class="workflow-step">Dashboard Access</div>
+        </div>
+
+        <h3>6.7.2 Role Change Management</h3>
+        <ul>
+            <li><strong>Promotion Process:</strong> Systematic role elevation with approval workflow</li>
+            <li><strong>Department Transfer:</strong> Role adjustment based on organizational changes</li>
+            <li><strong>Temporary Assignments:</strong> Time-limited role assignments for specific projects</li>
+            <li><strong>Role Deactivation:</strong> Secure process for removing access when employees leave</li>
+        </ul>
+
+        <h2>6.8 Security Considerations</h2>
+
+        <div class="highlight-box">
+            <h3>Role-Based Security Framework</h3>
+            <p>The role system implements multiple security layers to prevent unauthorized access and ensure data protection. This includes session validation, permission caching, and audit logging for all role-related activities.</p>
+        </div>
+
+        <h3>6.8.1 Security Features</h3>
+        <ul>
+            <li><strong>Session Validation:</strong> Continuous validation of user sessions and role assignments</li>
+            <li><strong>Permission Caching:</strong> Secure caching of permissions with automatic invalidation</li>
+            <li><strong>Audit Logging:</strong> Comprehensive logging of all role changes and permission grants</li>
+            <li><strong>Access Monitoring:</strong> Real-time monitoring of access attempts and violations</li>
+            <li><strong>Role Segregation:</strong> Clear separation of duties to prevent conflicts of interest</li>
+        </ul>
+
+        <h3>6.8.2 Security Implementation</h3>
+        <div class="code-block">
+            <div class="code-header">Security Validation</div>
+            <pre><code><?php
+class SecurityValidator {
+    private $conn;
+    private $logger;
+    
+    public function __construct($connection, $logger) {
+        $this->conn = $connection;
+        $this->logger = $logger;
+    }
+    
+    /**
+     * Validate user session and role
+     */
+    public function validateUserSession($userId, $sessionId) {
+        try {
+            // Check session validity
+            $stmt = $this->conn->prepare("
+                SELECT u.id, u.role_id, u.is_active, r.name as role_name
+                FROM users u 
+                JOIN roles r ON u.role_id = r.id
+                WHERE u.id = ? AND u.is_active = 1
+            ");
+            $stmt->bind_param('i', $userId);
+            $stmt->execute();
+            $user = $stmt->get_result()->fetch_assoc();
+            
+            if (!$user) {
+                $this->logger->security("Invalid user session attempt", [
+                    'user_id' => $userId,
+                    'session_id' => $sessionId
+                ]);
+                return false;
+            }
+            
+            // Validate session in database
+            $stmt = $this->conn->prepare("
+                SELECT id FROM user_sessions 
+                WHERE user_id = ? AND session_id = ? 
+                AND expires_at > NOW() AND is_active = 1
+            ");
+            $stmt->bind_param('is', $userId, $sessionId);
+            $stmt->execute();
+            
+            if ($stmt->get_result()->num_rows === 0) {
+                $this->logger->security("Session validation failed", [
+                    'user_id' => $userId,
+                    'session_id' => $sessionId
+                ]);
+                return false;
+            }
+            
+            // Update last activity
+            $this->updateLastActivity($userId);
+            
+            return $user;
+        } catch (Exception $e) {
+            $this->logger->error("Session validation error", [
+                'error' => $e->getMessage(),
+                'user_id' => $userId
+            ]);
+            return false;
+        }
+    }
+    
+    /**
+     * Check for suspicious activity
+     */
+    public function checkSuspiciousActivity($userId, $action, $resource) {
+        // Check for rapid successive actions
+        $stmt = $this->conn->prepare("
+            SELECT COUNT(*) as action_count 
+            FROM audit_logs 
+            WHERE user_id = ? AND action = ? 
+            AND created_at > DATE_SUB(NOW(), INTERVAL 1 MINUTE)
+        ");
+        $stmt->bind_param('is', $userId, $action);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        
+        if ($result['action_count'] > 10) {
+            $this->logger->security("Suspicious activity detected", [
+                'user_id' => $userId,
+                'action' => $action,
+                'count' => $result['action_count']
+            ]);
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Log security event
+     */
+    public function logSecurityEvent($userId, $event, $details = []) {
+        $stmt = $this->conn->prepare("
+            INSERT INTO security_logs (user_id, event, details, ip_address, user_agent, created_at)
+            VALUES (?, ?, ?, ?, ?, NOW())
+        ");
+        
+        $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+        $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? 'unknown';
+        $detailsJson = json_encode($details);
+        
+        $stmt->bind_param('issss', $userId, $event, $detailsJson, $ip, $userAgent);
+        $stmt->execute();
+    }
+    
+    private function updateLastActivity($userId) {
+        $stmt = $this->conn->prepare("
+            UPDATE users SET last_activity = NOW() WHERE id = ?
+        ");
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+    }
+}
+?></code></pre>
+        </div>
+
+        <h2>6.9 Role Analytics and Monitoring</h2>
+
+        <h3>6.9.1 Role Usage Analytics</h3>
+        <p>The system provides comprehensive analytics on role usage, helping administrators understand access patterns and optimize role assignments:</p>
+
+        <ul>
+            <li><strong>Access Frequency:</strong> Track how often different roles access various modules</li>
+            <li><strong>Permission Utilization:</strong> Monitor which permissions are actively used</li>
+            <li><strong>Role Effectiveness:</strong> Analyze role assignments for optimization opportunities</li>
+            <li><strong>Security Metrics:</strong> Track access violations and security events by role</li>
+        </ul>
+
+        <h3>6.9.2 Role Management Dashboard</h3>
+        <div class="dashboard-preview">
+            <strong>Admin Role Management Features:</strong>
+            <ul>
+                <li>Real-time role assignment and modification</li>
+                <li>Permission matrix visualization</li>
+                <li>User role history and audit trails</li>
+                <li>Role-based access analytics</li>
+                <li>Security event monitoring</li>
+                <li>Bulk role operations</li>
+            </ul>
+        </div>
+
+        <h2>6.10 Future Role Enhancements</h2>
+
+        <div class="highlight-box">
+            <h3>Planned Role System Improvements</h3>
+            <p>The role system is designed for continuous evolution, with planned enhancements including dynamic role creation, AI-powered role recommendations, and advanced workflow integration.</p>
+        </div>
+
+        <h3>6.10.1 Advanced Features Roadmap</h3>
+        <ul>
+            <li><strong>Dynamic Role Creation:</strong> Allow administrators to create custom roles with specific permission sets</li>
+            <li><strong>Conditional Permissions:</strong> Time-based and context-aware permission granting</li>
+            <li><strong>Role Templates:</strong> Pre-configured role templates for common organizational structures</li>
+            <li><strong>Integration APIs:</strong> External system integration for role synchronization</li>
+            <li><strong>Machine Learning:</strong> AI-powered role optimization and anomaly detection</li>
+        </ul>
+
+        <h2>6.11 Role System Summary</h2>
+
+        <div class="roles-overview">
+            <h3>Comprehensive Role Management</h3>
+            <p>The CRM system's role-based access control provides a robust, scalable, and secure framework for managing user permissions and access levels. The seven-tier role structure accommodates diverse organizational needs while maintaining security and operational efficiency.</p>
+            
+            <p style="margin-top: 20px;">Key benefits include enhanced security through principle of least privilege, improved operational efficiency through role-appropriate access, comprehensive audit capabilities, and flexible role assignment and management processes.</p>
+        </div>
+
+        <p>The role system serves as the foundation for all user interactions within the CRM system, ensuring that each user has appropriate access to the tools and information needed for their specific responsibilities while maintaining overall system security and data integrity.</p>
+
+        <div class="navigation">
+            <a href="chapter5.html" class="nav-button">← Previous: System Architecture</a>
+            <a href="table_of_contents.html" class="nav-button">📚 Table of Contents</a>
+            <a href="chapter7.html" class="nav-button">Next: Employee Management →</a>
+        </div>
+    </div>
+</body>
+</html>

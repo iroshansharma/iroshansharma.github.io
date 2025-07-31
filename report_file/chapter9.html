@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 9: Leave Request Summary - CRM System Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 0.5rem 0 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .content-section {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .content-section h2 {
+            color: #28a745;
+            border-bottom: 3px solid #28a745;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .content-section h3 {
+            color: #20c997;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .content-section h4 {
+            color: #6c757d;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+        .code-block {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        .highlight {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .info-box {
+            background-color: #e8f5e8;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .warning-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .success-box {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .navigation {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .navigation a {
+            display: inline-block;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .navigation a:hover {
+            background-color: #20c997;
+        }
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .diagram {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            font-family: monospace;
+        }
+        .flow-step {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        .arrow {
+            font-size: 1.5rem;
+            color: #6c757d;
+            margin: 0 0.5rem;
+        }
+        ul, ol {
+            padding-left: 2rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+        .feature-card h4 {
+            margin-top: 0;
+            color: #28a745;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .status-approved {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .status-rejected {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .metric-card {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Chapter 9: Leave Request Summary</h1>
+        <p>Comprehensive Leave Management System with Approval Workflows and Balance Tracking</p>
+    </div>
+
+    <div class="content-section">
+        <h2>9.1 Introduction to Leave Management</h2>
+        <p>The Leave Management System is a comprehensive module designed to handle employee leave requests, approvals, and balance tracking. This system provides automated workflows for leave applications, real-time balance calculations, and detailed reporting capabilities that support both HR management and compliance requirements.</p>
+        
+        <div class="info-box">
+            <strong>Key Features:</strong>
+            <ul>
+                <li>Multi-level leave approval workflows</li>
+                <li>Real-time leave balance tracking and calculations</li>
+                <li>Configurable leave types with custom policies</li>
+                <li>Automated notifications and reminders</li>
+                <li>Comprehensive reporting and analytics</li>
+                <li>Integration with attendance and payroll systems</li>
+            </ul>
+        </div>
+
+        <h3>9.1.1 System Architecture Overview</h3>
+        <p>The leave management system follows a structured workflow that ensures proper authorization and tracking:</p>
+        
+        <div class="diagram">
+            <div class="flow-step">Employee Request</div>
+            <span class="arrow">→</span>
+            <div class="flow-step">Manager Review</div>
+            <span class="arrow">→</span>
+            <div class="flow-step">HR Approval</div>
+            <span class="arrow">→</span>
+            <div class="flow-step">Balance Update</div>
+            <span class="arrow">→</span>
+            <div class="flow-step">Notification</div>
+        </div>
+
+        <h3>9.1.2 Leave Request Lifecycle</h3>
+        <p>Each leave request follows a defined lifecycle with clear status transitions and audit trails:</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Application Submission</h4>
+                <p>Employees submit leave requests with dates, reasons, and supporting documentation through the self-service portal.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Approval Workflow</h4>
+                <p>Requests flow through configured approval levels with automatic routing based on leave type and duration.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Balance Calculation</h4>
+                <p>System automatically calculates and updates leave balances upon approval or rejection of requests.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Notification System</h4>
+                <p>Automated notifications keep all stakeholders informed of request status changes and pending actions.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>9.2 Leave Types and Configuration</h2>
+        
+        <h3>9.2.1 Leave Type Management</h3>
+        <p>The system supports multiple leave types with configurable policies and entitlements:</p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Leave Type</th>
+                        <th>Annual Entitlement</th>
+                        <th>Carry Forward</th>
+                        <th>Approval Required</th>
+                        <th>Documentation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Annual Leave</strong></td>
+                        <td>21 days</td>
+                        <td>Yes (5 days max)</td>
+                        <td>Manager + HR</td>
+                        <td>Optional</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sick Leave</strong></td>
+                        <td>12 days</td>
+                        <td>No</td>
+                        <td>Manager only</td>
+                        <td>Required (>3 days)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Personal Leave</strong></td>
+                        <td>5 days</td>
+                        <td>No</td>
+                        <td>Manager only</td>
+                        <td>Optional</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Maternity Leave</strong></td>
+                        <td>180 days</td>
+                        <td>No</td>
+                        <td>HR + Legal</td>
+                        <td>Required</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Emergency Leave</strong></td>
+                        <td>3 days</td>
+                        <td>No</td>
+                        <td>Post-approval</td>
+                        <td>Required</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>9.2.2 Leave Type Configuration Interface</h3>
+        <p>Administrators can configure leave types through an intuitive interface:</p>
+
+        <div class="code-block">
+<!-- Leave Type Configuration Form -->
+<form id="leaveTypeForm" action="../backend/manage_leave_types.php" method="POST">
+    <input type="hidden" name="action" id="leaveTypeAction" value="create">
+    <input type="hidden" name="leave_type_id" id="leaveTypeId">
+    
+    <div class="space-y-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Leave Type Name</label>
+            <input type="text" name="name" id="leaveTypeName" required
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+        </div>
+        
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Days Per Year</label>
+            <input type="number" name="days_per_year" id="leaveTypeDays" required
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+        </div>
+        
+        <div>
+            <label class="flex items-center">
+                <input type="checkbox" name="carry_forward" id="leaveTypeCarryForward" value="1"
+                       class="rounded border-gray-300 text-blue-600 shadow-sm">
+                <span class="ml-2 text-sm text-gray-700">Allow carry forward to next year</span>
+            </label>
+        </div>
+        
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Approval Workflow</label>
+            <select name="approval_workflow" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                <option value="manager">Manager Only</option>
+                <option value="manager_hr">Manager + HR</option>
+                <option value="hr_only">HR Only</option>
+                <option value="auto_approve">Auto Approve</option>
+            </select>
+        </div>
+    </div>
+</form>
+        </div>
+
+        <h3>9.2.3 Leave Policy Engine</h3>
+        <p>The system includes a flexible policy engine that handles complex leave rules:</p>
+
+        <div class="code-block">
+<?php
+// Leave policy validation engine
+class LeavePolicyEngine {
+    
+    public function validateLeaveRequest($employee_id, $leave_type_id, $start_date, $end_date) {
+        $errors = [];
+        
+        // Check leave balance
+        $balance = $this->getLeaveBalance($employee_id, $leave_type_id);
+        $requested_days = $this->calculateLeaveDays($start_date, $end_date);
+        
+        if ($requested_days > $balance['remaining']) {
+            $errors[] = "Insufficient leave balance. Available: {$balance['remaining']} days";
+        }
+        
+        // Check minimum notice period
+        $notice_days = $this->getRequiredNotice($leave_type_id);
+        $notice_given = $this->calculateNoticeDays($start_date);
+        
+        if ($notice_given < $notice_days) {
+            $errors[] = "Minimum {$notice_days} days notice required";
+        }
+        
+        // Check blackout periods
+        if ($this->isBlackoutPeriod($start_date, $end_date)) {
+            $errors[] = "Leave cannot be taken during blackout periods";
+        }
+        
+        // Check maximum consecutive days
+        $max_consecutive = $this->getMaxConsecutiveDays($leave_type_id);
+        if ($requested_days > $max_consecutive) {
+            $errors[] = "Maximum {$max_consecutive} consecutive days allowed";
+        }
+        
+        return [
+            'valid' => empty($errors),
+            'errors' => $errors
+        ];
+    }
+    
+    private function getLeaveBalance($employee_id, $leave_type_id) {
+        // Calculate current leave balance
+        $allocated = $this->getAllocatedDays($employee_id, $leave_type_id);
+        $used = $this->getUsedDays($employee_id, $leave_type_id);
+        $adjustments = $this->getBalanceAdjustments($employee_id, $leave_type_id);
+        
+        return [
+            'allocated' => $allocated + $adjustments,
+            'used' => $used,
+            'remaining' => max(0, $allocated + $adjustments - $used)
+        ];
+    }
+    
+    private function calculateLeaveDays($start_date, $end_date) {
+        $start = new DateTime($start_date);
+        $end = new DateTime($end_date);
+        $interval = $start->diff($end);
+        
+        // Add 1 to include both start and end dates
+        return $interval->days + 1;
+    }
+}
+?>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>9.3 Leave Request Workflow</h2>
+        
+        <h3>9.3.1 Request Submission Process</h3>
+        <p>Employees can submit leave requests through a user-friendly interface with real-time validation:</p>
+
+        <div class="code-block">
+<!-- Leave Request Form -->
+<form id="leaveRequestForm" action="../backend/submit_leave_request.php" method="POST" enctype="multipart/form-data">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Leave Type</label>
+            <select name="leave_type_id" id="leaveType" required onchange="updateLeaveBalance()"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                <option value="">Select Leave Type</option>
+                <?php foreach ($leave_types as $type): ?>
+                    <option value="<?php echo $type['id']; ?>" 
+                            data-balance="<?php echo getEmployeeLeaveBalance($_SESSION['user_id'], $type['id']); ?>">
+                        <?php echo htmlspecialchars($type['name']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <div id="leaveBalance" class="mt-1 text-sm text-gray-600"></div>
+        </div>
+        
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Duration</label>
+            <div class="mt-1 grid grid-cols-2 gap-2">
+                <input type="date" name="start_date" id="startDate" required onchange="calculateDays()"
+                       class="block w-full rounded-md border-gray-300 shadow-sm">
+                <input type="date" name="end_date" id="endDate" required onchange="calculateDays()"
+                       class="block w-full rounded-md border-gray-300 shadow-sm">
+            </div>
+            <div id="leaveDays" class="mt-1 text-sm text-gray-600"></div>
+        </div>
+        
+        <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700">Reason</label>
+            <textarea name="reason" rows="3" required
+                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                      placeholder="Please provide a reason for your leave request..."></textarea>
+        </div>
+        
+        <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700">Supporting Documents</label>
+            <input type="file" name="documents[]" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                   class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+            <p class="mt-1 text-sm text-gray-500">Upload supporting documents (optional)</p>
+        </div>
+    </div>
+    
+    <div class="mt-6 flex justify-end space-x-3">
+        <button type="button" onclick="saveDraft()" 
+                class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+            Save Draft
+        </button>
+        <button type="submit"
+                class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
+            Submit Request
+        </button>
+    </div>
+</form>
+        </div>
+
+        <h3>9.3.2 Real-time Validation and Balance Checking</h3>
+        <p>The system provides immediate feedback on leave availability and policy compliance:</p>
+
+        <div class="code-block">
+// Real-time leave validation
+function updateLeaveBalance() {
+    const leaveTypeSelect = document.getElementById('leaveType');
+    const selectedOption = leaveTypeSelect.options[leaveTypeSelect.selectedIndex];
+    const balanceDiv = document.getElementById('leaveBalance');
+    
+    if (selectedOption.value) {
+        const balance = selectedOption.dataset.balance;
+        balanceDiv.innerHTML = `Available balance: <strong>${balance} days</strong>`;
+        balanceDiv.className = 'mt-1 text-sm text-green-600';
+    } else {
+        balanceDiv.innerHTML = '';
+    }
+}
+
+function calculateDays() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const daysDiv = document.getElementById('leaveDays');
+    
+    if (startDate && endDate) {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        const timeDiff = end.getTime() - start.getTime();
+        const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
+        
+        if (daysDiff > 0) {
+            daysDiv.innerHTML = `Duration: <strong>${daysDiff} day(s)</strong>`;
+            daysDiv.className = 'mt-1 text-sm text-blue-600';
+            
+            // Check against available balance
+            validateLeaveRequest(daysDiff);
+        } else {
+            daysDiv.innerHTML = '<span class="text-red-600">End date must be after start date</span>';
+        }
+    }
+}
+
+function validateLeaveRequest(requestedDays) {
+    const leaveTypeSelect = document.getElementById('leaveType');
+    const selectedOption = leaveTypeSelect.options[leaveTypeSelect.selectedIndex];
+    
+    if (selectedOption.value) {
+        const availableBalance = parseInt(selectedOption.dataset.balance);
+        const submitButton = document.querySelector('button[type="submit"]');
+        
+        if (requestedDays > availableBalance) {
+            submitButton.disabled = true;
+            submitButton.className = submitButton.className.replace('bg-blue-600 hover:bg-blue-700', 'bg-gray-400 cursor-not-allowed');
+            showValidationError(`Insufficient balance. You have ${availableBalance} days available.`);
+        } else {
+            submitButton.disabled = false;
+            submitButton.className = submitButton.className.replace('bg-gray-400 cursor-not-allowed', 'bg-blue-600 hover:bg-blue-700');
+            hideValidationError();
+        }
+    }
+}
+        </div>
+
+        <h3>9.3.3 Approval Workflow Engine</h3>
+        <p>The system implements a configurable approval workflow that routes requests based on leave type and organizational hierarchy:</p>
+
+        <div class="code-block">
+<?php
+// Approval workflow engine
+class ApprovalWorkflow {
+    
+    public function processLeaveRequest($leave_request_id) {
+        $request = $this->getLeaveRequest($leave_request_id);
+        $workflow = $this->getWorkflowForLeaveType($request['leave_type_id']);
+        
+        // Initialize workflow
+        $this->initializeWorkflow($leave_request_id, $workflow);
+        
+        // Start first approval step
+        $this->processNextApprovalStep($leave_request_id);
+    }
+    
+    private function processNextApprovalStep($leave_request_id) {
+        $current_step = $this->getCurrentApprovalStep($leave_request_id);
+        
+        if (!$current_step) {
+            // No more steps - approve the request
+            $this->finalizeApproval($leave_request_id);
+            return;
+        }
+        
+        // Send notification to approver
+        $approver = $this->getApprover($current_step);
+        $this->sendApprovalNotification($leave_request_id, $approver);
+        
+        // Update request status
+        $this->updateRequestStatus($leave_request_id, 'pending_approval', $current_step['step_name']);
+    }
+    
+    public function approveStep($leave_request_id, $approver_id, $comments = '') {
+        // Record approval
+        $this->recordApproval($leave_request_id, $approver_id, 'approved', $comments);
+        
+        // Move to next step
+        $this->advanceWorkflow($leave_request_id);
+        $this->processNextApprovalStep($leave_request_id);
+        
+        // Send notification to employee
+        $this->sendStatusUpdateNotification($leave_request_id, 'step_approved');
+    }
+    
+    public function rejectStep($leave_request_id, $approver_id, $reason) {
+        // Record rejection
+        $this->recordApproval($leave_request_id, $approver_id, 'rejected', $reason);
+        
+        // Update request status to rejected
+        $this->updateRequestStatus($leave_request_id, 'rejected', $reason);
+        
+        // Send notification to employee
+        $this->sendStatusUpdateNotification($leave_request_id, 'rejected');
+    }
+    
+    private function finalizeApproval($leave_request_id) {
+        // Update request status
+        $this->updateRequestStatus($leave_request_id, 'approved');
+        
+        // Update leave balance
+        $this->updateLeaveBalance($leave_request_id);
+        
+        // Send final notification
+        $this->sendStatusUpdateNotification($leave_request_id, 'approved');
+        
+        // Create calendar entries if needed
+        $this->createCalendarEntries($leave_request_id);
+    }
+}
+?>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>9.4 Leave Balance Management</h2>
+        
+        <h3>9.4.1 Balance Calculation Engine</h3>
+        <p>The system maintains accurate leave balances through automated calculations and adjustments:</p>
+
+        <div class="feature-grid">
+            <div class="metric-card">
+                <div class="metric-number">21</div>
+                <div class="metric-label">Annual Allocation</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-number">8</div>
+                <div class="metric-label">Days Used</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-number">13</div>
+                <div class="metric-label">Days Remaining</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-number">2</div>
+                <div class="metric-label">Pending Requests</div>
+            </div>
+        </div>
+
+        <h3>9.4.2 Balance Tracking Implementation</h3>
+        <p>The system tracks leave balances with detailed audit trails and adjustment capabilities:</p>
+
+        <div class="code-block">
+<?php
+// Leave balance calculation
+function calculateLeaveBalance($employee_id, $leave_type_id, $year = null) {
+    global $conn;
+    
+    if (!$year) {
+        $year = date('Y');
+    }
+    
+    // Get base allocation
+    $allocation_query = "
+        SELECT days_allowed 
+        FROM leave_types 
+        WHERE id = ?
+    ";
+    $stmt = $conn->prepare($allocation_query);
+    $stmt->bind_param('i', $leave_type_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $base_allocation = $result->fetch_assoc()['days_allowed'];
+    
+    // Get used days for the year
+    $used_query = "
+        SELECT COALESCE(SUM(DATEDIFF(end_date, start_date) + 1), 0) as used_days
+        FROM leave_applications
+        WHERE user_id = ? 
+        AND leave_type_id = ?
+        AND status = 'approved'
+        AND YEAR(start_date) = ?
+    ";
+    $stmt = $conn->prepare($used_query);
+    $stmt->bind_param('iii', $employee_id, $leave_type_id, $year);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $used_days = $result->fetch_assoc()['used_days'];
+    
+    // Get manual adjustments
+    $adjustment_query = "
+        SELECT COALESCE(SUM(adjustment_days), 0) as total_adjustments
+        FROM leave_balance_adjustments
+        WHERE user_id = ? 
+        AND leave_type_id = ?
+        AND YEAR(created_at) = ?
+    ";
+    $stmt = $conn->prepare($adjustment_query);
+    $stmt->bind_param('iii', $employee_id, $leave_type_id, $year);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $adjustments = $result->fetch_assoc()['total_adjustments'];
+    
+    // Calculate final balance
+    $allocated = $base_allocation + $adjustments;
+    $remaining = max(0, $allocated - $used_days);
+    
+    return [
+        'allocated' => $allocated,
+        'used' => $used_days,
+        'remaining' => $remaining,
+        'adjustments' => $adjustments,
+        'year' => $year
+    ];
+}
+?>
+        </div>
+
+        <h3>9.4.3 Balance Adjustment Interface</h3>
+        <p>HR administrators can make manual adjustments to employee leave balances when necessary:</p>
+
+        <div class="code-block">
+<!-- Balance Adjustment Form -->
+<form id="balanceAdjustmentForm" action="../backend/adjust_leave_balance.php" method="POST">
+    <div class="space-y-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Employee</label>
+            <select name="employee_id" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                <?php foreach ($employees as $employee): ?>
+                    <option value="<?php echo $employee['id']; ?>">
+                        <?php echo htmlspecialchars($employee['username']); ?> - <?php echo htmlspecialchars($employee['department']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Leave Type</label>
+            <select name="leave_type_id" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                <?php foreach ($leave_types as $type): ?>
+                    <option value="<?php echo $type['id']; ?>">
+                        <?php echo htmlspecialchars($type['name']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Adjustment Type</label>
+            <select name="adjustment_type" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                <option value="add">Add Days</option>
+                <option value="deduct">Deduct Days</option>
+                <option value="set">Set Balance</option>
+            </select>
+        </div>
+        
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Days</label>
+            <input type="number" name="days" min="0" step="0.5" required
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+        </div>
+        
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Reason</label>
+            <textarea name="reason" rows="3" required
+                      class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                      placeholder="Provide a reason for this adjustment..."></textarea>
+        </div>
+    </div>
+    
+    <div class="mt-6">
+        <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
+            Apply Adjustment
+        </button>
+    </div>
+</form>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>9.5 Status Tracking and Notifications</h2>
+        
+        <h3>9.5.1 Request Status Management</h3>
+        <p>The system maintains detailed status information for each leave request with comprehensive tracking:</p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Description</th>
+                        <th>Available Actions</th>
+                        <th>Notifications Sent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="status-badge status-pending">Draft</span></td>
+                        <td>Request saved but not submitted</td>
+                        <td>Edit, Submit, Delete</td>
+                        <td>None</td>
+                    </tr>
+                    <tr>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td>Submitted and awaiting approval</td>
+                        <td>View, Cancel (if allowed)</td>
+                        <td>Manager, HR</td>
+                    </tr>
+                    <tr>
+                        <td><span class="status-badge status-approved">Approved</span></td>
+                        <td>Request approved by all required approvers</td>
+                        <td>View, Cancel (with restrictions)</td>
+                        <td>Employee, Manager</td>
+                    </tr>
+                    <tr>
+                        <td><span class="status-badge status-rejected">Rejected</span></td>
+                        <td>Request denied by an approver</td>
+                        <td>View, Resubmit (if allowed)</td>
+                        <td>Employee</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>9.5.2 Notification System</h3>
+        <p>The system sends automated notifications to keep all stakeholders informed of request status changes:</p>
+
+        <div class="code-block">
+<?php
+// Notification system for leave requests
+class LeaveNotificationService {
+    
+    public function sendLeaveRequestNotification($leave_request_id, $notification_type) {
+        $request = $this->getLeaveRequest($leave_request_id);
+        $employee = $this->getEmployee($request['user_id']);
+        
+        switch ($notification_type) {
+            case 'submitted':
+                $this->notifyManager($request, $employee);
+                $this->notifyHR($request, $employee);
+                break;
+                
+            case 'approved':
+                $this->notifyEmployee($request, $employee, 'approved');
+                $this->notifyManager($request, $employee, 'approved');
+                break;
+                
+            case 'rejected':
+                $this->notifyEmployee($request, $employee, 'rejected');
+                break;
+                
+            case 'cancelled':
+                $this->notifyManager($request, $employee, 'cancelled');
+                $this->notifyHR($request, $employee, 'cancelled');
+                break;
+        }
+    }
+    
+    private function notifyEmployee($request, $employee, $status) {
+        $subject = "Leave Request {$status}";
+        $message = $this->buildEmployeeNotificationMessage($request, $status);
+        
+        // Send email
+        $this->sendEmail($employee['email'], $subject, $message);
+        
+        // Send in-app notification
+        $this->createInAppNotification($employee['id'], $subject, $message);
+        
+        // Send SMS if enabled
+        if ($this->isSMSEnabled() && !empty($employee['phone'])) {
+            $this->sendSMS($employee['phone'], $this->buildSMSMessage($request, $status));
+        }
+    }
+    
+    private function notifyManager($request, $employee, $status = 'pending') {
+        $manager = $this->getManager($employee['id']);
+        if (!$manager) return;
+        
+        $subject = "Leave Request - {$employee['username']}";
+        $message = $this->buildManagerNotificationMessage($request, $employee, $status);
+        
+        $this->sendEmail($manager['email'], $subject, $message);
+        $this->createInAppNotification($manager['id'], $subject, $message);
+    }
+    
+    private function buildEmployeeNotificationMessage($request, $status) {
+        $leave_type = $this->getLeaveType($request['leave_type_id']);
+        $duration = $this->formatDateRange($request['start_date'], $request['end_date']);
+        
+        $message = "Dear {$request['employee_name']},\n\n";
+        $message .= "Your {$leave_type['name']} request for {$duration} has been {$status}.\n\n";
+        
+        if ($status === 'approved') {
+            $message .= "Your leave has been approved and your balance has been updated.\n";
+            $message .= "Please ensure proper handover of your responsibilities.\n\n";
+        } elseif ($status === 'rejected') {
+            $message .= "Reason for rejection: {$request['rejection_reason']}\n\n";
+            $message .= "You may resubmit your request with additional information if needed.\n\n";
+        }
+        
+        $message .= "You can view the full details in your employee portal.\n\n";
+        $message .= "Best regards,\nHR Team";
+        
+        return $message;
+    }
+}
+?>
+        </div>
+
+        <h3>9.5.3 Dashboard Integration</h3>
+        <p>Leave request status is integrated into employee and manager dashboards for easy tracking:</p>
+
+        <div class="code-block">
+<!-- Leave Status Dashboard Widget -->
+<div class="bg-white rounded-lg shadow p-6">
+    <h3 class="text-lg font-medium text-gray-900 mb-4">My Leave Requests</h3>
+    
+    <div class="space-y-3">
+        <?php foreach ($employee_leave_requests as $request): ?>
+        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div class="flex-1">
+                <div class="flex items-center space-x-2">
+                    <span class="text-sm font-medium text-gray-900">
+                        <?php echo htmlspecialchars($request['leave_type']); ?>
+                    </span>
+                    <span class="status-badge status-<?php echo $request['status']; ?>">
+                        <?php echo ucfirst($request['status']); ?>
+                    </span>
+                </div>
+                <div class="text-sm text-gray-500 mt-1">
+                    <?php echo date('M d', strtotime($request['start_date'])); ?> - 
+                    <?php echo date('M d, Y', strtotime($request['end_date'])); ?>
+                    (<?php echo $request['days']; ?> days)
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+                <button onclick="viewLeaveDetails(<?php echo $request['id']; ?>)" 
+                        class="text-blue-600 hover:text-blue-800 text-sm">
+                    View
+                </button>
+                <?php if ($request['status'] === 'pending'): ?>
+                <button onclick="cancelLeaveRequest(<?php echo $request['id']; ?>)" 
+                        class="text-red-600 hover:text-red-800 text-sm">
+                    Cancel
+                </button>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    
+    <div class="mt-4">
+        <a href="leave-requests.php" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+            View All Requests →
+        </a>
+    </div>
+</div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>9.6 Reporting and Analytics</h2>
+        
+        <h3>9.6.1 Leave Analytics Dashboard</h3>
+        <p>The system provides comprehensive analytics and reporting capabilities for leave management:</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Leave Utilization Report</h4>
+                <p>Track leave usage patterns across departments and identify trends in employee time-off behavior.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Balance Forecast</h4>
+                <p>Predict future leave balance requirements and identify potential staffing challenges.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Approval Metrics</h4>
+                <p>Monitor approval times and identify bottlenecks in the leave approval process.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Compliance Reports</h4>
+                <p>Generate reports for regulatory compliance and audit requirements.</p>
+            </div>
+        </div>
+
+        <h3>9.6.2 Export and Integration</h3>
+        <p>Leave data can be exported in various formats for external analysis and payroll integration:</p>
+
+        <div class="code-block">
+// Leave data export functionality
+function exportLeaveData($format, $filters = []) {
+    $leave_data = getFilteredLeaveData($filters);
+    
+    switch ($format) {
+        case 'csv':
+            return exportLeaveToCSV($leave_data);
+        case 'excel':
+            return exportLeaveToExcel($leave_data);
+        case 'pdf':
+            return exportLeaveToPDF($leave_data);
+        case 'payroll':
+            return exportForPayroll($leave_data);
+        default:
+            throw new Exception('Unsupported export format');
+    }
+}
+
+function exportLeaveToCSV($data) {
+    $filename = 'leave_export_' . date('Y-m-d_H-i-s') . '.csv';
+    $filepath = __DIR__ . '/exports/' . $filename;
+    
+    $file = fopen($filepath, 'w');
+    
+    // Write header
+    fputcsv($file, [
+        'Employee ID', 'Employee Name', 'Department', 'Leave Type',
+        'Start Date', 'End Date', 'Days', 'Status', 'Applied Date',
+        'Approved Date', 'Approver', 'Reason'
+    ]);
+    
+    // Write data
+    foreach ($data as $record) {
+        fputcsv($file, [
+            $record['employee_id'],
+            $record['employee_name'],
+            $record['department'],
+            $record['leave_type'],
+            $record['start_date'],
+            $record['end_date'],
+            $record['days'],
+            $record['status'],
+            $record['applied_date'],
+            $record['approved_date'],
+            $record['approver_name'],
+            $record['reason']
+        ]);
+    }
+    
+    fclose($file);
+    return $filepath;
+}
+
+function exportForPayroll($data) {
+    // Format data for payroll system integration
+    $payroll_data = [];
+    
+    foreach ($data as $record) {
+        if ($record['status'] === 'approved') {
+            $payroll_data[] = [
+                'employee_id' => $record['employee_id'],
+                'leave_type' => $record['leave_type'],
+                'start_date' => $record['start_date'],
+                'end_date' => $record['end_date'],
+                'days' => $record['days'],
+                'paid' => $record['is_paid'],
+                'deduction_amount' => $record['deduction_amount']
+            ];
+        }
+    }
+    
+    return json_encode($payroll_data, JSON_PRETTY_PRINT);
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>9.7 Integration with Other Systems</h2>
+        
+        <h3>9.7.1 Payroll Integration</h3>
+        <p>The leave management system integrates seamlessly with the payroll system to ensure accurate salary calculations:</p>
+
+        <div class="info-box">
+            <strong>Integration Features:</strong>
+            <ul>
+                <li>Automatic deduction calculation for unpaid leave</li>
+                <li>Leave encashment processing for unused annual leave</li>
+                <li>Overtime compensation for working during approved leave</li>
+                <li>Real-time synchronization of leave balances</li>
+            </ul>
+        </div>
+
+        <h3>9.7.2 Calendar Integration</h3>
+        <p>Approved leave requests are automatically synchronized with calendar systems:</p>
+
+        <div class="code-block">
+// Calendar integration for leave requests
+class LeaveCalendarIntegration {
+    
+    public function syncApprovedLeave($leave_request_id) {
+        $request = $this->getLeaveRequest($leave_request_id);
+        
+        if ($request['status'] !== 'approved') {
+            return false;
+        }
+        
+        // Create calendar event
+        $event = [
+            'title' => $request['employee_name'] . ' - ' . $request['leave_type'],
+            'start_date' => $request['start_date'],
+            'end_date' => $request['end_date'],
+            'all_day' => true,
+            'category' => 'leave',
+            'attendees' => $this->getRelevantAttendees($request),
+            'description' => 'Employee on ' . $request['leave_type'] . ' leave'
+        ];
+        
+        // Sync with Google Calendar
+        $this->syncWithGoogleCalendar($event);
+        
+        // Sync with Outlook
+        $this->syncWithOutlook($event);
+        
+        // Update team calendar
+        $this->updateTeamCalendar($event);
+        
+        return true;
+    }
+    
+    private function getRelevantAttendees($request) {
+        $attendees = [];
+        
+        // Add manager
+        $manager = $this->getManager($request['user_id']);
+        if ($manager) {
+            $attendees[] = $manager['email'];
+        }
+        
+        // Add HR
+        $hr_team = $this->getHRTeam();
+        foreach ($hr_team as $hr_member) {
+            $attendees[] = $hr_member['email'];
+        }
+        
+        // Add team members if configured
+        if ($this->shouldNotifyTeam($request['leave_type_id'])) {
+            $team_members = $this->getTeamMembers($request['user_id']);
+            foreach ($team_members as $member) {
+                $attendees[] = $member['email'];
+            }
+        }
+        
+        return $attendees;
+    }
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>9.8 Mobile Accessibility and Self-Service</h2>
+        
+        <h3>9.8.1 Mobile-Responsive Design</h3>
+        <p>The leave management system is fully optimized for mobile devices, allowing employees to manage leave requests on-the-go:</p>
+
+        <div class="code-block">
+/* Mobile-optimized leave request interface */
+@media (max-width: 768px) {
+    .leave-request-form {
+        padding: 1rem;
+    }
+    
+    .leave-request-form .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .leave-balance-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .leave-status-list {
+        font-size: 0.875rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .action-buttons button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Touch-friendly interactions */
+.leave-request-item {
+    min-height: 60px;
+    padding: 1rem;
+    touch-action: manipulation;
+}
+
+.status-badge {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.75rem;
+    min-width: 80px;
+    text-align: center;
+}
+        </div>
+
+        <h3>9.8.2 Self-Service Portal</h3>
+        <p>Employees have access to a comprehensive self-service portal for managing their leave requests:</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Request Submission</h4>
+                <p>Submit new leave requests with document attachments and real-time balance checking.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Status Tracking</h4>
+                <p>Track the progress of submitted requests through the approval workflow.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Balance Overview</h4>
+                <p>View current leave balances across all leave types with usage history.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Calendar View</h4>
+                <p>Visual calendar showing approved leave dates and team availability.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>9.9 Security and Compliance</h2>
+        
+        <h3>9.9.1 Data Security Measures</h3>
+        <p>The leave management system implements comprehensive security measures to protect sensitive employee data:</p>
+
+        <div class="info-box">
+            <strong>Security Features:</strong>
+            <ul>
+                <li>Role-based access control with granular permissions</li>
+                <li>Encrypted storage of sensitive leave information</li>
+                <li>Audit trails for all leave-related activities</li>
+                <li>Secure document upload and storage</li>
+                <li>Session management with automatic timeout</li>
+                <li>Data backup and recovery procedures</li>
+            </ul>
+        </div>
+
+        <h3>9.9.2 Compliance and Audit</h3>
+        <p>The system maintains detailed audit logs and supports compliance with labor regulations:</p>
+
+        <div class="code-block">
+// Audit logging for leave management
+class LeaveAuditLogger {
+    
+    public function logLeaveAction($action, $leave_request_id, $user_id, $details = []) {
+        global $conn;
+        
+        $audit_data = [
+            'action' => $action,
+            'leave_request_id' => $leave_request_id,
+            'user_id' => $user_id,
+            'timestamp' => date('Y-m-d H:i:s'),
+            'ip_address' => $_SERVER['REMOTE_ADDR'],
+            'user_agent' => $_SERVER['HTTP_USER_AGENT'],
+            'details' => json_encode($details)
+        ];
+        
+        $query = "
+            INSERT INTO leave_audit_log 
+            (action, leave_request_id, user_id, timestamp, ip_address, user_agent, details)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        ";
+        
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param(
+            'siissss',
+            $audit_data['action'],
+            $audit_data['leave_request_id'],
+            $audit_data['user_id'],
+            $audit_data['timestamp'],
+            $audit_data['ip_address'],
+            $audit_data['user_agent'],
+            $audit_data['details']
+        );
+        
+        $stmt->execute();
+    }
+    
+    public function generateComplianceReport($start_date, $end_date) {
+        global $conn;
+        
+        $query = "
+            SELECT 
+                la.id,
+                u.username as employee_name,
+                u.department,
+                lt.name as leave_type,
+                la.start_date,
+                la.end_date,
+                DATEDIFF(la.end_date, la.start_date) + 1 as days,
+                la.status,
+                la.created_at as applied_date,
+                la.approved_at,
+                approver.username as approver_name
+            FROM leave_applications la
+            JOIN users u ON la.user_id = u.id
+            JOIN leave_types lt ON la.leave_type_id = lt.id
+            LEFT JOIN users approver ON la.approved_by = approver.id
+            WHERE la.created_at BETWEEN ? AND ?
+            ORDER BY la.created_at DESC
+        ";
+        
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('ss', $start_date, $end_date);
+        $stmt->execute();
+        
+        return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>9.10 Future Enhancements</h2>
+        
+        <h3>9.10.1 Planned Improvements</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>AI-Powered Insights</h4>
+                <p>Machine learning algorithms to predict leave patterns and optimize workforce planning.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Advanced Workflows</h4>
+                <p>Configurable multi-step approval workflows with conditional routing and escalation.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Team Collaboration</h4>
+                <p>Enhanced team visibility and collaboration features for better coverage planning.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Integration Expansion</h4>
+                <p>Extended integration with third-party HR systems and productivity tools.</p>
+            </div>
+        </div>
+
+        <h3>9.10.2 Technology Roadmap</h3>
+        <p>Future versions will include enhanced capabilities and modern technologies:</p>
+
+        <div class="highlight">
+            <ul>
+                <li><strong>Progressive Web App:</strong> Offline capability and native app-like experience</li>
+                <li><strong>Real-time Notifications:</strong> Push notifications for instant status updates</li>
+                <li><strong>Voice Integration:</strong> Voice-activated leave request submission and status queries</li>
+                <li><strong>Blockchain Audit:</strong> Immutable audit trails using blockchain technology</li>
+                <li><strong>Advanced Analytics:</strong> Predictive analytics and business intelligence dashboards</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>9.11 Conclusion</h2>
+        
+        <p>The Leave Request Summary system provides a comprehensive solution for managing employee leave requests from submission to approval. With its automated workflows, real-time balance tracking, and integrated notification system, it streamlines the entire leave management process while ensuring compliance and maintaining detailed audit trails.</p>
+
+        <p>The system's flexibility in handling different leave types, configurable approval workflows, and seamless integration with other HR systems makes it an essential tool for modern workforce management. The mobile-responsive design and self-service capabilities empower employees while reducing administrative overhead for HR teams.</p>
+
+        <div class="success-box">
+            <strong>Key Benefits:</strong>
+            <ul>
+                <li>Streamlined leave request and approval process</li>
+                <li>Real-time leave balance tracking and validation</li>
+                <li>Automated notifications and workflow management</li>
+                <li>Comprehensive reporting and analytics capabilities</li>
+                <li>Mobile accessibility and self-service functionality</li>
+                <li>Integration with payroll and calendar systems</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="chapter8.html">← Previous: Attendance System</a>
+        <a href="table_of_contents.html">📚 Table of Contents</a>
+        <a href="chapter10.html">Next: Customer Management →</a>
+    </div>
+</body>
+</html>

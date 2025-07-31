@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 15: Analytics and Dashboard Charts - CRM System Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .content-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 1rem;
+            border-left: 4px solid #ffc107;
+            margin: 1rem 0;
+        }
+        .info-box {
+            background-color: #d1ecf1;
+            padding: 1rem;
+            border-left: 4px solid #17a2b8;
+            margin: 1rem 0;
+        }
+        .warning-box {
+            background-color: #f8d7da;
+            padding: 1rem;
+            border-left: 4px solid #dc3545;
+            margin: 1rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .navigation {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .nav-button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #0056b3;
+        }
+        .diagram {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        .workflow-step {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 1rem;
+            margin: 0.5rem;
+            border-radius: 8px;
+            display: inline-block;
+            min-width: 150px;
+        }
+        .arrow {
+            font-size: 2rem;
+            color: #666;
+            margin: 0 1rem;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        .chart-container {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .chart-placeholder {
+            background: linear-gradient(45deg, #f8f9fa 25%, transparent 25%), 
+                        linear-gradient(-45deg, #f8f9fa 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, #f8f9fa 75%), 
+                        linear-gradient(-45deg, transparent 75%, #f8f9fa 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+            border-radius: 4px;
+        }
+        .kpi-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 0.5rem;
+        }
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Chapter 15: Analytics and Dashboard Charts</h1>
+        <p>Comprehensive Business Intelligence, Data Visualization, and Performance Analytics System</p>
+    </div>
+
+    <div class="navigation">
+        <a href="chapter14.html" class="nav-button">← Previous: Loan, Advance & Overtime</a>
+        <a href="table_of_contents.html" class="nav-button">📚 Table of Contents</a>
+        <a href="chapter16.html" class="nav-button">Next: Login & Security →</a>
+    </div>
+
+    <div class="content-section">
+        <h2>15.1 Analytics and Dashboard Overview</h2>
+        <p>The Analytics and Dashboard Charts module provides comprehensive business intelligence capabilities, transforming raw CRM data into actionable insights through interactive visualizations, real-time metrics, and customizable reporting dashboards. This system empowers decision-makers with data-driven insights across all business functions.</p>
+
+        <h3>15.1.1 Core Analytics Features</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Real-time Dashboards</h4>
+                <p>Live data visualization with automatic refresh and interactive charts for immediate business insights.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Key Performance Indicators</h4>
+                <p>Customizable KPI tracking with targets, trends, and performance comparisons across time periods.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Advanced Reporting</h4>
+                <p>Comprehensive report generation with filtering, grouping, and export capabilities.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Predictive Analytics</h4>
+                <p>Machine learning-powered forecasting and trend analysis for strategic planning.</p>
+            </div>
+        </div>
+
+        <h3>15.1.2 Analytics Architecture</h3>
+        <div class="diagram">
+            <div class="workflow-step">Data Collection</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Data Processing</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Analytics Engine</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Visualization</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Insights & Actions</div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>15.2 Dashboard Framework and Components</h2>
+        <p>The dashboard framework provides a flexible and extensible platform for creating role-based dashboards with customizable widgets and real-time data updates.</p>
+
+        <h3>15.2.1 Dashboard Widget System</h3>
+        <div class="code-block">
+// Dashboard Widget Base Class
+class DashboardWidget {
+    constructor(config) {
+        this.id = config.id;
+        this.title = config.title;
+        this.type = config.type;
+        this.dataSource = config.dataSource;
+        this.refreshInterval = config.refreshInterval || 300000; // 5 minutes default
+        this.container = null;
+        this.data = null;
+        this.chart = null;
+    }
+    
+    // Initialize widget
+    async initialize(container) {
+        this.container = container;
+        await this.loadData();
+        this.render();
+        this.startAutoRefresh();
+    }
+    
+    // Load data from API
+    async loadData() {
+        try {
+            const response = await fetch(`/api/dashboard/data/${this.dataSource}`);
+            this.data = await response.json();
+            this.onDataLoaded();
+        } catch (error) {
+            console.error(`Error loading data for widget ${this.id}:`, error);
+            this.onDataError(error);
+        }
+    }
+    
+    // Render widget content
+    render() {
+        const widgetHTML = `
+            <div class="widget-container" id="widget-${this.id}">
+                <div class="widget-header">
+                    <h3 class="widget-title">${this.title}</h3>
+                    <div class="widget-controls">
+                        <button onclick="refreshWidget('${this.id}')" class="refresh-btn">
+                            <i class="material-icons">refresh</i>
+                        </button>
+                        <button onclick="configureWidget('${this.id}')" class="config-btn">
+                            <i class="material-icons">settings</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="widget-content" id="content-${this.id}">
+                    ${this.renderContent()}
+                </div>
+                <div class="widget-footer">
+                    <span class="last-updated">Last updated: ${new Date().toLocaleString()}</span>
+                </div>
+            </div>
+        `;
+        this.container.innerHTML = widgetHTML;
+    }
+    
+    // Abstract method to be implemented by specific widget types
+    renderContent() {
+        return '<div>Widget content placeholder</div>';
+    }
+    
+    // Start automatic refresh
+    startAutoRefresh() {
+        if (this.refreshInterval > 0) {
+            setInterval(() => {
+                this.refresh();
+            }, this.refreshInterval);
+        }
+    }
+    
+    // Refresh widget data and display
+    async refresh() {
+        await this.loadData();
+        this.updateContent();
+    }
+    
+    // Update widget content without full re-render
+    updateContent() {
+        const contentContainer = document.getElementById(`content-${this.id}`);
+        if (contentContainer) {
+            contentContainer.innerHTML = this.renderContent();
+        }
+        
+        // Update last updated timestamp
+        const lastUpdated = document.querySelector(`#widget-${this.id} .last-updated`);
+        if (lastUpdated) {
+            lastUpdated.textContent = `Last updated: ${new Date().toLocaleString()}`;
+        }
+    }
+    
+    // Event handlers
+    onDataLoaded() {
+        // Override in subclasses
+    }
+    
+    onDataError(error) {
+        const contentContainer = document.getElementById(`content-${this.id}`);
+        if (contentContainer) {
+            contentContainer.innerHTML = `
+                <div class="error-message">
+                    <i class="material-icons">error</i>
+                    <p>Error loading data: ${error.message}</p>
+                </div>
+            `;
+        }
+    }
+}
+
+// KPI Widget Implementation
+class KPIWidget extends DashboardWidget {
+    constructor(config) {
+        super(config);
+        this.target = config.target;
+        this.format = config.format || 'number';
+        this.trend = config.showTrend || true;
+    }
+    
+    renderContent() {
+        if (!this.data) return '<div class="loading">Loading...</div>';
+        
+        const value = this.data.current_value;
+        const previousValue = this.data.previous_value;
+        const target = this.target;
+        
+        // Calculate trend
+        const trendPercentage = previousValue ? 
+            ((value - previousValue) / previousValue * 100).toFixed(1) : 0;
+        const trendDirection = trendPercentage > 0 ? 'up' : 'down';
+        const trendColor = trendPercentage > 0 ? 'green' : 'red';
+        
+        // Calculate target achievement
+        const targetAchievement = target ? (value / target * 100).toFixed(1) : null;
+        
+        return `
+            <div class="kpi-content">
+                <div class="kpi-value">${this.formatValue(value)}</div>
+                ${this.trend ? `
+                    <div class="kpi-trend" style="color: ${trendColor}">
+                        <i class="material-icons">trending_${trendDirection}</i>
+                        ${Math.abs(trendPercentage)}%
+                    </div>
+                ` : ''}
+                ${target ? `
+                    <div class="kpi-target">
+                        Target: ${this.formatValue(target)} (${targetAchievement}%)
+                    </div>
+                ` : ''}
+                <div class="kpi-period">${this.data.period}</div>
+            </div>
+        `;
+    }
+    
+    formatValue(value) {
+        switch (this.format) {
+            case 'currency':
+                return new Intl.NumberFormat('en-IN', {
+                    style: 'currency',
+                    currency: 'INR'
+                }).format(value);
+            case 'percentage':
+                return `${value.toFixed(1)}%`;
+            case 'number':
+            default:
+                return new Intl.NumberFormat('en-IN').format(value);
+        }
+    }
+}
+
+// Chart Widget Implementation
+class ChartWidget extends DashboardWidget {
+    constructor(config) {
+        super(config);
+        this.chartType = config.chartType || 'line';
+        this.chartOptions = config.chartOptions || {};
+    }
+    
+    renderContent() {
+        return `<canvas id="chart-${this.id}" width="400" height="200"></canvas>`;
+    }
+    
+    onDataLoaded() {
+        this.renderChart();
+    }
+    
+    renderChart() {
+        const canvas = document.getElementById(`chart-${this.id}`);
+        if (!canvas || !this.data) return;
+        
+        const ctx = canvas.getContext('2d');
+        
+        // Destroy existing chart if it exists
+        if (this.chart) {
+            this.chart.destroy();
+        }
+        
+        // Create new chart
+        this.chart = new Chart(ctx, {
+            type: this.chartType,
+            data: this.data.chartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                ...this.chartOptions
+            }
+        });
+    }
+    
+    updateContent() {
+        if (this.chart && this.data) {
+            this.chart.data = this.data.chartData;
+            this.chart.update();
+        }
+    }
+}
+        </div>
+
+        <h3>15.2.2 Dashboard Configuration System</h3>
+        <div class="code-block">
+// Dashboard Configuration Manager
+class DashboardManager {
+    constructor() {
+        this.dashboards = new Map();
+        this.widgets = new Map();
+        this.currentDashboard = null;
+    }
+    
+    // Load dashboard configuration
+    async loadDashboard(dashboardId, userId) {
+        try {
+            const response = await fetch(`/api/dashboard/config/${dashboardId}?user_id=${userId}`);
+            const config = await response.json();
+            
+            const dashboard = {
+                id: dashboardId,
+                title: config.title,
+                layout: config.layout,
+                widgets: config.widgets,
+                permissions: config.permissions,
+                refreshInterval: config.refreshInterval || 300000
+            };
+            
+            this.dashboards.set(dashboardId, dashboard);
+            return dashboard;
+        } catch (error) {
+            console.error('Error loading dashboard:', error);
+            throw error;
+        }
+    }
+    
+    // Render dashboard
+    async renderDashboard(dashboardId, containerId) {
+        const dashboard = this.dashboards.get(dashboardId);
+        if (!dashboard) {
+            throw new Error(`Dashboard ${dashboardId} not found`);
+        }
+        
+        const container = document.getElementById(containerId);
+        if (!container) {
+            throw new Error(`Container ${containerId} not found`);
+        }
+        
+        // Create dashboard layout
+        container.innerHTML = `
+            <div class="dashboard-header">
+                <h1>${dashboard.title}</h1>
+                <div class="dashboard-controls">
+                    <button onclick="refreshDashboard('${dashboardId}')" class="btn-refresh">
+                        <i class="material-icons">refresh</i> Refresh All
+                    </button>
+                    <button onclick="configureDashboard('${dashboardId}')" class="btn-configure">
+                        <i class="material-icons">settings</i> Configure
+                    </button>
+                </div>
+            </div>
+            <div class="dashboard-content" id="dashboard-content-${dashboardId}">
+                ${this.renderLayout(dashboard.layout)}
+            </div>
+        `;
+        
+        // Initialize widgets
+        await this.initializeWidgets(dashboard);
+        
+        this.currentDashboard = dashboardId;
+    }
+    
+    // Render dashboard layout
+    renderLayout(layout) {
+        const { type, columns, rows } = layout;
+        
+        switch (type) {
+            case 'grid':
+                return this.renderGridLayout(columns, rows);
+            case 'flex':
+                return this.renderFlexLayout(layout.direction);
+            default:
+                return '<div class="dashboard-grid"></div>';
+        }
+    }
+    
+    // Render grid layout
+    renderGridLayout(columns, rows) {
+        let html = '<div class="dashboard-grid" style="grid-template-columns: repeat(' + columns + ', 1fr);">';
+        
+        for (let i = 0; i < (columns * rows); i++) {
+            html += `<div class="widget-slot" id="widget-slot-${i}"></div>`;
+        }
+        
+        html += '</div>';
+        return html;
+    }
+    
+    // Initialize all widgets in dashboard
+    async initializeWidgets(dashboard) {
+        const promises = dashboard.widgets.map(async (widgetConfig, index) => {
+            const widget = this.createWidget(widgetConfig);
+            const slot = document.getElementById(`widget-slot-${index}`);
+            
+            if (slot && widget) {
+                await widget.initialize(slot);
+                this.widgets.set(widget.id, widget);
+            }
+        });
+        
+        await Promise.all(promises);
+    }
+    
+    // Create widget instance based on type
+    createWidget(config) {
+        switch (config.type) {
+            case 'kpi':
+                return new KPIWidget(config);
+            case 'chart':
+                return new ChartWidget(config);
+            case 'table':
+                return new TableWidget(config);
+            case 'gauge':
+                return new GaugeWidget(config);
+            default:
+                return new DashboardWidget(config);
+        }
+    }
+    
+    // Refresh entire dashboard
+    async refreshDashboard(dashboardId) {
+        const dashboard = this.dashboards.get(dashboardId);
+        if (!dashboard) return;
+        
+        const refreshPromises = dashboard.widgets.map(widgetConfig => {
+            const widget = this.widgets.get(widgetConfig.id);
+            return widget ? widget.refresh() : Promise.resolve();
+        });
+        
+        await Promise.all(refreshPromises);
+    }
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>15.3 Key Performance Indicators (KPIs)</h2>
+        <p>The KPI system provides real-time tracking of critical business metrics with customizable targets, trend analysis, and performance comparisons.</p>
+
+        <h3>15.3.1 Business KPIs Dashboard</h3>
+        <div class="dashboard-grid">
+            <div class="kpi-card">
+                <h4>Total Revenue</h4>
+                <div class="kpi-value">₹12,45,000</div>
+                <div style="color: #90EE90;">↗ +15.3% vs last month</div>
+            </div>
+            <div class="kpi-card">
+                <h4>Active Customers</h4>
+                <div class="kpi-value">1,247</div>
+                <div style="color: #90EE90;">↗ +8.7% vs last month</div>
+            </div>
+            <div class="kpi-card">
+                <h4>Employee Productivity</h4>
+                <div class="kpi-value">87.5%</div>
+                <div style="color: #FFB6C1;">↘ -2.1% vs last month</div>
+            </div>
+            <div class="kpi-card">
+                <h4>Customer Satisfaction</h4>
+                <div class="kpi-value">4.6/5</div>
+                <div style="color: #90EE90;">↗ +0.3 vs last month</div>
+            </div>
+        </div>
+
+        <h3>15.3.2 KPI Calculation Engine</h3>
+        <div class="code-block">
+// KPI Calculation and Tracking System
+class KPICalculator {
+    constructor() {
+        this.kpiDefinitions = new Map();
+        this.calculationCache = new Map();
+        this.alertThresholds = new Map();
+    }
+    
+    // Register KPI definition
+    registerKPI(kpiId, definition) {
+        this.kpiDefinitions.set(kpiId, {
+            id: kpiId,
+            name: definition.name,
+            description: definition.description,
+            calculation: definition.calculation,
+            dataSource: definition.dataSource,
+            refreshInterval: definition.refreshInterval || 3600000, // 1 hour default
+            target: definition.target,
+            format: definition.format || 'number',
+            trendPeriods: definition.trendPeriods || 12,
+            alertThresholds: definition.alertThresholds
+        });
+        
+        if (definition.alertThresholds) {
+            this.alertThresholds.set(kpiId, definition.alertThresholds);
+        }
+    }
+    
+    // Calculate KPI value
+    async calculateKPI(kpiId, period = 'current_month') {
+        const definition = this.kpiDefinitions.get(kpiId);
+        if (!definition) {
+            throw new Error(`KPI definition not found: ${kpiId}`);
+        }
+        
+        // Check cache first
+        const cacheKey = `${kpiId}_${period}`;
+        const cached = this.calculationCache.get(cacheKey);
+        if (cached && (Date.now() - cached.timestamp) < definition.refreshInterval) {
+            return cached.value;
+        }
+        
+        try {
+            // Get data from source
+            const data = await this.fetchKPIData(definition.dataSource, period);
+            
+            // Apply calculation logic
+            const result = await this.applyCalculation(definition.calculation, data, period);
+            
+            // Calculate trend
+            const trend = await this.calculateTrend(kpiId, result.value, period);
+            
+            // Check against target
+            const targetComparison = this.compareWithTarget(result.value, definition.target);
+            
+            // Check alert thresholds
+            const alerts = this.checkAlertThresholds(kpiId, result.value);
+            
+            const kpiResult = {
+                kpi_id: kpiId,
+                name: definition.name,
+                value: result.value,
+                formatted_value: this.formatValue(result.value, definition.format),
+                period: period,
+                calculation_date: new Date().toISOString(),
+                trend: trend,
+                target: definition.target,
+                target_comparison: targetComparison,
+                alerts: alerts,
+                metadata: result.metadata || {}
+            };
+            
+            // Cache result
+            this.calculationCache.set(cacheKey, {
+                value: kpiResult,
+                timestamp: Date.now()
+            });
+            
+            // Trigger alerts if necessary
+            if (alerts.length > 0) {
+                this.triggerAlerts(kpiId, kpiResult, alerts);
+            }
+            
+            return kpiResult;
+            
+        } catch (error) {
+            console.error(`Error calculating KPI ${kpiId}:`, error);
+            throw error;
+        }
+    }
+    
+    // Apply calculation logic
+    async applyCalculation(calculation, data, period) {
+        switch (calculation.type) {
+            case 'sum':
+                return {
+                    value: data.reduce((sum, item) => sum + (item[calculation.field] || 0), 0)
+                };
+                
+            case 'average':
+                const values = data.map(item => item[calculation.field] || 0);
+                return {
+                    value: values.length > 0 ? values.reduce((sum, val) => sum + val, 0) / values.length : 0
+                };
+                
+            case 'count':
+                return {
+                    value: calculation.condition ? 
+                        data.filter(item => this.evaluateCondition(item, calculation.condition)).length :
+                        data.length
+                };
+                
+            case 'percentage':
+                const numerator = calculation.numerator ? 
+                    data.filter(item => this.evaluateCondition(item, calculation.numerator)).length :
+                    data.length;
+                const denominator = calculation.denominator ?
+                    data.filter(item => this.evaluateCondition(item, calculation.denominator)).length :
+                    data.length;
+                return {
+                    value: denominator > 0 ? (numerator / denominator) * 100 : 0
+                };
+                
+            case 'custom':
+                // Execute custom calculation function
+                return await calculation.function(data, period);
+                
+            default:
+                throw new Error(`Unknown calculation type: ${calculation.type}`);
+        }
+    }
+    
+    // Predefined KPI calculations for common business metrics
+    getStandardKPIs() {
+        return {
+            // Revenue KPIs
+            total_revenue: {
+                name: 'Total Revenue',
+                calculation: { type: 'sum', field: 'amount' },
+                dataSource: 'sales_data',
+                format: 'currency',
+                target: 1000000
+            },
+            
+            average_order_value: {
+                name: 'Average Order Value',
+                calculation: { type: 'average', field: 'amount' },
+                dataSource: 'sales_data',
+                format: 'currency'
+            },
+            
+            // Customer KPIs
+            total_customers: {
+                name: 'Total Active Customers',
+                calculation: { 
+                    type: 'count',
+                    condition: { field: 'status', operator: 'equals', value: 'active' }
+                },
+                dataSource: 'customers_data'
+            },
+            
+            customer_acquisition_rate: {
+                name: 'Customer Acquisition Rate',
+                calculation: {
+                    type: 'percentage',
+                    numerator: { field: 'created_date', operator: 'in_period', value: 'current_month' }
+                },
+                dataSource: 'customers_data',
+                format: 'percentage'
+            },
+            
+            // Employee KPIs
+            employee_productivity: {
+                name: 'Employee Productivity',
+                calculation: {
+                    type: 'custom',
+                    function: async (data, period) => {
+                        const totalTasks = data.length;
+                        const completedTasks = data.filter(task => task.status === 'completed').length;
+                        return { value: totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0 };
+                    }
+                },
+                dataSource: 'tasks_data',
+                format: 'percentage',
+                target: 85
+            },
+            
+            attendance_rate: {
+                name: 'Overall Attendance Rate',
+                calculation: {
+                    type: 'custom',
+                    function: async (data, period) => {
+                        const totalWorkingDays = data.reduce((sum, emp) => sum + emp.working_days, 0);
+                        const totalPresentDays = data.reduce((sum, emp) => sum + emp.present_days, 0);
+                        return { value: totalWorkingDays > 0 ? (totalPresentDays / totalWorkingDays) * 100 : 0 };
+                    }
+                },
+                dataSource: 'attendance_data',
+                format: 'percentage',
+                target: 90
+            }
+        };
+    }
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>15.4 Advanced Chart Visualizations</h2>
+        <p>The chart visualization system provides interactive and responsive charts using modern JavaScript libraries, supporting multiple chart types with real-time data updates and customizable styling.</p>
+
+        <h3>15.4.1 Chart Types and Implementation</h3>
+        <div class="feature-grid">
+            <div class="chart-container">
+                <h4>Revenue Trend (Line Chart)</h4>
+                <div class="chart-placeholder">Monthly Revenue Progression</div>
+            </div>
+            <div class="chart-container">
+                <h4>Department Performance (Bar Chart)</h4>
+                <div class="chart-placeholder">Comparative Department Analysis</div>
+            </div>
+            <div class="chart-container">
+                <h4>Customer Distribution (Pie Chart)</h4>
+                <div class="chart-placeholder">Customer Segmentation</div>
+            </div>
+            <div class="chart-container">
+                <h4>Employee Productivity (Gauge Chart)</h4>
+                <div class="chart-placeholder">Real-time Productivity Meter</div>
+            </div>
+        </div>
+
+        <h3>15.4.2 Chart Configuration System</h3>
+        <div class="code-block">
+// Advanced Chart Configuration and Rendering System
+class ChartRenderer {
+    constructor() {
+        this.chartInstances = new Map();
+        this.defaultOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                }
+            },
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true
+                    }
+                }
+            }
+        };
+    }
+    
+    // Create line chart for trends
+    createLineChart(canvasId, data, options = {}) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return null;
+        
+        const ctx = canvas.getContext('2d');
+        const chartConfig = {
+            type: 'line',
+            data: {
+                labels: data.labels,
+                datasets: data.datasets.map(dataset => ({
+                    label: dataset.label,
+                    data: dataset.data,
+                    borderColor: dataset.borderColor || '#007bff',
+                    backgroundColor: dataset.backgroundColor || 'rgba(0, 123, 255, 0.1)',
+                    borderWidth: dataset.borderWidth || 2,
+                    fill: dataset.fill !== undefined ? dataset.fill : true,
+                    tension: dataset.tension || 0.4
+                }))
+            },
+            options: this.mergeOptions(this.defaultOptions, options)
+        };
+        
+        const chart = new Chart(ctx, chartConfig);
+        this.chartInstances.set(canvasId, chart);
+        return chart;
+    }
+    
+    // Create bar chart for comparisons
+    createBarChart(canvasId, data, options = {}) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return null;
+        
+        const ctx = canvas.getContext('2d');
+        const chartConfig = {
+            type: 'bar',
+            data: {
+                labels: data.labels,
+                datasets: data.datasets.map(dataset => ({
+                    label: dataset.label,
+                    data: dataset.data,
+                    backgroundColor: dataset.backgroundColor || [
+                        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+                        '#9966FF', '#FF9F40', '#FF6384', '#C9CBCF'
+                    ],
+                    borderColor: dataset.borderColor || '#fff',
+                    borderWidth: dataset.borderWidth || 1
+                }))
+            },
+            options: this.mergeOptions(this.defaultOptions, options)
+        };
+        
+        const chart = new Chart(ctx, chartConfig);
+        this.chartInstances.set(canvasId, chart);
+        return chart;
+    }
+    
+    // Update chart data
+    updateChart(canvasId, newData) {
+        const chart = this.chartInstances.get(canvasId);
+        if (!chart) return false;
+        
+        if (newData.labels) {
+            chart.data.labels = newData.labels;
+        }
+        
+        if (newData.datasets) {
+            chart.data.datasets = newData.datasets;
+        }
+        
+        chart.update('active');
+        return true;
+    }
+    
+    // Merge chart options
+    mergeOptions(defaultOptions, customOptions) {
+        return {
+            ...defaultOptions,
+            ...customOptions,
+            plugins: {
+                ...defaultOptions.plugins,
+                ...customOptions.plugins
+            },
+            scales: {
+                ...defaultOptions.scales,
+                ...customOptions.scales
+            }
+        };
+    }
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>15.5 Business Intelligence Reports</h2>
+        <p>The Business Intelligence reporting system provides comprehensive analytical reports with advanced filtering, grouping, and export capabilities for strategic decision-making.</p>
+
+        <h3>15.5.1 Report Categories</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Report Category</th>
+                    <th>Report Types</th>
+                    <th>Key Metrics</th>
+                    <th>Update Frequency</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sales Analytics</td>
+                    <td>Revenue Reports, Sales Performance, Customer Analysis</td>
+                    <td>Revenue, Conversion Rate, Customer Lifetime Value</td>
+                    <td>Daily</td>
+                </tr>
+                <tr>
+                    <td>HR Analytics</td>
+                    <td>Employee Performance, Attendance, Payroll Analysis</td>
+                    <td>Productivity, Attendance Rate, Payroll Costs</td>
+                    <td>Weekly</td>
+                </tr>
+                <tr>
+                    <td>Financial Reports</td>
+                    <td>P&L, Cash Flow, Budget Analysis</td>
+                    <td>Profit Margins, Cash Position, Budget Variance</td>
+                    <td>Monthly</td>
+                </tr>
+                <tr>
+                    <td>Operational Reports</td>
+                    <td>Inventory, Customer Service, Process Efficiency</td>
+                    <td>Stock Levels, Response Time, Process Metrics</td>
+                    <td>Real-time</td>
+                </tr>
+                <tr>
+                    <td>Executive Dashboard</td>
+                    <td>KPI Summary, Trend Analysis, Strategic Metrics</td>
+                    <td>Overall Performance, Growth Trends, Strategic KPIs</td>
+                    <td>Real-time</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>15.5.2 Advanced Report Generator</h3>
+        <div class="code-block">
+// Advanced Business Intelligence Report Generator
+class BIReportGenerator {
+    constructor() {
+        this.reportTemplates = new Map();
+        this.dataConnectors = new Map();
+        this.reportCache = new Map();
+        this.exportFormats = ['pdf', 'excel', 'csv', 'json'];
+    }
+    
+    // Register report template
+    registerReportTemplate(templateId, template) {
+        this.reportTemplates.set(templateId, {
+            id: templateId,
+            name: template.name,
+            description: template.description,
+            category: template.category,
+            dataQueries: template.dataQueries,
+            visualizations: template.visualizations,
+            filters: template.filters,
+            groupBy: template.groupBy,
+            sortBy: template.sortBy,
+            permissions: template.permissions || [],
+            cacheTimeout: template.cacheTimeout || 3600000 // 1 hour default
+        });
+    }
+    
+    // Generate comprehensive report
+    async generateReport(templateId, parameters = {}) {
+        const template = this.reportTemplates.get(templateId);
+        if (!template) {
+            throw new Error(`Report template not found: ${templateId}`);
+        }
+        
+        // Check cache first
+        const cacheKey = this.generateCacheKey(templateId, parameters);
+        const cached = this.reportCache.get(cacheKey);
+        if (cached && (Date.now() - cached.timestamp) < template.cacheTimeout) {
+            return cached.report;
+        }
+        
+        try {
+            // Execute data queries
+            const reportData = await this.executeDataQueries(template.dataQueries, parameters);
+            
+            // Apply filters
+            const filteredData = this.applyFilters(reportData, template.filters, parameters);
+            
+            // Apply grouping and sorting
+            const processedData = this.processData(filteredData, template.groupBy, template.sortBy);
+            
+            // Generate visualizations
+            const visualizations = await this.generateVisualizations(processedData, template.visualizations);
+            
+            // Calculate summary statistics
+            const summaryStats = this.calculateSummaryStatistics(processedData);
+            
+            // Create report object
+            const report = {
+                id: this.generateReportId(),
+                template_id: templateId,
+                name: template.name,
+                category: template.category,
+                generated_at: new Date().toISOString(),
+                parameters: parameters,
+                data: processedData,
+                visualizations: visualizations,
+                summary: summaryStats,
+                metadata: {
+                    total_records: processedData.length,
+                    data_sources: Object.keys(template.dataQueries),
+                    filters_applied: Object.keys(parameters).length,
+                    generation_time: Date.now()
+                }
+            };
+            
+            // Cache report
+            this.reportCache.set(cacheKey, {
+                report: report,
+                timestamp: Date.now()
+            });
+            
+            return report;
+            
+        } catch (error) {
+            console.error(`Error generating report ${templateId}:`, error);
+            throw error;
+        }
+    }
+    
+    // Export report in specified format
+    async exportReport(report, format, options = {}) {
+        if (!this.exportFormats.includes(format)) {
+            throw new Error(`Unsupported export format: ${format}`);
+        }
+        
+        switch (format) {
+            case 'pdf':
+                return await this.exportToPDF(report, options);
+            case 'excel':
+                return await this.exportToExcel(report, options);
+            case 'csv':
+                return await this.exportToCSV(report, options);
+            case 'json':
+                return await this.exportToJSON(report, options);
+            default:
+                throw new Error(`Export format not implemented: ${format}`);
+        }
+    }
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>15.6 Real-time Analytics Dashboard</h2>
+        <p>The real-time analytics dashboard provides live monitoring of business metrics with automatic updates, alert notifications, and interactive data exploration capabilities.</p>
+
+        <h3>15.6.1 Real-time Data Processing</h3>
+        <div class="code-block">
+// Real-time Analytics Dashboard System
+class RealTimeAnalyticsDashboard {
+    constructor() {
+        this.websocket = null;
+        this.widgets = new Map();
+        this.alertRules = new Map();
+        this.dataBuffer = new Map();
+        this.updateQueue = [];
+    }
+    
+    // Initialize real-time connection
+    async initialize(websocketUrl) {
+        try {
+            this.websocket = new WebSocket(websocketUrl);
+            
+            this.websocket.onopen = () => {
+                console.log('Real-time analytics connection established');
+                this.startHeartbeat();
+            };
+            
+            this.websocket.onmessage = (event) => {
+                this.handleRealTimeData(JSON.parse(event.data));
+            };
+            
+            this.websocket.onclose = () => {
+                console.log('Real-time connection closed, attempting reconnect...');
+                setTimeout(() => this.initialize(websocketUrl), 5000);
+            };
+            
+            this.websocket.onerror = (error) => {
+                console.error('WebSocket error:', error);
+            };
+            
+        } catch (error) {
+            console.error('Error initializing real-time dashboard:', error);
+        }
+    }
+    
+    // Handle incoming real-time data
+    handleRealTimeData(data) {
+        const { type, metric, value, timestamp, metadata } = data;
+        
+        switch (type) {
+            case 'metric_update':
+                this.updateMetric(metric, value, timestamp, metadata);
+                break;
+            case 'alert':
+                this.handleAlert(data);
+                break;
+            case 'batch_update':
+                this.handleBatchUpdate(data.updates);
+                break;
+            default:
+                console.warn('Unknown real-time data type:', type);
+        }
+    }
+    
+    // Update metric in real-time
+    updateMetric(metricName, value, timestamp, metadata = {}) {
+        // Buffer the data point
+        if (!this.dataBuffer.has(metricName)) {
+            this.dataBuffer.set(metricName, []);
+        }
+        
+        const buffer = this.dataBuffer.get(metricName);
+        buffer.push({ value, timestamp, metadata });
+        
+        // Keep only last 100 data points
+        if (buffer.length > 100) {
+            buffer.shift();
+        }
+        
+        // Update associated widgets
+        this.updateWidgetsForMetric(metricName, value, timestamp, metadata);
+        
+        // Check alert rules
+        this.checkAlertRules(metricName, value, metadata);
+    }
+    
+    // Register real-time widget
+    registerWidget(widgetId, widget) {
+        this.widgets.set(widgetId, widget);
+        
+        // Subscribe to metrics for this widget
+        if (widget.metrics && this.websocket && this.websocket.readyState === WebSocket.OPEN) {
+            this.websocket.send(JSON.stringify({
+                action: 'subscribe',
+                metrics: widget.metrics
+            }));
+        }
+    }
+}
+        </div>
+
+        <h3>15.6.2 Performance Monitoring</h3>
+        <div class="info-box">
+            <h4>System Performance Metrics</h4>
+            <ul>
+                <li><strong>Response Time:</strong> Average API response time < 200ms</li>
+                <li><strong>Data Freshness:</strong> Real-time updates within 5 seconds</li>
+                <li><strong>Concurrent Users:</strong> Support for 1000+ simultaneous dashboard users</li>
+                <li><strong>Data Throughput:</strong> Process 10,000+ metric updates per minute</li>
+                <li><strong>Uptime:</strong> 99.9% availability with automatic failover</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>15.7 Data Export and Integration</h2>
+        <p>The analytics system provides comprehensive data export capabilities and integration with external business intelligence tools and data warehouses.</p>
+
+        <h3>15.7.1 Export Formats and Options</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Export Format</th>
+                    <th>Use Case</th>
+                    <th>Features</th>
+                    <th>File Size Limit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Excel (.xlsx)</td>
+                    <td>Business Reports, Analysis</td>
+                    <td>Multiple sheets, Charts, Formatting</td>
+                    <td>100MB</td>
+                </tr>
+                <tr>
+                    <td>CSV (.csv)</td>
+                    <td>Data Import, Processing</td>
+                    <td>Raw data, Fast processing</td>
+                    <td>500MB</td>
+                </tr>
+                <tr>
+                    <td>PDF (.pdf)</td>
+                    <td>Reports, Presentations</td>
+                    <td>Professional formatting, Charts</td>
+                    <td>50MB</td>
+                </tr>
+                <tr>
+                    <td>JSON (.json)</td>
+                    <td>API Integration, Development</td>
+                    <td>Structured data, Metadata</td>
+                    <td>200MB</td>
+                </tr>
+                <tr>
+                    <td>Power BI</td>
+                    <td>Advanced Analytics</td>
+                    <td>Live connection, Interactive dashboards</td>
+                    <td>Unlimited</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>15.7.2 API Integration</h3>
+        <div class="code-block">
+// Analytics API Integration System
+class AnalyticsAPIIntegration {
+    constructor() {
+        this.apiEndpoints = new Map();
+        this.authTokens = new Map();
+        this.rateLimits = new Map();
+        this.exportQueue = [];
+    }
+    
+    // Register external API endpoint
+    registerAPIEndpoint(endpointId, config) {
+        this.apiEndpoints.set(endpointId, {
+            id: endpointId,
+            url: config.url,
+            method: config.method || 'POST',
+            headers: config.headers || {},
+            authentication: config.authentication,
+            rateLimit: config.rateLimit || { requests: 100, window: 3600000 }, // 100 req/hour
+            retryPolicy: config.retryPolicy || { maxRetries: 3, backoff: 1000 }
+        });
+    }
+    
+    // Export data to external system
+    async exportToExternalSystem(endpointId, data, options = {}) {
+        const endpoint = this.apiEndpoints.get(endpointId);
+        if (!endpoint) {
+            throw new Error(`API endpoint not found: ${endpointId}`);
+        }
+        
+        try {
+            // Check rate limits
+            await this.checkRateLimit(endpointId);
+            
+            // Prepare request
+            const requestConfig = await this.prepareRequest(endpoint, data, options);
+            
+            // Execute request with retry logic
+            const response = await this.executeWithRetry(endpoint, requestConfig);
+            
+            return {
+                success: true,
+                endpoint_id: endpointId,
+                response: response,
+                exported_at: new Date().toISOString()
+            };
+            
+        } catch (error) {
+            console.error(`Error exporting to ${endpointId}:`, error);
+            throw error;
+        }
+    }
+    
+    // Schedule automated exports
+    scheduleExport(scheduleId, config) {
+        const { frequency, endpointId, dataQuery, options } = config;
+        
+        const intervalMs = this.parseFrequency(frequency);
+        
+        const intervalId = setInterval(async () => {
+            try {
+                // Execute data query
+                const data = await this.executeDataQuery(dataQuery);
+                
+                // Export data
+                await this.exportToExternalSystem(endpointId, data, options);
+                
+                console.log(`Scheduled export ${scheduleId} completed successfully`);
+                
+            } catch (error) {
+                console.error(`Scheduled export ${scheduleId} failed:`, error);
+            }
+        }, intervalMs);
+        
+        return intervalId;
+    }
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>15.8 Security and Access Control</h2>
+        <p>The analytics system implements comprehensive security measures to protect sensitive business data and ensure appropriate access controls for different user roles.</p>
+
+        <h3>15.8.1 Data Security Measures</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Data Encryption</h4>
+                <p>End-to-end encryption for data in transit and at rest using AES-256 encryption standards.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Access Control</h4>
+                <p>Role-based access control (RBAC) with granular permissions for different data sets and features.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Audit Logging</h4>
+                <p>Comprehensive audit trails for all data access, modifications, and export activities.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Data Masking</h4>
+                <p>Automatic data masking for sensitive information based on user permissions and data classification.</p>
+            </div>
+        </div>
+
+        <h3>15.8.2 Compliance and Governance</h3>
+        <div class="warning-box">
+            <h4>Compliance Requirements</h4>
+            <p>The analytics system adheres to various compliance standards including:</p>
+            <ul>
+                <li><strong>GDPR:</strong> Data privacy and protection for EU citizens</li>
+                <li><strong>SOX:</strong> Financial reporting accuracy and internal controls</li>
+                <li><strong>HIPAA:</strong> Healthcare data protection (if applicable)</li>
+                <li><strong>ISO 27001:</strong> Information security management standards</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>15.9 Performance Optimization and Scalability</h2>
+        <p>The analytics system is designed for high performance and scalability, supporting large datasets and concurrent users through advanced optimization techniques.</p>
+
+        <h3>15.9.1 Performance Optimization Strategies</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Optimization Area</th>
+                    <th>Technique</th>
+                    <th>Impact</th>
+                    <th>Implementation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Data Loading</td>
+                    <td>Lazy Loading, Pagination</td>
+                    <td>50% faster initial load</td>
+                    <td>Load data on-demand</td>
+                </tr>
+                <tr>
+                    <td>Chart Rendering</td>
+                    <td>Canvas Optimization, WebGL</td>
+                    <td>10x faster rendering</td>
+                    <td>Hardware acceleration</td>
+                </tr>
+                <tr>
+                    <td>Data Processing</td>
+                    <td>Web Workers, Streaming</td>
+                    <td>Non-blocking UI</td>
+                    <td>Background processing</td>
+                </tr>
+                <tr>
+                    <td>Caching</td>
+                    <td>Multi-level Caching</td>
+                    <td>80% cache hit rate</td>
+                    <td>Browser + Server cache</td>
+                </tr>
+                <tr>
+                    <td>Database Queries</td>
+                    <td>Query Optimization, Indexing</td>
+                    <td>90% query improvement</td>
+                    <td>Optimized SQL queries</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>15.9.2 Scalability Architecture</h3>
+        <div class="highlight">
+            <h4>Horizontal Scaling Capabilities</h4>
+            <p>The analytics system supports horizontal scaling through:</p>
+            <ul>
+                <li><strong>Microservices Architecture:</strong> Independent scaling of analytics components</li>
+                <li><strong>Load Balancing:</strong> Distribute traffic across multiple server instances</li>
+                <li><strong>Database Sharding:</strong> Partition large datasets across multiple databases</li>
+                <li><strong>CDN Integration:</strong> Global content delivery for faster access</li>
+                <li><strong>Auto-scaling:</strong> Automatic resource allocation based on demand</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>15.10 Future Enhancements and Roadmap</h2>
+        <p>The analytics system continues to evolve with planned enhancements and new features to meet growing business intelligence needs.</p>
+
+        <h3>15.10.1 Planned Features</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>AI-Powered Insights</h4>
+                <p>Machine learning algorithms to automatically identify trends, anomalies, and business opportunities.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Natural Language Queries</h4>
+                <p>Voice and text-based query interface for non-technical users to access data insights.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Advanced Forecasting</h4>
+                <p>Enhanced predictive models with seasonal adjustments and external factor integration.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Mobile Analytics</h4>
+                <p>Native mobile applications for accessing dashboards and reports on-the-go.</p>
+            </div>
+        </div>
+
+        <h3>15.10.2 Implementation Timeline</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Phase</th>
+                    <th>Timeline</th>
+                    <th>Key Features</th>
+                    <th>Priority</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Phase 1</td>
+                    <td>Q1 2025</td>
+                    <td>Enhanced Real-time Processing, Mobile Optimization</td>
+                    <td>High</td>
+                </tr>
+                <tr>
+                    <td>Phase 2</td>
+                    <td>Q2 2025</td>
+                    <td>AI-Powered Insights, Advanced Forecasting</td>
+                    <td>Medium</td>
+                </tr>
+                <tr>
+                    <td>Phase 3</td>
+                    <td>Q3 2025</td>
+                    <td>Natural Language Queries, Voice Interface</td>
+                    <td>Medium</td>
+                </tr>
+                <tr>
+                    <td>Phase 4</td>
+                    <td>Q4 2025</td>
+                    <td>Advanced Integrations, Custom Visualizations</td>
+                    <td>Low</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="navigation">
+        <a href="chapter14.html" class="nav-button">← Previous: Loan, Advance & Overtime</a>
+        <a href="table_of_contents.html" class="nav-button">📚 Table of Contents</a>
+        <a href="chapter16.html" class="nav-button">Next: Login & Security →</a>
+    </div>
+</body>
+</html>

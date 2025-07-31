@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 11: Sales Management - CRM System Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .content-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 1rem;
+            border-left: 4px solid #ffc107;
+            margin: 1rem 0;
+        }
+        .info-box {
+            background-color: #d1ecf1;
+            padding: 1rem;
+            border-left: 4px solid #17a2b8;
+            margin: 1rem 0;
+        }
+        .warning-box {
+            background-color: #f8d7da;
+            padding: 1rem;
+            border-left: 4px solid #dc3545;
+            margin: 1rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .navigation {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .nav-button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #0056b3;
+        }
+        .diagram {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        .workflow-step {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 1rem;
+            margin: 0.5rem;
+            border-radius: 8px;
+            display: inline-block;
+            min-width: 150px;
+        }
+        .arrow {
+            font-size: 2rem;
+            color: #666;
+            margin: 0 1rem;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .status-paid { background-color: #d4edda; color: #155724; }
+        .status-partial { background-color: #fff3cd; color: #856404; }
+        .status-unpaid { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Chapter 11: Sales Management</h1>
+        <p>Comprehensive Invoice Generation, Payment Tracking, and Revenue Management System</p>
+    </div>
+
+    <div class="content-section">
+        <h2>11.1 Sales Management Overview</h2>
+        <p>The Sales Management module is a comprehensive system designed to handle all aspects of sales operations, from invoice generation to payment tracking and revenue analysis. This module integrates seamlessly with customer management, stock management, and accounting systems to provide a complete sales solution.</p>
+
+        <h3>11.1.1 Key Features</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Invoice Generation</h4>
+                <p>Automated invoice creation with customizable templates, GST calculations, and multi-currency support.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Payment Tracking</h4>
+                <p>Real-time payment status monitoring with partial payment support and automated reminders.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Revenue Analytics</h4>
+                <p>Comprehensive sales reports, trend analysis, and performance metrics for business insights.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Customer Integration</h4>
+                <p>Seamless integration with customer database for personalized sales experiences.</p>
+            </div>
+        </div>
+
+        <h3>11.1.2 System Architecture</h3>
+        <div class="diagram">
+            <div class="workflow-step">Customer Selection</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Product/Service Addition</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Invoice Generation</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Payment Processing</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Revenue Recording</div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>11.2 Invoice Management System</h2>
+        <p>The invoice management system provides comprehensive tools for creating, managing, and tracking invoices throughout their lifecycle.</p>
+
+        <h3>11.2.1 Invoice Creation Process</h3>
+        <div class="code-block">
+// Invoice Creation Workflow
+1. Customer Selection
+   - Search existing customers
+   - Add new customer if required
+   - Validate customer information
+
+2. Product/Service Selection
+   - Browse available inventory
+   - Add custom items
+   - Apply discounts and taxes
+
+3. Invoice Generation
+   - Calculate totals and taxes
+   - Generate unique invoice number
+   - Create PDF document
+
+4. Delivery and Tracking
+   - Send invoice to customer
+   - Track payment status
+   - Send payment reminders
+        </div>
+
+        <h3>11.2.2 Invoice Data Structure</h3>
+        <div class="code-block">
+{
+  "invoice": {
+    "id": "INV-2025-001",
+    "invoice_number": "INV-2025-001",
+    "customer_id": 123,
+    "customer_details": {
+      "name": "ABC Company Ltd",
+      "email": "contact@abccompany.com",
+      "phone": "+91-9876543210",
+      "address": "123 Business Street, Mumbai",
+      "gst_number": "27ABCDE1234F1Z5"
+    },
+    "items": [
+      {
+        "id": 1,
+        "name": "Product A",
+        "description": "High-quality product",
+        "quantity": 10,
+        "unit_price": 1500.00,
+        "total": 15000.00,
+        "hsn_code": "12345678",
+        "tax_rate": 18
+      }
+    ],
+    "subtotal": 15000.00,
+    "tax_amount": 2700.00,
+    "total_amount": 17700.00,
+    "payment_status": "partial",
+    "paid_amount": 10000.00,
+    "outstanding_amount": 7700.00,
+    "created_at": "2025-01-15T10:30:00Z",
+    "due_date": "2025-02-15T00:00:00Z",
+    "created_by": "sales_user"
+  }
+}
+        </div>
+
+        <h3>11.2.3 Invoice Status Management</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Description</th>
+                    <th>Actions Available</th>
+                    <th>Next Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="status-badge status-unpaid">Draft</span></td>
+                    <td>Invoice created but not sent</td>
+                    <td>Edit, Delete, Send</td>
+                    <td>Sent</td>
+                </tr>
+                <tr>
+                    <td><span class="status-badge status-partial">Sent</span></td>
+                    <td>Invoice sent to customer</td>
+                    <td>Record Payment, Send Reminder</td>
+                    <td>Partial/Paid</td>
+                </tr>
+                <tr>
+                    <td><span class="status-badge status-partial">Partial</span></td>
+                    <td>Partial payment received</td>
+                    <td>Record Payment, Send Reminder</td>
+                    <td>Paid</td>
+                </tr>
+                <tr>
+                    <td><span class="status-badge status-paid">Paid</span></td>
+                    <td>Full payment received</td>
+                    <td>Generate Receipt, Archive</td>
+                    <td>Completed</td>
+                </tr>
+                <tr>
+                    <td><span class="status-badge status-unpaid">Overdue</span></td>
+                    <td>Payment past due date</td>
+                    <td>Send Notice, Legal Action</td>
+                    <td>Paid/Written Off</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="content-section">
+        <h2>11.3 Payment Processing System</h2>
+        <p>The payment processing system handles all aspects of payment collection, tracking, and reconciliation.</p>
+
+        <h3>11.3.1 Payment Methods Supported</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Cash Payments</h4>
+                <p>Direct cash collection with receipt generation and cash register integration.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Bank Transfers</h4>
+                <p>NEFT, RTGS, and IMPS transfers with automatic reconciliation capabilities.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Digital Payments</h4>
+                <p>UPI, credit/debit cards, and digital wallet integrations.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Cheque Payments</h4>
+                <p>Cheque collection, clearance tracking, and bounce management.</p>
+            </div>
+        </div>
+
+        <h3>11.3.2 Payment Recording Process</h3>
+        <div class="code-block">
+// Payment Recording Implementation
+function recordPayment(invoiceId, paymentData) {
+    // Validate payment data
+    if (!validatePaymentData(paymentData)) {
+        throw new Error('Invalid payment data');
+    }
+    
+    // Get invoice details
+    const invoice = getInvoiceById(invoiceId);
+    if (!invoice) {
+        throw new Error('Invoice not found');
+    }
+    
+    // Calculate new payment status
+    const newPaidAmount = invoice.paid_amount + paymentData.amount;
+    const outstandingAmount = invoice.total_amount - newPaidAmount;
+    
+    // Determine payment status
+    let paymentStatus;
+    if (outstandingAmount <= 0) {
+        paymentStatus = 'paid';
+    } else if (newPaidAmount > 0) {
+        paymentStatus = 'partial';
+    } else {
+        paymentStatus = 'unpaid';
+    }
+    
+    // Update invoice
+    updateInvoice(invoiceId, {
+        paid_amount: newPaidAmount,
+        outstanding_amount: Math.max(0, outstandingAmount),
+        payment_status: paymentStatus,
+        last_payment_date: new Date()
+    });
+    
+    // Record payment transaction
+    recordPaymentTransaction({
+        invoice_id: invoiceId,
+        amount: paymentData.amount,
+        payment_method: paymentData.method,
+        reference_number: paymentData.reference,
+        payment_date: paymentData.date,
+        recorded_by: getCurrentUser().id
+    });
+    
+    // Send confirmation
+    sendPaymentConfirmation(invoice.customer_id, paymentData);
+    
+    return {
+        success: true,
+        new_status: paymentStatus,
+        outstanding_amount: Math.max(0, outstandingAmount)
+    };
+}
+        </div>
+
+        <h3>11.3.3 Payment Reconciliation</h3>
+        <p>The system provides automated payment reconciliation features to match payments with invoices:</p>
+        <ul>
+            <li><strong>Bank Statement Import:</strong> Automatic import of bank statements in various formats</li>
+            <li><strong>Transaction Matching:</strong> AI-powered matching of payments to invoices</li>
+            <li><strong>Discrepancy Detection:</strong> Identification of payment discrepancies and duplicates</li>
+            <li><strong>Manual Reconciliation:</strong> Tools for manual review and adjustment</li>
+        </ul>
+    </div>
+
+    <div class="content-section">
+        <h2>11.4 Sales Analytics and Reporting</h2>
+        <p>Comprehensive analytics and reporting capabilities provide insights into sales performance and trends.</p>
+
+        <h3>11.4.1 Key Performance Indicators (KPIs)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>KPI</th>
+                    <th>Description</th>
+                    <th>Calculation Method</th>
+                    <th>Target Range</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total Revenue</td>
+                    <td>Sum of all paid invoices</td>
+                    <td>SUM(paid_amount) WHERE status = 'paid'</td>
+                    <td>Monthly targets</td>
+                </tr>
+                <tr>
+                    <td>Outstanding Amount</td>
+                    <td>Total unpaid invoice value</td>
+                    <td>SUM(outstanding_amount) WHERE status != 'paid'</td>
+                    <td>< 20% of total sales</td>
+                </tr>
+                <tr>
+                    <td>Average Invoice Value</td>
+                    <td>Mean value per invoice</td>
+                    <td>AVG(total_amount)</td>
+                    <td>Increasing trend</td>
+                </tr>
+                <tr>
+                    <td>Payment Collection Rate</td>
+                    <td>Percentage of invoices paid on time</td>
+                    <td>(Paid on time / Total invoices) * 100</td>
+                    <td>> 85%</td>
+                </tr>
+                <tr>
+                    <td>Customer Acquisition Rate</td>
+                    <td>New customers per month</td>
+                    <td>COUNT(DISTINCT customer_id) per month</td>
+                    <td>Growth target</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>11.4.2 Sales Reports</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Daily Sales Report</h4>
+                <p>Daily revenue, invoice count, and payment collection summary.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Monthly Revenue Analysis</h4>
+                <p>Month-over-month revenue comparison with trend analysis.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Customer Sales Report</h4>
+                <p>Customer-wise sales analysis and payment behavior patterns.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Product Performance Report</h4>
+                <p>Product-wise sales analysis and profitability metrics.</p>
+            </div>
+        </div>
+
+        <h3>11.4.3 Advanced Analytics</h3>
+        <div class="code-block">
+// Sales Trend Analysis
+function generateSalesTrendAnalysis(startDate, endDate) {
+    const salesData = getSalesData(startDate, endDate);
+    
+    // Calculate monthly trends
+    const monthlyTrends = salesData.reduce((acc, sale) => {
+        const month = sale.created_at.substring(0, 7); // YYYY-MM
+        if (!acc[month]) {
+            acc[month] = {
+                revenue: 0,
+                invoices: 0,
+                customers: new Set()
+            };
+        }
+        acc[month].revenue += sale.total_amount;
+        acc[month].invoices += 1;
+        acc[month].customers.add(sale.customer_id);
+        return acc;
+    }, {});
+    
+    // Calculate growth rates
+    const months = Object.keys(monthlyTrends).sort();
+    const trendAnalysis = months.map((month, index) => {
+        const current = monthlyTrends[month];
+        const previous = index > 0 ? monthlyTrends[months[index - 1]] : null;
+        
+        return {
+            month: month,
+            revenue: current.revenue,
+            invoices: current.invoices,
+            unique_customers: current.customers.size,
+            revenue_growth: previous ? 
+                ((current.revenue - previous.revenue) / previous.revenue * 100) : 0,
+            customer_growth: previous ? 
+                ((current.customers.size - previous.customers.size) / previous.customers.size * 100) : 0
+        };
+    });
+    
+    return trendAnalysis;
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>11.5 Integration with Other Modules</h2>
+        <p>The Sales Management module integrates seamlessly with other CRM modules to provide a unified business management experience.</p>
+
+        <h3>11.5.1 Customer Management Integration</h3>
+        <div class="info-box">
+            <strong>Bidirectional Data Flow:</strong> Sales data automatically updates customer profiles with purchase history, payment behavior, and credit limits. Customer information is instantly available during invoice creation.
+        </div>
+
+        <h3>11.5.2 Stock Management Integration</h3>
+        <div class="code-block">
+// Stock Integration Example
+function createInvoiceWithStockUpdate(invoiceData) {
+    // Begin transaction
+    beginTransaction();
+    
+    try {
+        // Create invoice
+        const invoice = createInvoice(invoiceData);
+        
+        // Update stock levels
+        for (const item of invoiceData.items) {
+            const stockItem = getStockItem(item.product_id);
+            if (stockItem.quantity < item.quantity) {
+                throw new Error(`Insufficient stock for ${item.name}`);
+            }
+            
+            updateStockQuantity(item.product_id, -item.quantity);
+            recordStockTransaction({
+                product_id: item.product_id,
+                type: 'out',
+                quantity: item.quantity,
+                reference: invoice.invoice_number,
+                reason: 'sale'
+            });
+        }
+        
+        // Commit transaction
+        commitTransaction();
+        return invoice;
+        
+    } catch (error) {
+        rollbackTransaction();
+        throw error;
+    }
+}
+        </div>
+
+        <h3>11.5.3 Accounting Integration</h3>
+        <p>Sales transactions automatically generate accounting entries:</p>
+        <ul>
+            <li><strong>Revenue Recognition:</strong> Automatic journal entries for sales revenue</li>
+            <li><strong>Accounts Receivable:</strong> Outstanding invoice tracking</li>
+            <li><strong>Tax Calculations:</strong> GST/VAT calculations and reporting</li>
+            <li><strong>Financial Reporting:</strong> Integration with P&L and balance sheet</li>
+        </ul>
+    </div>
+
+    <div class="content-section">
+        <h2>11.6 User Interface and Experience</h2>
+        <p>The sales management interface is designed for efficiency and ease of use across different user roles.</p>
+
+        <h3>11.6.1 Dashboard Overview</h3>
+        <div class="code-block">
+// Dashboard Components
+Sales Dashboard:
+├── Revenue Summary Cards
+│   ├── Total Sales (Current Month)
+│   ├── Outstanding Amount
+│   └── Payment Collection Rate
+├── Quick Actions
+│   ├── Create New Invoice
+│   ├── Record Payment
+│   └── Generate Report
+├── Recent Sales Table
+│   ├── Invoice filtering
+│   ├── Status-based sorting
+│   └── Quick action buttons
+└── Sales Charts
+    ├── Monthly Revenue Trend
+    ├── Payment Status Distribution
+    └── Top Customers by Revenue
+        </div>
+
+        <h3>11.6.2 Role-Based Access Control</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Permissions</th>
+                    <th>Restrictions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Super Admin</td>
+                    <td>Full access to all features</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Admin</td>
+                    <td>Create, edit, delete invoices; Record payments; Generate reports</td>
+                    <td>Cannot modify system settings</td>
+                </tr>
+                <tr>
+                    <td>Sales User</td>
+                    <td>Create invoices; Record payments; View own sales</td>
+                    <td>Cannot delete invoices; Limited reporting</td>
+                </tr>
+                <tr>
+                    <td>Accounts User</td>
+                    <td>Record payments; Generate financial reports</td>
+                    <td>Cannot create/edit invoices</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>11.6.3 Mobile Responsiveness</h3>
+        <div class="highlight">
+            <strong>Mobile-First Design:</strong> The sales management interface is fully responsive and optimized for mobile devices, allowing sales teams to create invoices and record payments on the go.
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>11.7 Security and Compliance</h2>
+        <p>The sales management system implements comprehensive security measures and compliance features.</p>
+
+        <h3>11.7.1 Data Security</h3>
+        <ul>
+            <li><strong>Encryption:</strong> All sensitive data encrypted at rest and in transit</li>
+            <li><strong>Access Logging:</strong> Complete audit trail of all sales transactions</li>
+            <li><strong>Data Backup:</strong> Automated daily backups with point-in-time recovery</li>
+            <li><strong>User Authentication:</strong> Multi-factor authentication for sensitive operations</li>
+        </ul>
+
+        <h3>11.7.2 Compliance Features</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>GST Compliance</h4>
+                <p>Automatic GST calculations, GSTIN validation, and GST return preparation.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Audit Trail</h4>
+                <p>Complete transaction history with user identification and timestamps.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Data Privacy</h4>
+                <p>GDPR-compliant data handling with customer consent management.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Financial Reporting</h4>
+                <p>Compliance with accounting standards and regulatory requirements.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>11.8 Performance Optimization</h2>
+        <p>The system is optimized for high performance and scalability to handle large volumes of sales data.</p>
+
+        <h3>11.8.1 Database Optimization</h3>
+        <div class="code-block">
+-- Optimized Sales Query with Indexing
+CREATE INDEX idx_invoices_customer_date ON invoices(customer_id, created_at);
+CREATE INDEX idx_invoices_status_date ON invoices(payment_status, created_at);
+CREATE INDEX idx_payments_invoice_date ON payments(invoice_id, payment_date);
+
+-- Efficient Sales Summary Query
+SELECT 
+    DATE_FORMAT(created_at, '%Y-%m') as month,
+    COUNT(*) as invoice_count,
+    SUM(total_amount) as total_revenue,
+    SUM(paid_amount) as collected_amount,
+    COUNT(DISTINCT customer_id) as unique_customers
+FROM invoices 
+WHERE created_at >= DATE_SUB(NOW(), INTERVAL 12 MONTH)
+GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+ORDER BY month DESC;
+        </div>
+
+        <h3>11.8.2 Caching Strategy</h3>
+        <ul>
+            <li><strong>Dashboard Metrics:</strong> Cached for 15 minutes with automatic refresh</li>
+            <li><strong>Customer Data:</strong> Cached during invoice creation session</li>
+            <li><strong>Product Catalog:</strong> Cached with invalidation on stock updates</li>
+            <li><strong>Reports:</strong> Generated reports cached for 1 hour</li>
+        </ul>
+    </div>
+
+    <div class="content-section">
+        <h2>11.9 Future Enhancements</h2>
+        <p>Planned improvements and new features for the sales management system.</p>
+
+        <h3>11.9.1 Upcoming Features</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>AI-Powered Insights</h4>
+                <p>Machine learning algorithms for sales forecasting and customer behavior analysis.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Advanced Automation</h4>
+                <p>Automated invoice generation, payment reminders, and follow-up workflows.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Integration Expansion</h4>
+                <p>Integration with popular accounting software and payment gateways.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Mobile App</h4>
+                <p>Dedicated mobile application for field sales teams.</p>
+            </div>
+        </div>
+
+        <h3>11.9.2 Scalability Roadmap</h3>
+        <div class="warning-box">
+            <strong>Performance Targets:</strong> The system is designed to handle up to 10,000 invoices per month with sub-second response times. Future enhancements will support 100,000+ invoices with distributed architecture.
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="chapter10.html" class="nav-button">← Previous: Customer Management</a>
+        <a href="table_of_contents.html" class="nav-button">📚 Table of Contents</a>
+        <a href="chapter12.html" class="nav-button">Next: Stock Management →</a>
+    </div>
+</body>
+</html>

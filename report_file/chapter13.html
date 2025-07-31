@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 13: Salary & Payroll Management - CRM System Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .content-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 1rem;
+            border-left: 4px solid #ffc107;
+            margin: 1rem 0;
+        }
+        .info-box {
+            background-color: #d1ecf1;
+            padding: 1rem;
+            border-left: 4px solid #17a2b8;
+            margin: 1rem 0;
+        }
+        .warning-box {
+            background-color: #f8d7da;
+            padding: 1rem;
+            border-left: 4px solid #dc3545;
+            margin: 1rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .navigation {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .nav-button {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #0056b3;
+        }
+        .diagram {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        .workflow-step {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 1rem;
+            margin: 0.5rem;
+            border-radius: 8px;
+            display: inline-block;
+            min-width: 150px;
+        }
+        .arrow {
+            font-size: 2rem;
+            color: #666;
+            margin: 0 1rem;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        .payslip-template {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        .payslip-header {
+            text-align: center;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+        .payslip-section {
+            margin: 1rem 0;
+        }
+        .calculation-box {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Chapter 13: Salary & Payroll Management</h1>
+        <p>Comprehensive Automated Payroll Processing, Tax Calculations, and Employee Compensation Management</p>
+    </div>
+
+
+    <div class="content-section">
+        <h2>13.1 Payroll Management Overview</h2>
+        <p>The Salary & Payroll Management module is a comprehensive system designed to automate the entire payroll process, from salary calculations to tax deductions and payslip generation. This module ensures compliance with Indian labor laws and tax regulations while providing flexibility for different compensation structures.</p>
+
+        <h3>13.1.1 Core Features</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Automated Salary Calculations</h4>
+                <p>Complex salary computations including basic pay, allowances, overtime, and variable components.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Tax & Statutory Deductions</h4>
+                <p>Automatic calculation of PF, ESI, Professional Tax, TDS, and other statutory deductions.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Payslip Generation</h4>
+                <p>Professional payslip generation with detailed breakdowns and company branding.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Compliance Management</h4>
+                <p>Built-in compliance with Indian labor laws and tax regulations.</p>
+            </div>
+        </div>
+
+        <h3>13.1.2 Payroll Processing Workflow</h3>
+        <div class="diagram">
+            <div class="workflow-step">Attendance Data</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Salary Calculation</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Tax Deductions</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Payslip Generation</div>
+            <span class="arrow">→</span>
+            <div class="workflow-step">Payment Processing</div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>13.2 Payroll Configuration System</h2>
+        <p>The system provides comprehensive configuration options to adapt to different organizational requirements and compliance needs.</p>
+
+        <h3>13.2.1 Company Information Setup</h3>
+        <div class="code-block">
+{
+  "company_info": {
+    "name": "Veils India Private Limited",
+    "address": "123 Business Park, Mumbai, Maharashtra 400001",
+    "pan": "ABCDE1234F",
+    "pf_number": "MH/12345/67890",
+    "esi_number": "12345678901234567890",
+    "tan": "ABCD12345E",
+    "gstin": "27ABCDE1234F1Z5",
+    "establishment_code": "EST001"
+  }
+}
+        </div>
+
+        <h3>13.2.2 Payroll Configuration Parameters</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Description</th>
+                    <th>Default Value</th>
+                    <th>Range/Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Pay Frequency</td>
+                    <td>How often payroll is processed</td>
+                    <td>Monthly</td>
+                    <td>Weekly, Bi-weekly, Monthly</td>
+                </tr>
+                <tr>
+                    <td>Pay Day</td>
+                    <td>Day of month for salary payment</td>
+                    <td>1st</td>
+                    <td>1-31</td>
+                </tr>
+                <tr>
+                    <td>Working Days/Month</td>
+                    <td>Standard working days</td>
+                    <td>26</td>
+                    <td>20-31</td>
+                </tr>
+                <tr>
+                    <td>Working Hours/Day</td>
+                    <td>Standard working hours</td>
+                    <td>8</td>
+                    <td>6-12</td>
+                </tr>
+                <tr>
+                    <td>Overtime Rate</td>
+                    <td>Overtime pay multiplier</td>
+                    <td>1.5x</td>
+                    <td>1.0-3.0x</td>
+                </tr>
+                <tr>
+                    <td>Late Deduction</td>
+                    <td>Deduction per hour for lateness</td>
+                    <td>₹0</td>
+                    <td>₹0-500</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>13.2.3 Tax and Statutory Settings</h3>
+        <div class="code-block">
+{
+  "tax_settings": {
+    "pf_rate": 12.0,           // Percentage of basic salary
+    "esi_rate": 1.75,          // Percentage of gross salary (up to ₹21,000)
+    "professional_tax": 200,    // Fixed monthly amount
+    "tds_threshold": 250000,    // Annual threshold for TDS
+    "hra_exemption_metro": 50,  // HRA exemption % for metro cities
+    "hra_exemption_non_metro": 40, // HRA exemption % for non-metro
+    "standard_deduction": 50000,   // Annual standard deduction
+    "medical_allowance_limit": 15000 // Annual medical allowance limit
+  },
+  "pf_settings": {
+    "employee_contribution": 12,
+    "employer_contribution": 12,
+    "pension_contribution": 8.33,
+    "pf_ceiling": 15000,       // Monthly PF ceiling
+    "vpf_allowed": true        // Voluntary PF allowed
+  },
+  "esi_settings": {
+    "employee_rate": 0.75,
+    "employer_rate": 3.25,
+    "wage_ceiling": 21000,     // Monthly ESI ceiling
+    "applicable_states": ["MH", "DL", "KA", "TN"] // ESI applicable states
+  }
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>13.3 Salary Structure and Components</h2>
+        <p>The system supports flexible salary structures with multiple components for earnings and deductions.</p>
+
+        <h3>13.3.1 Salary Components Structure</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Basic Salary Components</h4>
+                <ul>
+                    <li>Basic Pay (40-50% of CTC)</li>
+                    <li>House Rent Allowance (HRA)</li>
+                    <li>Dearness Allowance (DA)</li>
+                    <li>Transport Allowance</li>
+                    <li>Medical Allowance</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4>Variable Components</h4>
+                <ul>
+                    <li>Performance Bonus</li>
+                    <li>Overtime Pay</li>
+                    <li>Incentives</li>
+                    <li>Special Allowances</li>
+                    <li>Arrears</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4>Statutory Deductions</h4>
+                <ul>
+                    <li>Provident Fund (PF)</li>
+                    <li>Employee State Insurance (ESI)</li>
+                    <li>Professional Tax</li>
+                    <li>Tax Deducted at Source (TDS)</li>
+                    <li>Labour Welfare Fund</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <h4>Other Deductions</h4>
+                <ul>
+                    <li>Loan Deductions</li>
+                    <li>Advance Salary Recovery</li>
+                    <li>Late Coming Penalty</li>
+                    <li>Loss of Pay</li>
+                    <li>Canteen Charges</li>
+                </ul>
+            </div>
+        </div>
+
+        <h3>13.3.2 Salary Calculation Engine</h3>
+        <div class="code-block">
+// Comprehensive Salary Calculation Function
+function calculateEmployeeSalary(employeeId, payrollPeriod) {
+    // Get employee details and salary structure
+    const employee = getEmployeeDetails(employeeId);
+    const salaryStructure = getEmployeeSalaryStructure(employeeId);
+    const attendanceData = getAttendanceData(employeeId, payrollPeriod);
+    const payrollSettings = getPayrollSettings();
+    
+    // Initialize calculation object
+    const salaryCalculation = {
+        employee_id: employeeId,
+        employee_name: employee.name,
+        designation: employee.designation,
+        department: employee.department,
+        pay_period: payrollPeriod,
+        earnings: {},
+        deductions: {},
+        net_pay: 0,
+        calculation_date: new Date()
+    };
+    
+    // Calculate Basic Earnings
+    const workingDays = payrollSettings.working_days_per_month;
+    const actualWorkingDays = attendanceData.present_days + attendanceData.half_days * 0.5;
+    const lossOfPayDays = Math.max(0, workingDays - actualWorkingDays);
+    
+    // Basic Salary Calculation
+    const basicSalary = salaryStructure.basic_salary;
+    const dailyBasic = basicSalary / workingDays;
+    const earnedBasic = basicSalary - (lossOfPayDays * dailyBasic);
+    
+    salaryCalculation.earnings.basic_salary = earnedBasic;
+    
+    // HRA Calculation
+    const hraRate = salaryStructure.hra_percentage || 50;
+    const hra = (earnedBasic * hraRate) / 100;
+    salaryCalculation.earnings.hra = hra;
+    
+    // Other Allowances
+    salaryCalculation.earnings.transport_allowance = salaryStructure.transport_allowance || 0;
+    salaryCalculation.earnings.medical_allowance = salaryStructure.medical_allowance || 0;
+    salaryCalculation.earnings.special_allowance = salaryStructure.special_allowance || 0;
+    
+    // Overtime Calculation
+    if (attendanceData.overtime_hours > 0) {
+        const hourlyRate = basicSalary / (workingDays * payrollSettings.working_hours_per_day);
+        const overtimePay = attendanceData.overtime_hours * hourlyRate * payrollSettings.overtime_rate;
+        salaryCalculation.earnings.overtime_pay = overtimePay;
+    }
+    
+    // Calculate Gross Salary
+    const grossSalary = Object.values(salaryCalculation.earnings)
+        .reduce((sum, amount) => sum + amount, 0);
+    salaryCalculation.gross_salary = grossSalary;
+    
+    // Calculate Statutory Deductions
+    
+    // PF Deduction
+    const pfEligibleSalary = Math.min(earnedBasic, payrollSettings.pf_ceiling || 15000);
+    const pfDeduction = (pfEligibleSalary * payrollSettings.pf_rate) / 100;
+    salaryCalculation.deductions.pf_deduction = pfDeduction;
+    
+    // ESI Deduction
+    if (grossSalary <= (payrollSettings.esi_ceiling || 21000)) {
+        const esiDeduction = (grossSalary * payrollSettings.esi_rate) / 100;
+        salaryCalculation.deductions.esi_deduction = esiDeduction;
+    }
+    
+    // Professional Tax
+    salaryCalculation.deductions.professional_tax = payrollSettings.professional_tax || 200;
+    
+    // TDS Calculation (simplified)
+    const annualSalary = grossSalary * 12;
+    if (annualSalary > payrollSettings.tds_threshold) {
+        const tdsDeduction = calculateTDS(annualSalary) / 12;
+        salaryCalculation.deductions.tds = tdsDeduction;
+    }
+    
+    // Other Deductions
+    const loanDeductions = getLoanDeductions(employeeId, payrollPeriod);
+    const advanceDeductions = getAdvanceDeductions(employeeId, payrollPeriod);
+    
+    salaryCalculation.deductions.loan_deduction = loanDeductions;
+    salaryCalculation.deductions.advance_deduction = advanceDeductions;
+    
+    // Late Coming Penalty
+    if (attendanceData.late_hours > 0) {
+        const latePenalty = attendanceData.late_hours * payrollSettings.late_deduction_per_hour;
+        salaryCalculation.deductions.late_penalty = latePenalty;
+    }
+    
+    // Calculate Total Deductions
+    const totalDeductions = Object.values(salaryCalculation.deductions)
+        .reduce((sum, amount) => sum + amount, 0);
+    salaryCalculation.total_deductions = totalDeductions;
+    
+    // Calculate Net Pay
+    salaryCalculation.net_pay = grossSalary - totalDeductions;
+    
+    // Save calculation to database
+    savePayrollCalculation(salaryCalculation);
+    
+    return salaryCalculation;
+}
+        </div>
+
+        <h3>13.3.3 Tax Deduction at Source (TDS) Calculation</h3>
+        <div class="calculation-box">
+            <h4>TDS Calculation Logic</h4>
+            <div class="code-block">
+function calculateTDS(annualSalary) {
+    // Income Tax Slabs for FY 2024-25 (Old Regime)
+    const taxSlabs = [
+        { min: 0, max: 250000, rate: 0 },
+        { min: 250000, max: 500000, rate: 5 },
+        { min: 500000, max: 1000000, rate: 20 },
+        { min: 1000000, max: Infinity, rate: 30 }
+    ];
+    
+    // Standard deduction
+    const standardDeduction = 50000;
+    const taxableIncome = Math.max(0, annualSalary - standardDeduction);
+    
+    let totalTax = 0;
+    let remainingIncome = taxableIncome;
+    
+    for (const slab of taxSlabs) {
+        if (remainingIncome <= 0) break;
+        
+        const slabIncome = Math.min(remainingIncome, slab.max - slab.min);
+        const slabTax = (slabIncome * slab.rate) / 100;
+        totalTax += slabTax;
+        remainingIncome -= slabIncome;
+    }
+    
+    // Add Health and Education Cess (4%)
+    totalTax += totalTax * 0.04;
+    
+    return Math.round(totalTax);
+}
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>13.4 Payslip Generation System</h2>
+        <p>The system generates professional payslips with detailed breakdowns and compliance information.</p>
+
+        <h3>13.4.1 Payslip Template Structure</h3>
+        <div class="payslip-template">
+            <div class="payslip-header">
+                <h3>VEILS INDIA PRIVATE LIMITED</h3>
+                <p>123 Business Park, Mumbai, Maharashtra 400001</p>
+                <p>PAN: ABCDE1234F | PF: MH/12345/67890 | ESI: 12345678901234567890</p>
+                <hr>
+                <h4>SALARY SLIP FOR JANUARY 2025</h4>
+            </div>
+            
+            <div class="payslip-section">
+                <table style="width: 100%; margin-bottom: 1rem;">
+                    <tr>
+                        <td><strong>Employee Name:</strong> John Doe</td>
+                        <td><strong>Employee ID:</strong> EMP001</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Designation:</strong> Software Engineer</td>
+                        <td><strong>Department:</strong> IT</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Date of Joining:</strong> 01-Jan-2023</td>
+                        <td><strong>PAN:</strong> ABCDE1234F</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bank Account:</strong> 1234567890</td>
+                        <td><strong>PF Number:</strong> MH/12345/67890/001</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="payslip-section">
+                <table style="width: 100%;">
+                    <thead>
+                        <tr style="background-color: #f8f9fa;">
+                            <th>EARNINGS</th>
+                            <th>AMOUNT (₹)</th>
+                            <th>DEDUCTIONS</th>
+                            <th>AMOUNT (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Basic Salary</td>
+                            <td>25,000.00</td>
+                            <td>PF Deduction</td>
+                            <td>3,000.00</td>
+                        </tr>
+                        <tr>
+                            <td>HRA</td>
+                            <td>12,500.00</td>
+                            <td>ESI Deduction</td>
+                            <td>875.00</td>
+                        </tr>
+                        <tr>
+                            <td>Transport Allowance</td>
+                            <td>2,000.00</td>
+                            <td>Professional Tax</td>
+                            <td>200.00</td>
+                        </tr>
+                        <tr>
+                            <td>Medical Allowance</td>
+                            <td>1,250.00</td>
+                            <td>TDS</td>
+                            <td>2,500.00</td>
+                        </tr>
+                        <tr>
+                            <td>Special Allowance</td>
+                            <td>9,250.00</td>
+                            <td>Loan Deduction</td>
+                            <td>1,000.00</td>
+                        </tr>
+                        <tr style="background-color: #f8f9fa; font-weight: bold;">
+                            <td>GROSS SALARY</td>
+                            <td>50,000.00</td>
+                            <td>TOTAL DEDUCTIONS</td>
+                            <td>7,575.00</td>
+                        </tr>
+                        <tr style="background-color: #e9ecef; font-weight: bold; font-size: 1.1em;">
+                            <td colspan="2">NET PAY</td>
+                            <td colspan="2">₹42,425.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="payslip-section">
+                <p><strong>Net Pay in Words:</strong> Forty Two Thousand Four Hundred Twenty Five Rupees Only</p>
+                <p><strong>Working Days:</strong> 26 | <strong>Present Days:</strong> 24 | <strong>LOP Days:</strong> 2</p>
+                <p><strong>Generated on:</strong> 01-Feb-2025 | <strong>Generated by:</strong> HR System</p>
+            </div>
+        </div>
+
+        <h3>13.4.2 Payslip Generation Code</h3>
+        <div class="code-block">
+// Payslip Generation Function
+function generatePayslip(employeeId, payrollPeriod) {
+    const salaryData = calculateEmployeeSalary(employeeId, payrollPeriod);
+    const employee = getEmployeeDetails(employeeId);
+    const company = getCompanyInfo();
+    
+    // Create HTML template
+    const payslipHTML = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Payslip - ${employee.name} - ${payrollPeriod}</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .header { text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; }
+            .employee-info { margin: 20px 0; }
+            .salary-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+            .salary-table th, .salary-table td { border: 1px solid #000; padding: 8px; text-align: left; }
+            .total-row { background-color: #f0f0f0; font-weight: bold; }
+            .net-pay { background-color: #d4edda; font-weight: bold; font-size: 1.2em; }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h2>${company.name}</h2>
+            <p>${company.address}</p>
+            <p>PAN: ${company.pan} | PF: ${company.pf_number}</p>
+            <h3>SALARY SLIP FOR ${payrollPeriod.toUpperCase()}</h3>
+        </div>
+        
+        <div class="employee-info">
+            <table style="width: 100%;">
+                <tr>
+                    <td><strong>Employee Name:</strong> ${employee.name}</td>
+                    <td><strong>Employee ID:</strong> ${employee.employee_id}</td>
+                </tr>
+                <tr>
+                    <td><strong>Designation:</strong> ${employee.designation}</td>
+                    <td><strong>Department:</strong> ${employee.department}</td>
+                </tr>
+                <tr>
+                    <td><strong>Date of Joining:</strong> ${employee.date_of_joining}</td>
+                    <td><strong>PAN:</strong> ${employee.pan || 'N/A'}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <table class="salary-table">
+            <thead>
+                <tr>
+                    <th>EARNINGS</th>
+                    <th>AMOUNT (₹)</th>
+                    <th>DEDUCTIONS</th>
+                    <th>AMOUNT (₹)</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${generateSalaryRows(salaryData)}
+                <tr class="total-row">
+                    <td>GROSS SALARY</td>
+                    <td>${formatCurrency(salaryData.gross_salary)}</td>
+                    <td>TOTAL DEDUCTIONS</td>
+                    <td>${formatCurrency(salaryData.total_deductions)}</td>
+                </tr>
+                <tr class="net-pay">
+                    <td colspan="2">NET PAY</td>
+                    <td colspan="2">${formatCurrency(salaryData.net_pay)}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="footer">
+            <p><strong>Net Pay in Words:</strong> ${convertToWords(salaryData.net_pay)} Rupees Only</p>
+            <p><strong>Generated on:</strong> ${new Date().toLocaleDateString()} | <strong>Generated by:</strong> HR System</p>
+        </div>
+    </body>
+    </html>
+    `;
+    
+    // Generate PDF
+    const pdfBuffer = generatePDFFromHTML(payslipHTML);
+    
+    // Save payslip record
+    const payslipRecord = {
+        employee_id: employeeId,
+        pay_period: payrollPeriod,
+        gross_salary: salaryData.gross_salary,
+        total_deductions: salaryData.total_deductions,
+        net_pay: salaryData.net_pay,
+        pdf_path: `payslips/${employeeId}_${payrollPeriod}.pdf`,
+        generated_at: new Date(),
+        generated_by: getCurrentUser().id
+    };
+    
+    savePayslipRecord(payslipRecord);
+    savePDFFile(payslipRecord.pdf_path, pdfBuffer);
+    
+    return {
+        success: true,
+        payslip_id: payslipRecord.id,
+        pdf_path: payslipRecord.pdf_path,
+        net_pay: salaryData.net_pay
+    };
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>13.5 Payroll Processing Automation</h2>
+        <p>The system provides automated payroll processing capabilities to handle bulk salary calculations and payments.</p>
+
+        <h3>13.5.1 Bulk Payroll Processing</h3>
+        <div class="code-block">
+// Bulk Payroll Processing Function
+function processBulkPayroll(payrollPeriod, departmentFilter = null) {
+    const processingResults = {
+        total_employees: 0,
+        successful_calculations: 0,
+        failed_calculations: 0,
+        total_gross_salary: 0,
+        total_deductions: 0,
+        total_net_pay: 0,
+        errors: [],
+        processing_time: null
+    };
+    
+    const startTime = new Date();
+    
+    try {
+        // Get list of active employees
+        const employees = getActiveEmployees(departmentFilter);
+        processingResults.total_employees = employees.length;
+        
+        for (const employee of employees) {
+            try {
+                const salaryData = calculateEmployeeSalary(employee.id, payrollPeriod);
+                savePayrollCalculation(salaryData);
+                
+                processingResults.successful_calculations++;
+                processingResults.total_gross_salary += salaryData.gross_salary;
+                processingResults.total_deductions += salaryData.total_deductions;
+                processingResults.total_net_pay += salaryData.net_pay;
+            } catch (error) {
+                processingResults.failed_calculations++;
+                processingResults.errors.push({
+                    employee_id: employee.id,
+                    error: error.message
+                });
+            }
+        }
+        
+        processingResults.processing_time = (new Date()) - startTime;
+        
+        return processingResults;
+    } catch (error) {
+        throw new Error('Bulk payroll processing failed: ' + error.message);
+    }
+}
+        </div>
+
+        <h3>13.5.2 Payroll Payment Processing</h3>
+        <p>The system supports multiple payment methods and automated salary disbursement.</p>
+
+        <h3>13.5.3 Payment Methods Supported</h3>
+        <ul>
+            <li>Bank Transfers (NEFT, RTGS, IMPS)</li>
+            <li>Cheque Payments</li>
+            <li>Cash Payments</li>
+            <li>Digital Wallets and UPI</li>
+        </ul>
+
+        <h3>13.5.4 Payment Reconciliation</h3>
+        <p>Automated reconciliation of payroll payments with bank statements and employee records.</p>
+
+        <div class="navigation">
+            <a href="chapter12.html" class="nav-button">← Previous: Stock Management</a>
+            <a href="table_of_contents.html" class="nav-button">📚 Table of Contents</a>
+            <a href="chapter14.html" class="nav-button">Next: Loan, Advance & Overtime →</a>
+        </div>
+    </div>
+</body>
+</html>

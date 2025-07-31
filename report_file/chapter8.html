@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 8: Attendance System - CRM System Documentation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .header {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 0.5rem 0 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .content-section {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .content-section h2 {
+            color: #17a2b8;
+            border-bottom: 3px solid #17a2b8;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .content-section h3 {
+            color: #138496;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .content-section h4 {
+            color: #6c757d;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+        .code-block {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 1.5rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        .highlight {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .info-box {
+            background-color: #e8f4fd;
+            border: 1px solid #bee5eb;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .warning-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .success-box {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .navigation {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .navigation a {
+            display: inline-block;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #17a2b8;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .navigation a:hover {
+            background-color: #138496;
+        }
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .diagram {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            font-family: monospace;
+        }
+        .flow-step {
+            display: inline-block;
+            background: #17a2b8;
+            color: white;
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        .arrow {
+            font-size: 1.5rem;
+            color: #6c757d;
+            margin: 0 0.5rem;
+        }
+        ul, ol {
+            padding-left: 2rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #17a2b8;
+        }
+        .feature-card h4 {
+            margin-top: 0;
+            color: #17a2b8;
+        }
+        .screenshot-placeholder {
+            background: #e9ecef;
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            color: #6c757d;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Chapter 8: Attendance System</h1>
+        <p>Comprehensive Check-in/Check-out System with Role-based Filtering and Photo Verification</p>
+    </div>
+
+    <div class="content-section">
+        <h2>8.1 Introduction to Attendance Management</h2>
+        <p>The Attendance Management System is a sophisticated module designed to track employee presence, working hours, and productivity patterns. This system provides real-time attendance monitoring with photo verification, role-based access controls, and comprehensive reporting capabilities that support both operational management and compliance requirements.</p>
+        
+        <div class="info-box">
+            <strong>Key Features:</strong>
+            <ul>
+                <li>Real-time check-in/check-out with photo verification</li>
+                <li>Role-based attendance visibility and management</li>
+                <li>Automatic working hours calculation</li>
+                <li>Department-wise filtering and reporting</li>
+                <li>Mobile-responsive interface with camera integration</li>
+                <li>Administrative tools for attendance correction</li>
+            </ul>
+        </div>
+
+        <h3>8.1.1 System Architecture Overview</h3>
+        <p>The attendance system follows a multi-layered architecture that ensures data integrity, security, and scalability:</p>
+        
+        <div class="diagram">
+            <div class="flow-step">User Interface</div>
+            <span class="arrow">→</span>
+            <div class="flow-step">Camera Integration</div>
+            <span class="arrow">→</span>
+            <div class="flow-step">Photo Processing</div>
+            <span class="arrow">→</span>
+            <div class="flow-step">Attendance Logic</div>
+            <span class="arrow">→</span>
+            <div class="flow-step">Data Storage</div>
+        </div>
+
+        <h3>8.1.2 Core Components</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Check-in/Check-out Interface</h4>
+                <p>User-friendly interface with real-time clock display and status indicators for seamless attendance marking.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Photo Verification System</h4>
+                <p>Integrated camera functionality for capturing attendance photos with automatic upload and storage.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Role-based Access Control</h4>
+                <p>Granular permissions system allowing different levels of access based on user roles and departments.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Administrative Tools</h4>
+                <p>Comprehensive management interface for attendance correction, bulk operations, and system configuration.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>8.2 Check-in/Check-out Process</h2>
+        
+        <h3>8.2.1 User Interface Design</h3>
+        <p>The attendance interface is designed for simplicity and efficiency, featuring a clean layout with clear status indicators and intuitive controls:</p>
+
+        <div class="code-block">
+<!-- Attendance Marking Interface -->
+<div class="bg-white shadow rounded-lg mb-6">
+    <div class="p-6">
+        <h3 class="text-lg font-medium text-gray-900 mb-4">Mark Attendance</h3>
+        
+        <!-- Status Display -->
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+            <div class="flex items-center">
+                <span class="material-icons text-blue-600 mr-2">info</span>
+                <div>
+                    <p class="text-sm text-blue-800">
+                        <strong>Current Status:</strong> 
+                        <?php if ($can_check_in): ?>
+                            Ready to check in
+                        <?php else: ?>
+                            Checked in at <?php echo date('h:i A', strtotime($last_record['time_in'])); ?> - Ready to check out
+                        <?php endif; ?>
+                    </p>
+                    <p class="text-xs text-blue-600 mt-1">
+                        Today: <?php echo date('l, F j, Y'); ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Button and Clock -->
+        <div class="flex items-center justify-between">
+            <div>
+                <button type="button" id="markAttendanceBtn" 
+                        class="<?php echo $can_check_in ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'; ?> text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                    <span class="material-icons mr-2"><?php echo $can_check_in ? 'login' : 'logout'; ?></span>
+                    <?php echo $can_check_in ? 'Check In' : 'Check Out'; ?>
+                </button>
+            </div>
+            
+            <div class="text-right">
+                <div class="text-2xl font-bold text-gray-900" id="currentTime"><?php echo date('h:i:s A'); ?></div>
+                <div class="text-sm text-gray-500"><?php echo date('l, F j, Y'); ?></div>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+
+        <h3>8.2.2 Real-time Clock Implementation</h3>
+        <p>The system features a real-time clock that updates every second to provide accurate time reference for attendance marking:</p>
+
+        <div class="code-block">
+// Real-time clock update functionality
+function updateTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', {
+        hour12: true,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+    document.getElementById('currentTime').textContent = timeString;
+}
+
+// Update time immediately and then every second
+updateTime();
+setInterval(updateTime, 1000);
+        </div>
+
+        <h3>8.2.3 Attendance Status Logic</h3>
+        <p>The system implements intelligent status detection to determine whether an employee should check in or check out:</p>
+
+        <div class="code-block">
+<?php
+// Determine current attendance status
+$user_id = $_SESSION['user_id'];
+$today = date('Y-m-d');
+
+// Filter today's records for current user
+$today_records = array_filter($attendance_data['records'] ?? [], function($record) use ($user_id, $today) {
+    return $record['user_id'] === $user_id && $record['date'] === $today;
+});
+
+// Get the last record for today
+$last_record = end($today_records);
+
+// Determine if user can check in (no record today or last record has check-out time)
+$can_check_in = !$last_record || $last_record['time_out'];
+
+// Display appropriate button and status
+if ($can_check_in) {
+    $button_text = 'Check In';
+    $button_class = 'bg-green-600 hover:bg-green-700';
+    $status_message = 'Ready to check in';
+} else {
+    $button_text = 'Check Out';
+    $button_class = 'bg-red-600 hover:bg-red-700';
+    $status_message = 'Checked in at ' . date('h:i A', strtotime($last_record['time_in'])) . ' - Ready to check out';
+}
+?>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>8.3 Photo Verification System</h2>
+        
+        <h3>8.3.1 Camera Integration</h3>
+        <p>The system integrates with device cameras to capture verification photos during attendance marking. This feature enhances security and provides visual confirmation of employee presence:</p>
+
+        <div class="code-block">
+// Camera access and photo capture functionality
+let stream = null;
+let canvas = null;
+
+function startCamera() {
+    document.getElementById('initialState').classList.add('hidden');
+    document.getElementById('cameraSection').classList.remove('hidden');
+    
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(mediaStream) {
+            stream = mediaStream;
+            document.getElementById('video').srcObject = stream;
+        })
+        .catch(function(error) {
+            console.error('Error accessing camera:', error);
+            alert('Unable to access camera. Please ensure camera permissions are granted.');
+            resetToInitialState();
+        });
+}
+
+function capturePhoto() {
+    const video = document.getElementById('video');
+    canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    
+    const context = canvas.getContext('2d');
+    context.drawImage(video, 0, 0);
+    
+    // Convert to blob and upload
+    canvas.toBlob(function(blob) {
+        uploadPhoto(blob);
+    }, 'image/jpeg', 0.8);
+    
+    // Show preview
+    const imageUrl = canvas.toDataURL('image/jpeg', 0.8);
+    document.getElementById('capturedImage').src = imageUrl;
+    
+    // Hide camera, show preview
+    document.getElementById('cameraSection').classList.add('hidden');
+    document.getElementById('photoPreview').classList.remove('hidden');
+    
+    // Stop camera stream
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+    }
+}
+        </div>
+
+        <h3>8.3.2 Photo Upload and Storage</h3>
+        <p>Captured photos are automatically uploaded to the server with proper naming conventions and security measures:</p>
+
+        <div class="code-block">
+async function uploadPhoto(blob) {
+    const formData = new FormData();
+    formData.append('photo', blob);
+    formData.append('user_id', <?php echo $_SESSION['user_id']; ?>);
+    formData.append('action', <?php echo $can_check_in ? "'check_in'" : "'check_out'"; ?>);
+    
+    try {
+        const response = await fetch('../backend/capture_attendance_photo.php', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+            document.getElementById('photoFilename').value = result.filename;
+        } else {
+            console.error('Photo upload failed:', result.error);
+        }
+    } catch (error) {
+        console.error('Error uploading photo:', error);
+    }
+}
+        </div>
+
+        <h3>8.3.3 Photo Storage Backend</h3>
+        <p>The backend handles photo processing, validation, and secure storage:</p>
+
+        <div class="code-block">
+<?php
+// Photo capture and storage handler
+require_once 'config.php';
+require_once 'auth.php';
+
+if (!is_logged_in()) {
+    http_response_code(401);
+    echo json_encode(['success' => false, 'error' => 'Unauthorized']);
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['photo'])) {
+    $user_id = $_POST['user_id'];
+    $action = $_POST['action']; // 'check_in' or 'check_out'
+    
+    // Validate file
+    $file = $_FILES['photo'];
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        echo json_encode(['success' => false, 'error' => 'Upload error']);
+        exit;
+    }
+    
+    // Validate file type
+    $allowed_types = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!in_array($file['type'], $allowed_types)) {
+        echo json_encode(['success' => false, 'error' => 'Invalid file type']);
+        exit;
+    }
+    
+    // Generate filename
+    $timestamp = date('Y-m-d_H-i-s');
+    $filename = "attendance_{$user_id}_{$action}_{$timestamp}.jpg";
+    $upload_path = __DIR__ . '/uploads/attendance_photos/' . $filename;
+    
+    // Ensure upload directory exists
+    $upload_dir = dirname($upload_path);
+    if (!is_dir($upload_dir)) {
+        mkdir($upload_dir, 0755, true);
+    }
+    
+    // Move uploaded file
+    if (move_uploaded_file($file['tmp_name'], $upload_path)) {
+        echo json_encode(['success' => true, 'filename' => $filename]);
+    } else {
+        echo json_encode(['success' => false, 'error' => 'Failed to save file']);
+    }
+} else {
+    echo json_encode(['success' => false, 'error' => 'No photo uploaded']);
+}
+?>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>8.4 Role-based Access Control</h2>
+        
+        <h3>8.4.1 Permission Matrix</h3>
+        <p>The attendance system implements comprehensive role-based access controls to ensure appropriate data visibility and functionality access:</p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>View Own Attendance</th>
+                        <th>View Team Attendance</th>
+                        <th>View All Attendance</th>
+                        <th>Edit Attendance</th>
+                        <th>Delete Records</th>
+                        <th>Generate Reports</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Super Admin</strong></td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Admin</strong></td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HR Admin</strong></td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✗</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Site Manager</strong></td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>Department Only</td>
+                        <td>Limited</td>
+                        <td>✗</td>
+                        <td>Department Only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Regular User</strong></td>
+                        <td>✓</td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>✗</td>
+                        <td>✗</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>8.4.2 Role-based Filtering Implementation</h3>
+        <p>The system implements dynamic filtering based on user roles to ensure appropriate data access:</p>
+
+        <div class="code-block">
+<?php
+// Role-based attendance record filtering
+if (isset($attendance_data['records'])) {
+    $filtered_records = $attendance_data['records'];
+    
+    // Apply role-based filtering
+    switch ($_SESSION['role_id']) {
+        case 3: // Regular User - only own records
+            $filtered_records = array_filter($attendance_data['records'], function($record) {
+                return $record['user_id'] == $_SESSION['user_id'];
+            });
+            break;
+            
+        case 5: // Site Manager - department records only
+            $user_department = getUserDepartment($_SESSION['user_id']);
+            $filtered_records = array_filter($attendance_data['records'], function($record) use ($user_department) {
+                $employee = getEmployeeById($record['user_id']);
+                return $employee && $employee['department'] === $user_department;
+            });
+            break;
+            
+        case 1: // Super Admin
+        case 2: // Admin  
+        case 4: // HR Admin
+        case 6: // Accounts
+        case 7: // Finance Manager
+        default:
+            // Full access - no filtering needed
+            break;
+    }
+    
+    // Sort records by date and time in descending order
+    usort($filtered_records, function($a, $b) {
+        $a_datetime = strtotime($a['date'] . ' ' . ($a['time_out'] ?? $a['time_in']));
+        $b_datetime = strtotime($b['date'] . ' ' . ($b['time_out'] ?? $b['time_in']));
+        return $b_datetime - $a_datetime;
+    });
+}
+?>
+        </div>
+
+        <h3>8.4.3 Administrative Interface</h3>
+        <p>Administrators have access to additional tools for attendance management and correction:</p>
+
+        <div class="code-block">
+<!-- Admin-only attendance editing form -->
+<?php if (in_array($_SESSION['role_id'], [1, 2, 4])): ?>
+<div class="bg-white shadow rounded-lg mb-6">
+    <div class="p-6">
+        <h3 class="text-lg font-medium text-gray-900 mb-4">Edit Attendance (Admin)</h3>
+        
+        <form action="../backend/update_attendance.php" method="POST" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Employee</label>
+                    <select name="user_id" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        <?php foreach ($employees as $user): ?>
+                            <option value="<?php echo $user['id']; ?>">
+                                <?php echo htmlspecialchars($user['username']); ?> (<?php echo ucfirst($user['department']); ?>)
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Date</label>
+                    <input type="date" name="date" required value="<?php echo date('Y-m-d'); ?>" 
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Time In</label>
+                    <input type="time" name="time_in" required 
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Time Out</label>
+                    <input type="time" name="time_out" 
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                </div>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Notes</label>
+                <textarea name="notes" rows="2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></textarea>
+            </div>
+            
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Update Attendance
+            </button>
+        </form>
+    </div>
+</div>
+<?php endif; ?>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>8.5 Working Hours Calculation</h2>
+        
+        <h3>8.5.1 Automatic Calculation Logic</h3>
+        <p>The system automatically calculates working hours based on check-in and check-out times, with support for break deductions and overtime calculations:</p>
+
+        <div class="code-block">
+// Working hours calculation function
+function calculateWorkingHours($time_in, $time_out, $break_minutes = 0) {
+    if (empty($time_in) || empty($time_out)) {
+        return 0;
+    }
+    
+    $in_timestamp = strtotime($time_in);
+    $out_timestamp = strtotime($time_out);
+    
+    // Calculate total seconds worked
+    $total_seconds = $out_timestamp - $in_timestamp;
+    
+    // Subtract break time (convert minutes to seconds)
+    $total_seconds -= ($break_minutes * 60);
+    
+    // Convert to hours (with decimal precision)
+    $working_hours = $total_seconds / 3600;
+    
+    // Ensure non-negative result
+    return max(0, $working_hours);
+}
+
+// Usage example
+$working_hours = calculateWorkingHours('09:00:00', '17:30:00', 30); // 8.0 hours (with 30-min break)
+        </div>
+
+        <h3>8.5.2 Overtime Detection</h3>
+        <p>The system can detect overtime hours based on configurable thresholds:</p>
+
+        <div class="code-block">
+function calculateOvertimeHours($working_hours, $standard_hours = 8.0) {
+    if ($working_hours > $standard_hours) {
+        return $working_hours - $standard_hours;
+    }
+    return 0;
+}
+
+function getWorkingHoursBreakdown($time_in, $time_out) {
+    $total_hours = calculateWorkingHours($time_in, $time_out);
+    $regular_hours = min($total_hours, 8.0);
+    $overtime_hours = calculateOvertimeHours($total_hours);
+    
+    return [
+        'total_hours' => $total_hours,
+        'regular_hours' => $regular_hours,
+        'overtime_hours' => $overtime_hours,
+        'status' => $overtime_hours > 0 ? 'overtime' : 'regular'
+    ];
+}
+        </div>
+
+        <h3>8.5.3 Time Zone Handling</h3>
+        <p>The system handles time zone conversions and displays all times in IST (India Standard Time):</p>
+
+        <div class="code-block">
+// Set timezone for consistent time handling
+date_default_timezone_set('Asia/Kolkata');
+
+// Display time with timezone information
+function formatTimeWithTimezone($time) {
+    if (empty($time)) return '-';
+    
+    $timestamp = strtotime($time);
+    return date('h:i A', $timestamp) . ' IST';
+}
+
+// Usage in attendance display
+echo formatTimeWithTimezone($record['time_in']); // "09:00 AM IST"
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>8.6 Filtering and Search Capabilities</h2>
+        
+        <h3>8.6.1 Department-wise Filtering</h3>
+        <p>The system provides comprehensive filtering options to help users find specific attendance records:</p>
+
+        <div class="code-block">
+// Department and date filtering interface
+<div class="flex space-x-4">
+    <select id="departmentFilter" onchange="filterRecords()" class="rounded-md border-gray-300 shadow-sm">
+        <option value="all">All Departments</option>
+        <option value="showroom">Showroom</option>
+        <option value="office">Office</option>
+        <option value="hr">Human Resources</option>
+        <option value="finance">Finance</option>
+        <option value="it">Information Technology</option>
+    </select>
+    
+    <input type="date" id="dateFilter" onchange="filterRecords()" 
+           class="rounded-md border-gray-300 shadow-sm">
+</div>
+        </div>
+
+        <h3>8.6.2 Client-side Filtering Implementation</h3>
+        <p>Real-time filtering is implemented using JavaScript for immediate user feedback:</p>
+
+        <div class="code-block">
+function filterRecords() {
+    const department = document.getElementById('departmentFilter').value;
+    const date = document.getElementById('dateFilter').value;
+    const rows = document.querySelectorAll('.attendance-row');
+    
+    rows.forEach(row => {
+        const rowDept = row.dataset.department;
+        const rowDate = row.dataset.date;
+        
+        const deptMatch = department === 'all' || rowDept === department;
+        const dateMatch = !date || rowDate === date;
+        
+        row.style.display = deptMatch && dateMatch ? '' : 'none';
+    });
+    
+    // Update visible record count
+    const visibleRows = document.querySelectorAll('.attendance-row:not([style*="display: none"])');
+    updateRecordCount(visibleRows.length);
+}
+
+function updateRecordCount(count) {
+    const countElement = document.getElementById('recordCount');
+    if (countElement) {
+        countElement.textContent = `Showing ${count} record(s)`;
+    }
+}
+        </div>
+
+        <h3>8.6.3 Advanced Search Features</h3>
+        <p>The system supports advanced search capabilities including employee name search and date range filtering:</p>
+
+        <div class="code-block">
+// Advanced search implementation
+function performAdvancedSearch() {
+    const searchTerm = document.getElementById('employeeSearch').value.toLowerCase();
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const rows = document.querySelectorAll('.attendance-row');
+    
+    rows.forEach(row => {
+        const employeeName = row.querySelector('.employee-name').textContent.toLowerCase();
+        const recordDate = row.dataset.date;
+        
+        const nameMatch = !searchTerm || employeeName.includes(searchTerm);
+        const dateRangeMatch = isDateInRange(recordDate, startDate, endDate);
+        
+        row.style.display = nameMatch && dateRangeMatch ? '' : 'none';
+    });
+}
+
+function isDateInRange(date, startDate, endDate) {
+    if (!startDate && !endDate) return true;
+    
+    const recordDate = new Date(date);
+    const start = startDate ? new Date(startDate) : new Date('1900-01-01');
+    const end = endDate ? new Date(endDate) : new Date('2100-12-31');
+    
+    return recordDate >= start && recordDate <= end;
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>8.7 Data Storage and Management</h2>
+        
+        <h3>8.7.1 JSON-based Storage Structure</h3>
+        <p>The attendance system uses a JSON-based storage approach for flexibility and ease of management:</p>
+
+        <div class="code-block">
+{
+    "records": [
+        {
+            "id": 1,
+            "user_id": 3,
+            "date": "2025-01-15",
+            "time_in": "09:00:00",
+            "time_out": "17:30:00",
+            "time_in_photo": "attendance_3_check_in_2025-01-15_09-00-15.jpg",
+            "time_out_photo": "attendance_3_check_out_2025-01-15_17-30-22.jpg",
+            "working_hours": 8.5,
+            "overtime_hours": 0.5,
+            "notes": "",
+            "created_at": "2025-01-15 09:00:15",
+            "updated_at": "2025-01-15 17:30:22"
+        }
+    ],
+    "metadata": {
+        "last_updated": "2025-01-15 17:30:22",
+        "total_records": 1,
+        "version": "1.0"
+    }
+}
+        </div>
+
+        <h3>8.7.2 Data Validation and Integrity</h3>
+        <p>The system implements comprehensive validation to ensure data integrity:</p>
+
+        <div class="code-block">
+function validateAttendanceData($data) {
+    $errors = [];
+    
+    // Required field validation
+    if (empty($data['user_id'])) {
+        $errors[] = 'User ID is required';
+    }
+    
+    if (empty($data['date'])) {
+        $errors[] = 'Date is required';
+    } elseif (!isValidDate($data['date'])) {
+        $errors[] = 'Invalid date format';
+    }
+    
+    if (empty($data['time_in'])) {
+        $errors[] = 'Check-in time is required';
+    } elseif (!isValidTime($data['time_in'])) {
+        $errors[] = 'Invalid check-in time format';
+    }
+    
+    // Time out validation (optional but must be valid if provided)
+    if (!empty($data['time_out']) && !isValidTime($data['time_out'])) {
+        $errors[] = 'Invalid check-out time format';
+    }
+    
+    // Logical validation
+    if (!empty($data['time_in']) && !empty($data['time_out'])) {
+        if (strtotime($data['time_out']) <= strtotime($data['time_in'])) {
+            $errors[] = 'Check-out time must be after check-in time';
+        }
+    }
+    
+    return [
+        'valid' => empty($errors),
+        'errors' => $errors
+    ];
+}
+
+function isValidDate($date) {
+    return (bool)strtotime($date) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $date);
+}
+
+function isValidTime($time) {
+    return (bool)strtotime($time) && preg_match('/^\d{2}:\d{2}:\d{2}$/', $time);
+}
+        </div>
+
+        <h3>8.7.3 Backup and Recovery</h3>
+        <p>The system includes automated backup mechanisms to prevent data loss:</p>
+
+        <div class="code-block">
+function createAttendanceBackup() {
+    $backup_dir = __DIR__ . '/backups/attendance/';
+    if (!is_dir($backup_dir)) {
+        mkdir($backup_dir, 0755, true);
+    }
+    
+    $timestamp = date('Y-m-d_H-i-s');
+    $backup_file = $backup_dir . "attendance_backup_{$timestamp}.json";
+    
+    $attendance_data = file_get_contents(__DIR__ . '/attendance.json');
+    
+    if (file_put_contents($backup_file, $attendance_data)) {
+        // Keep only last 30 backups
+        cleanupOldBackups($backup_dir, 30);
+        return $backup_file;
+    }
+    
+    return false;
+}
+
+function cleanupOldBackups($backup_dir, $keep_count) {
+    $files = glob($backup_dir . 'attendance_backup_*.json');
+    rsort($files); // Sort by filename (newest first)
+    
+    $files_to_delete = array_slice($files, $keep_count);
+    foreach ($files_to_delete as $file) {
+        unlink($file);
+    }
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>8.8 Reporting and Analytics</h2>
+        
+        <h3>8.8.1 Attendance Summary Reports</h3>
+        <p>The system generates comprehensive attendance reports for management analysis:</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Daily Attendance Report</h4>
+                <p>Complete overview of daily attendance with present/absent status and working hours summary.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Monthly Summary</h4>
+                <p>Monthly attendance patterns, total working hours, and overtime analysis by employee and department.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Department Analytics</h4>
+                <p>Department-wise attendance trends, punctuality metrics, and productivity indicators.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Overtime Analysis</h4>
+                <p>Detailed overtime tracking with cost implications and trend analysis for resource planning.</p>
+            </div>
+        </div>
+
+        <h3>8.8.2 Export Functionality</h3>
+        <p>Users can export attendance data in various formats for external analysis:</p>
+
+        <div class="code-block">
+function exportAttendanceData($format, $filters = []) {
+    $attendance_data = getFilteredAttendanceData($filters);
+    
+    switch ($format) {
+        case 'csv':
+            return exportToCSV($attendance_data);
+        case 'excel':
+            return exportToExcel($attendance_data);
+        case 'pdf':
+            return exportToPDF($attendance_data);
+        default:
+            throw new Exception('Unsupported export format');
+    }
+}
+
+function exportToCSV($data) {
+    $filename = 'attendance_export_' . date('Y-m-d_H-i-s') . '.csv';
+    $filepath = __DIR__ . '/exports/' . $filename;
+    
+    $file = fopen($filepath, 'w');
+    
+    // Write header
+    fputcsv($file, ['Date', 'Employee', 'Department', 'Time In', 'Time Out', 'Working Hours', 'Overtime']);
+    
+    // Write data
+    foreach ($data as $record) {
+        fputcsv($file, [
+            $record['date'],
+            $record['employee_name'],
+            $record['department'],
+            $record['time_in'],
+            $record['time_out'],
+            number_format($record['working_hours'], 2),
+            number_format($record['overtime_hours'], 2)
+        ]);
+    }
+    
+    fclose($file);
+    return $filepath;
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>8.9 Mobile Responsiveness and Accessibility</h2>
+        
+        <h3>8.9.1 Responsive Design Implementation</h3>
+        <p>The attendance system is fully responsive and optimized for mobile devices:</p>
+
+        <div class="code-block">
+/* Mobile-first responsive design */
+@media (max-width: 768px) {
+    .attendance-table {
+        font-size: 0.875rem;
+    }
+    
+    .attendance-table th,
+    .attendance-table td {
+        padding: 0.5rem;
+    }
+    
+    .camera-section {
+        max-width: 100%;
+    }
+    
+    .camera-section video {
+        width: 100%;
+        max-width: 320px;
+    }
+    
+    .filter-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+/* Touch-friendly button sizing */
+.touch-target {
+    min-height: 44px;
+    min-width: 44px;
+}
+        </div>
+
+        <h3>8.9.2 Accessibility Features</h3>
+        <p>The system includes comprehensive accessibility features for users with disabilities:</p>
+
+        <div class="code-block">
+<!-- ARIA labels and roles for screen readers -->
+<button type="button" 
+        id="markAttendanceBtn"
+        aria-label="Mark attendance - Check in"
+        role="button"
+        class="touch-target">
+    <span class="material-icons" aria-hidden="true">login</span>
+    Check In
+</button>
+
+<!-- Keyboard navigation support -->
+<table role="table" aria-label="Attendance records">
+    <thead>
+        <tr role="row">
+            <th role="columnheader" tabindex="0">Date</th>
+            <th role="columnheader" tabindex="0">Employee</th>
+            <th role="columnheader" tabindex="0">Time In</th>
+        </tr>
+    </thead>
+</table>
+
+<!-- High contrast mode support -->
+<style>
+@media (prefers-contrast: high) {
+    .attendance-card {
+        border: 2px solid #000;
+        background: #fff;
+        color: #000;
+    }
+    
+    .btn-primary {
+        background: #000;
+        color: #fff;
+        border: 2px solid #000;
+    }
+}
+</style>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>8.10 Security and Privacy</h2>
+        
+        <h3>8.10.1 Data Security Measures</h3>
+        <p>The attendance system implements multiple layers of security to protect sensitive employee data:</p>
+
+        <div class="info-box">
+            <strong>Security Features:</strong>
+            <ul>
+                <li>Role-based access control with granular permissions</li>
+                <li>Secure photo storage with access controls</li>
+                <li>Session-based authentication with timeout</li>
+                <li>Input validation and sanitization</li>
+                <li>Audit logging for all attendance operations</li>
+                <li>Encrypted data transmission (HTTPS)</li>
+            </ul>
+        </div>
+
+        <h3>8.10.2 Privacy Compliance</h3>
+        <p>The system adheres to privacy regulations and best practices:</p>
+
+        <div class="code-block">
+// Privacy-compliant data handling
+function anonymizeAttendanceData($data, $retention_days = 365) {
+    $cutoff_date = date('Y-m-d', strtotime("-{$retention_days} days"));
+    
+    foreach ($data['records'] as &$record) {
+        if ($record['date'] < $cutoff_date) {
+            // Anonymize old records
+            $record['user_id'] = 'ANONYMIZED';
+            $record['time_in_photo'] = null;
+            $record['time_out_photo'] = null;
+            $record['notes'] = 'REDACTED';
+        }
+    }
+    
+    return $data;
+}
+
+// Data retention policy enforcement
+function enforceDataRetention() {
+    $retention_period = 7 * 365; // 7 years
+    $cutoff_date = date('Y-m-d', strtotime("-{$retention_period} days"));
+    
+    // Archive old records
+    archiveOldRecords($cutoff_date);
+    
+    // Clean up old photos
+    cleanupOldPhotos($cutoff_date);
+}
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>8.11 Future Enhancements</h2>
+        
+        <h3>8.11.1 Planned Improvements</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>Biometric Integration</h4>
+                <p>Integration with fingerprint and facial recognition systems for enhanced security and convenience.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Geolocation Tracking</h4>
+                <p>GPS-based attendance marking to ensure employees are at designated work locations.</p>
+            </div>
+            <div class="feature-card">
+                <h4>AI-powered Analytics</h4>
+                <p>Machine learning algorithms for attendance pattern analysis and predictive insights.</p>
+            </div>
+            <div class="feature-card">
+                <h4>Mobile Application</h4>
+                <p>Dedicated mobile app with offline capability and push notifications for attendance reminders.</p>
+            </div>
+        </div>
+
+        <h3>8.11.2 Integration Opportunities</h3>
+        <p>Future versions will include enhanced integration capabilities:</p>
+
+        <div class="highlight">
+            <ul>
+                <li><strong>Payroll Integration:</strong> Automatic working hours calculation for payroll processing</li>
+                <li><strong>Project Management:</strong> Time tracking integration with project management tools</li>
+                <li><strong>HR Systems:</strong> Seamless data exchange with external HR management systems</li>
+                <li><strong>Calendar Integration:</strong> Synchronization with calendar applications for meeting attendance</li>
+                <li><strong>Notification Systems:</strong> SMS and email notifications for attendance-related events</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>8.12 Conclusion</h2>
+        
+        <p>The Attendance Management System provides a comprehensive solution for tracking employee presence and working hours. With its intuitive interface, robust security measures, and flexible reporting capabilities, it serves as an essential tool for modern workforce management.</p>
+
+        <p>The system's role-based access control ensures that sensitive attendance data is protected while providing appropriate visibility to managers and HR personnel. The photo verification feature adds an extra layer of security and accountability, while the mobile-responsive design ensures accessibility across all devices.</p>
+
+        <div class="success-box">
+            <strong>Key Benefits:</strong>
+            <ul>
+                <li>Improved attendance tracking accuracy with photo verification</li>
+                <li>Reduced administrative overhead through automation</li>
+                <li>Enhanced security with role-based access controls</li>
+                <li>Comprehensive reporting for informed decision-making</li>
+                <li>Mobile-friendly interface for modern workforce needs</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <a href="chapter7.html">← Previous: Employee Management</a>
+        <a href="table_of_contents.html">📚 Table of Contents</a>
+        <a href="chapter9.html">Next: Leave Request Summary →</a>
+    </div>
+</body>
+</html>

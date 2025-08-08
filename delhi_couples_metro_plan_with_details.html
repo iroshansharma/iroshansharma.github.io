@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_f59bd93bcc77953626ad846efa7b46ca {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_f59bd93bcc77953626ad846efa7b46ca" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_f59bd93bcc77953626ad846efa7b46ca = L.map(
+                "map_f59bd93bcc77953626ad846efa7b46ca",
+                {
+                    center: [28.6139, 77.209],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 12,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_7e96916d5897bf5167f57505826f18c0 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_f59bd93bcc77953626ad846efa7b46ca);
+        
+    
+            var marker_74dcb48788c176d31936f87cc8c43e6a = L.marker(
+                [28.6145, 77.21],
+                {}
+            ).addTo(map_f59bd93bcc77953626ad846efa7b46ca);
+        
+    
+            var icon_4733b5abba1f5618da03a71b9815a8a4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "heart", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_74dcb48788c176d31936f87cc8c43e6a.setIcon(icon_4733b5abba1f5618da03a71b9815a8a4);
+        
+    
+        var popup_a9f31d871ac3cb1b3f467216c3aa6a15 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_2a80534cea7c48b3793392aeac781ea4 = $(`<div id="html_2a80534cea7c48b3793392aeac781ea4" style="width: 100.0%; height: 100.0%;"><b>Start: India Gate & Central Vista</b><br>         Perfect morning walk for couples, with beautiful lawns and calm surroundings.<br>         Don’t miss: Rashtrapati Bhavan View Point & Kartavya Path.</div>`)[0];
+            popup_a9f31d871ac3cb1b3f467216c3aa6a15.setContent(html_2a80534cea7c48b3793392aeac781ea4);
+        
+
+        marker_74dcb48788c176d31936f87cc8c43e6a.bindPopup(popup_a9f31d871ac3cb1b3f467216c3aa6a15)
+        ;
+
+        
+    
+    
+            marker_74dcb48788c176d31936f87cc8c43e6a.bindTooltip(
+                `<div>
+                     Central Secretariat Metro (India Gate)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_79319b6f5f6671a676126893b78e3d9b = L.marker(
+                [28.6328, 77.2197],
+                {}
+            ).addTo(map_f59bd93bcc77953626ad846efa7b46ca);
+        
+    
+            var icon_ed0061587849f08ee16421564b2099a5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "heart", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_79319b6f5f6671a676126893b78e3d9b.setIcon(icon_ed0061587849f08ee16421564b2099a5);
+        
+    
+        var popup_2cfefd9ed1356e9ecf06e1d3e3ec59f3 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_c4d4b21edff509e51e7371ebc26c3343 = $(`<div id="html_c4d4b21edff509e51e7371ebc26c3343" style="width: 100.0%; height: 100.0%;"><b>Breakfast at Connaught Place</b><br>         Cozy breakfast spots like The Big Chill Café or Saravana Bhavan.<br>         Great place for candid photos and coffee.</div>`)[0];
+            popup_2cfefd9ed1356e9ecf06e1d3e3ec59f3.setContent(html_c4d4b21edff509e51e7371ebc26c3343);
+        
+
+        marker_79319b6f5f6671a676126893b78e3d9b.bindPopup(popup_2cfefd9ed1356e9ecf06e1d3e3ec59f3)
+        ;
+
+        
+    
+    
+            marker_79319b6f5f6671a676126893b78e3d9b.bindTooltip(
+                `<div>
+                     Rajiv Chowk Metro (Connaught Place)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_991da88efcaa65f004683fb1876cdbf8 = L.marker(
+                [28.5856, 77.2369],
+                {}
+            ).addTo(map_f59bd93bcc77953626ad846efa7b46ca);
+        
+    
+            var icon_9e0fe4cece8957e13b4a4205c1f850c5 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "heart", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_991da88efcaa65f004683fb1876cdbf8.setIcon(icon_9e0fe4cece8957e13b4a4205c1f850c5);
+        
+    
+        var popup_efa92b8741b781d2c340d6e468b39a1e = L.popup({"maxWidth": "100%"});
+
+        
+            var html_441733b372cceb9fae2a92135ef4f67d = $(`<div id="html_441733b372cceb9fae2a92135ef4f67d" style="width: 100.0%; height: 100.0%;"><b>Lodhi Garden & Khan Market</b><br>         Romantic greenery, ancient tombs, and peaceful benches.<br>         Lunch nearby at Perch Wine & Coffee Bar or Big Chill.</div>`)[0];
+            popup_efa92b8741b781d2c340d6e468b39a1e.setContent(html_441733b372cceb9fae2a92135ef4f67d);
+        
+
+        marker_991da88efcaa65f004683fb1876cdbf8.bindPopup(popup_efa92b8741b781d2c340d6e468b39a1e)
+        ;
+
+        
+    
+    
+            marker_991da88efcaa65f004683fb1876cdbf8.bindTooltip(
+                `<div>
+                     JLN Stadium Metro (Lodhi Garden)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_5218c10a30556d9d72bc945fbbe215f7 = L.marker(
+                [28.5494, 77.2067],
+                {}
+            ).addTo(map_f59bd93bcc77953626ad846efa7b46ca);
+        
+    
+            var icon_db66b59d7c3bf4d2e3ce67559e4628b3 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "heart", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_5218c10a30556d9d72bc945fbbe215f7.setIcon(icon_db66b59d7c3bf4d2e3ce67559e4628b3);
+        
+    
+        var popup_ff39e6e1281e1cf84882e780ccfe99eb = L.popup({"maxWidth": "100%"});
+
+        
+            var html_5aa9e89f71096e80ced1b10c8c84f9b3 = $(`<div id="html_5aa9e89f71096e80ced1b10c8c84f9b3" style="width: 100.0%; height: 100.0%;"><b>Hauz Khas Fort & Lake</b><br>         Sunset views by the lake, explore the fort, and click stunning couple pictures.<br>         Don’t forget Elma’s Bakery for dessert.</div>`)[0];
+            popup_ff39e6e1281e1cf84882e780ccfe99eb.setContent(html_5aa9e89f71096e80ced1b10c8c84f9b3);
+        
+
+        marker_5218c10a30556d9d72bc945fbbe215f7.bindPopup(popup_ff39e6e1281e1cf84882e780ccfe99eb)
+        ;
+
+        
+    
+    
+            marker_5218c10a30556d9d72bc945fbbe215f7.bindTooltip(
+                `<div>
+                     Hauz Khas Metro (Hauz Khas Village & Lake)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_d4c0a1e43488294caabc49cceab3a801 = L.marker(
+                [28.6127, 77.2773],
+                {}
+            ).addTo(map_f59bd93bcc77953626ad846efa7b46ca);
+        
+    
+            var icon_2c70a2f713ae93385d2433e9796304b2 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "heart", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_d4c0a1e43488294caabc49cceab3a801.setIcon(icon_2c70a2f713ae93385d2433e9796304b2);
+        
+    
+        var popup_36b8fc5ddf8bb477e1351d0c5690b0d6 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_1f72e5cdfc5e595ca43f1b4c73b90814 = $(`<div id="html_1f72e5cdfc5e595ca43f1b4c73b90814" style="width: 100.0%; height: 100.0%;"><b>Akshardham Temple</b><br>         Marvel at grand architecture, enjoy peaceful moments, and watch the musical fountain (after 7 PM).</div>`)[0];
+            popup_36b8fc5ddf8bb477e1351d0c5690b0d6.setContent(html_1f72e5cdfc5e595ca43f1b4c73b90814);
+        
+
+        marker_d4c0a1e43488294caabc49cceab3a801.bindPopup(popup_36b8fc5ddf8bb477e1351d0c5690b0d6)
+        ;
+
+        
+    
+    
+            marker_d4c0a1e43488294caabc49cceab3a801.bindTooltip(
+                `<div>
+                     Akshardham Metro (Akshardham Temple)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_ae10bb963f55f0f209bc3d24a1f135d1 = L.marker(
+                [28.5552, 77.0867],
+                {}
+            ).addTo(map_f59bd93bcc77953626ad846efa7b46ca);
+        
+    
+            var icon_45b96f63b6ffaae1d4080205b590d5ea = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "heart", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_ae10bb963f55f0f209bc3d24a1f135d1.setIcon(icon_45b96f63b6ffaae1d4080205b590d5ea);
+        
+    
+        var popup_e9dedcd6de55c75f6445e8fe9bdb6b83 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_64d9088d2ec232d0c504fba8067590f8 = $(`<div id="html_64d9088d2ec232d0c504fba8067590f8" style="width: 100.0%; height: 100.0%;"><b>Dinner at Aerocity</b><br>         Luxurious dinner spots like Plum by Bent Chair or Andaz Delhi.<br>         Perfect way to end your romantic day.</div>`)[0];
+            popup_e9dedcd6de55c75f6445e8fe9bdb6b83.setContent(html_64d9088d2ec232d0c504fba8067590f8);
+        
+
+        marker_ae10bb963f55f0f209bc3d24a1f135d1.bindPopup(popup_e9dedcd6de55c75f6445e8fe9bdb6b83)
+        ;
+
+        
+    
+    
+            marker_ae10bb963f55f0f209bc3d24a1f135d1.bindTooltip(
+                `<div>
+                     Delhi Aerocity Metro (Dinner)
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var poly_line_1fd7f7553d009184342f0edf0a766435 = L.polyline(
+                [[28.6145, 77.21], [28.6328, 77.2197], [28.5856, 77.2369], [28.5494, 77.2067], [28.6127, 77.2773], [28.5552, 77.0867]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(map_f59bd93bcc77953626ad846efa7b46ca);
+        
+</script>
+</html>
